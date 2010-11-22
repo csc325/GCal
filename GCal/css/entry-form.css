@@ -1,0 +1,108 @@
+body {
+    font-family: 'helvetica neue',helvetica,arial,san-serif;
+}
+
+#event_name_label {
+    position: relative;
+}
+
+div#main {
+    float: left;
+    display: inline;
+    position: relative;
+    width: 960px;
+    margin: 15px;
+}
+
+    div#main div.left-col {
+        float: left;
+        width: 645px;
+        margin: 0 15px 0 0;
+    }
+
+div.form-unit {
+    float: left;
+    width: 260px;
+    margin: 10px 0;
+}
+
+div.form-unit.long {
+    width: 660px;
+}
+
+    div.form-unit span.lb {
+        float: left;
+        width: 145px;
+        margin: 0 0 5px 115px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #888;
+    }
+    
+    div.form-unit span.tt {
+        float: left;
+        clear: both;
+        margin: 0 0 5px 115px;
+        font-size: 9px;
+        color: #ccc;
+    }
+    
+    div.form-unit span.alert {
+        float: left;
+        clear: both;
+        margin: 0 0 5px 115px;
+        font-size: 10px;
+        font-weight: bold;
+        color: firebrick;
+    }
+
+    div.form-unit label {
+        float: left;
+        width: 100px;
+        padding: 3px 0;
+        margin: 0 15px 0 0;
+        font-size: 12px;
+        font-weight: bold;
+        color: #888;
+        text-align: right;
+    }
+    
+        div.form-unit label.radio {
+            width: auto;
+            font-weight: normal;
+            color: #444;
+        }
+    
+        div.form-unit label.small {
+            font-weight: normal;
+            color: #444;
+        }
+    
+    div.form-unit input, div.form-unit textarea, div.form-unit select {
+        float: left;
+    }
+        
+        div.form-unit select {
+            margin: 0 10px 0 0;
+        }
+    
+        div.form-unit input[type="text"] {
+            width: 250px;
+        }
+        
+        div.form-unit input.other {
+            width: 200px;
+        }
+        
+        div.form-unit input.date {
+            width: 90px;
+        }
+        
+        div.form-unit input.time {
+            width: 90px;
+        }
+    
+        div.form-unit textarea {
+            width: 530px;
+            height: 100px;
+        }
