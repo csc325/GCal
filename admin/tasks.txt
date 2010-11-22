@@ -9,6 +9,7 @@ CURRENT TASKS
 FINISHED TASKS
 
 [X] Initial git archive.
+[X] Set up github repository [EU/AH]
 
 PROSPECTIVE TASKS
 
