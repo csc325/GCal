@@ -1,7 +1,0 @@
-SamR's timesheet
-
-Task: Set up MySQL Database (15 minutes)
-* ????.??,?? Cut and paste email from JTL.
-
-Task: Set up GIT respository (2 hours)
-* 2010.10.19: 8am-10am (2 hours)
