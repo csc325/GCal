@@ -1,0 +1,14 @@
+EmircanU's timesheet
+
+Task: Set up IPCheck (1.5 hours)
+
+Task: Create search queries (2.5 hours)
+
+Task: Create search page (1 hour)
+
+Task: Create search functions(3 hours)
+
+Task: Create list events and detailed event view(2 hours)
+
+Task: Set up basic search (3 hours)
+* 2010.11.18: 12-15 (3 hours)
