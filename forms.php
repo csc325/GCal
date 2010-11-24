@@ -1,5 +1,6 @@
 <?php
     include 'functions/connection.php';
+    include 'global.php';
     include 'header.php';
 ?>
 
@@ -12,7 +13,7 @@
         }
     ?>
 
-    <form method="post" action="submit.php">
+    <form method="post" action="<?php ed(); ?>submit.php">
         <!-- EVENT NAME -->
         <div class="form-unit long">
             <label for="event_name" id="event_name_label">Event Name:</label>

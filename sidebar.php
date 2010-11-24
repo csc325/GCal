@@ -1,11 +1,11 @@
 <div class="col small side">
     <div class="unit">
         <h3>Search Events</h3>
-        <form method="get" action="results.php">
+        <form method="get" action="<?php ed(); ?>results.php">
             <input type="text" name="input">
             <input type="hidden" name="t" value="b">
             <input type="submit" value="Search"><br>
-            <a class = "small" href = "search.php">Advanced search</a>
+            <a class = "small" href = "<?php ed(); ?>search.php">Advanced search</a>
         </form>
     </div>
     
@@ -16,9 +16,9 @@
     <div class="unit happening_links">
         <h3>What's Happening...</h3>
         <ul>
-            <li><a href="/~liujingt/GCal/results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d'); ?>">Today</a></li>
-            <li><a href="/~liujingt/GCal/results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next week')); ?>">This Week</a></li>
-            <li><a href="/~liujingt/GCal/results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next month')); ?>">This Month</a></li>
+            <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d'); ?>">Today</a></li>
+            <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next week')); ?>">This Week</a></li>
+            <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next month')); ?>">This Month</a></li>
         </ul>
     </div>
     
@@ -30,7 +30,7 @@
                 $result = mysql_query ($query);
                 while ($row = mysql_fetch_array($result)) {
                     $w = 'Category: '.urlencode(stripslashes($row[categoryName]));
-                    echo '<li><a href="/~liujingt/GCal/results.php?category='.$row[categoryName].'&sort=category&t=a&w='.$w.'">'.stripslashes($row[categoryName]).'</a></li>';
+                    echo '<li><a href="'.ed(false).'results.php?category='.$row[categoryName].'&sort=category&t=a&w='.$w.'">'.stripslashes($row[categoryName]).'</a></li>';
                 }
             ?>
         </ul>
@@ -44,7 +44,7 @@
                 $result = mysql_query ($query);
                 while ($row = mysql_fetch_array($result)) {
                     $w = 'Location: '.urlencode(stripslashes($row[locationName]));
-                    echo '<li><a href="/~liujingt/GCal/results.php?location='.$row[locationName].'&sort=location&t=a&w='.$w.'">'.stripslashes($row[locationName]).'</a></li>';
+                    echo '<li><a href="'.ed(false).'results.php?location='.$row[locationName].'&sort=location&t=a&w='.$w.'">'.stripslashes($row[locationName]).'</a></li>';
                 }
             ?>
         </ul>
@@ -62,7 +62,7 @@
                 $lh = 20;
                 $w = 'Tag: '.urlencode(stripslashes($tag['tag']));
                 $str = '<span class="tag" style="font-size: '.$fs.'px; line-height: '.$lh.'px;">';
-                $str .= '<a href="/~liujingt/GCal/results.php?t=t&tag='.$tag['tag'].'&w='.$w.'">'.$tag['tag'].'</a>';
+                $str .= '<a href="'.ed(false).'results.php?t=t&tag='.$tag['tag'].'&w='.$w.'">'.$tag['tag'].'</a>';
                 $str .= '</span>';
                 $tags_array[] = $str;
                 

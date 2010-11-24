@@ -1,12 +1,13 @@
 <?php
     include '../functions/connection.php';
+    incldue '../global.php';
     include '../header.php';
 ?>
 
 <div class="body">
     <div class="col large">
     
-    <form method="post" action="registration_processing.php">
+    <form method="post" action="<?php ed(); ?>user_accounts/registration_processing.php">
         <div class="form-unit long">
             <label for="username" id="username_label">Grinnell Email Address:</label>
             <input type="text" id="username" name="username" tabindex="1"> @grinnell.edu

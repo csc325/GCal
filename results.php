@@ -1,6 +1,7 @@
 <?php
     include 'functions/connection.php';
     include 'functions/listView.php';
+    include 'global.php';
     include 'header.php';
     
     $self = $_SERVER['REQUEST_URI'];

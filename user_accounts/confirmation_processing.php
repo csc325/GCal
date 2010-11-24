@@ -1,5 +1,6 @@
 <?php
     include '../functions/connection.php';
+    include '../global.php';
     include '../header.php';
     include 'functions.php';
 

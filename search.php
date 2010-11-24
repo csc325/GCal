@@ -1,10 +1,11 @@
 <?php
     include 'functions/connection.php';
+    include 'global.php';
     include 'header.php';
 ?>
     <div class="body">
         <div class="col large">
-            <form method="get" action="results.php">
+            <form method="get" action="<?php ed(); ?>results.php">
                 <!-- EVENT NAME -->
                 <div class="form-unit long">
                     <label for="event_name" id="event_name_label">Event Name:</label>
