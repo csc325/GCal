@@ -3,7 +3,7 @@
  */
 
 
-/////////NOTES///////////////
+/////////NOTES/////////////////
 //fix the way link information is generated
 $NUM_EVENTS = 20;
 
