@@ -57,7 +57,7 @@
     function randomPasswordGen($alpha=true) {
         $salt = '0123456789'.(($alpha) ? 'abchefghjkmnpqrstuvwxyz' : '');
         for($i=0;$i<9; $i++)
-            $password .= substr($salt, mt_rand(0,strlen($salt)), 1);
+            $password .= substr($salt, mt_rand(0,   strlen($salt)), 1);
         return $password; 
     }
 

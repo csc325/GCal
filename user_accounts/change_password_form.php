@@ -1,5 +1,6 @@
 <?php
 include_once "functions.php";
+include 'global.php';
 
 if ($_POST['sent']) {
     if (changePassword("knolldug@grinnell.edu", $_POST['old'], $_POST['new'], $_POST['new2'])) {

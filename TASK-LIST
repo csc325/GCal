@@ -27,4 +27,14 @@
             * popularity
     * [Andy] Added a column to events table
         * dateAdded
-        * Considering possibility of adding link column for each event (discuss?)
+        * Consider possibility of adding link column for each event (discuss?)
+    ! [Jing] IMPORTANT UPDATE
+        
+        * Added global variable $_DIR to "global.php" to hold string containing
+          the URL path to where GCal is currently being deployed.  YOU NEED TO 
+          MODIFY THIS.
+          
+          This will allow users to change it so that everything is no longer 
+          hard linked to my (Jing's) directory.  E.g. by changing $_DIR from 
+          '/~liujingt/GCal/' to '/~rebelsky/GCal/' all links, redirects, and 
+          calls will be to Sam's deployment of GCal in his directory.
