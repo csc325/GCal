@@ -15,7 +15,7 @@
 <div id="main">
     <div class="head">
         <div class="col large">
-            <a href="<?php ed(); ?>user_accounts/login_form.php"><h1>GRINNELL OPEN CALENDAR</h1></a>
+            <a href="<?php ed(); ?>"><h1>GRINNELL OPEN CALENDAR</h1></a>
         </div>
         
         <div class="col small" id="login">
