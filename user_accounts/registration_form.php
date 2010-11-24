@@ -1,6 +1,6 @@
 <?php
     include '../functions/connection.php';
-    incldue '../global.php';
+    include '../global.php';
     include '../header.php';
 ?>
 
