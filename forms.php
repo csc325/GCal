@@ -27,7 +27,7 @@
                     $location_query = "SELECT locationID,locationName FROM locations WHERE permanent=1";
                     $location_result = mysql_query($location_query);
                     while($row = mysql_fetch_array($location_result)){
-                        echo '<option value="'.$row['locationID'].'">'.stripslashes($row['locationName']).'</option>';
+                        echo '<option value="'.$row['locationName'].'">'.stripslashes($row['locationName']).'</option>';
                     }
                 ?>
                 <option value="other">Other...</option>
@@ -39,10 +39,10 @@
             <label for="category" id="category_label">Category:</label>
             <select name="category" id="category" tabindex=3">
                <?php
-                    $category_query = "SELECT categoryID,categoryName FROM categories WHERE permanent=1";
+                    $category_query = "SELECT categoryName FROM categories WHERE permanent=1";
                     $category_result = mysql_query($category_query);
                     while($row = mysql_fetch_array($category_result)){
-                        echo '<option value="'.$row['categoryID'].'">'.stripslashes($row['categoryName']).'</option>';
+                        echo '<option value="'.$row['categoryName'].'">'.stripslashes($row['categoryName']).'</option>';
                     }
                 ?> 
                 <option value="other">Other...</option>
