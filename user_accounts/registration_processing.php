@@ -1,6 +1,6 @@
 <?php
 include_once "functions.php";
-include_once 'global.php';
+include_once '../global.php';
 include_once "../header.php";
 
 $db = connect();
