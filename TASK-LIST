@@ -1,5 +1,5 @@
 11/22
-    * Continue work on user account features/functions
+    * [Jing] Continue work on user account features/functions
         * Registration may be buggy (saying that username already exists when
           it doesn't, double checked with databse).
         * Authentication code is displayed after account creation (e.g. user
@@ -10,21 +10,21 @@
         currently working on "registration_processing.php"
 
 11/23
-    * Continued working on user account features/functions
+    * [Terian/Jing] Continued working on user account features/functions
         * Incorporated user registration, and confirmation into existing style
         * Debugged user registration and confirmation
             * Passwords entered into databse is now MD5 hashed
             * No more conflicting existing users
             * Confirmation code generated is 10 digits long
             * Confirmation changes 'confirmed' column in database to NULL
-    * Sidebar tag cloud now works
+    * [Terian/Jing] Sidebar tag cloud now works
         * Added another get IDs function for tags
         * Tags use result page to display events with tag
-    * Created php script to generate RSS feed
+    * [Andy] Created php script to generate RSS feed
         * We can write a wrapper script to apply this script to create RSS by:
             * category
             * most recently added
             * popularity
-    * Added a column to events table
+    * [Andy] Added a column to events table
         * dateAdded
         * Considering possibility of adding link column for each event (discuss?)
