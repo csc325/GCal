@@ -167,8 +167,5 @@ function detailedEvent($eventID) {
   return $results;
 }
 
-function homePageEvents($eventIDs) {
-}
-
 ?> 
 
