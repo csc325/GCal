@@ -3,7 +3,7 @@
         IMPORTANT
         
         Please change $_DIR to properly reflect the URL path to this deployment 
-        of GCal in your diretory.  This will effect all links, redirects, and 
+        of GCal in your diretory.  This will affect all links, redirects, and 
         calls so that you don't accidentally get linked, redirected, or call 
         things that are in my (Jing's) directory.
         
