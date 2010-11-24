@@ -18,6 +18,7 @@
     $start_temp = explode(' ',date('Y-m-d H:i:s', strtotime($start_date . " ". $start_time)));
     $end_temp = explode(' ',date('Y-m-d H:i:s', strtotime($end_date . " " . $end_time)));
     
+    $right_now = date('Y-m-d H:i:s');
     $start_date = $start_temp[0];
     $start_time = $start_temp[1];
     $end_date = $end_temp[0];
@@ -57,8 +58,26 @@
     // Events table query
     // ** Need userID **
     $event_query = "INSERT INTO events";
-    $event_query .= "( userID, locationID, categoryID, startDate, startTime, endDate, endTime, start, end, public, description, eventName ) ";
-    $event_query .= " VALUES ( $userID, $location, $category, '$start_date', '$start_time', '$end_date', '$end_time', '$start', '$end', $publicity, '$description', '$event_name');";
+    $event_query .= "( userID, 
+                       locationID, 
+                       categoryID, 
+                       dateAdded, 
+                       startDate, startTime, 
+                       endDate, endTime, 
+                       start, end, 
+                       public, 
+                       description, 
+                       eventName ) ";
+    $event_query .= " VALUES ( $userID, 
+                       $location, 
+                       $category, 
+                       $right_now, 
+                       '$start_date', '$start_time', 
+                       '$end_date', '$end_time', 
+                       '$start', '$end', 
+                       $publicity, 
+                       '$description', 
+                       '$event_name');";
     
     $event_result = mysql_query($event_query);
     $eventID = mysql_insert_id($link);
