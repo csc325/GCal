@@ -20,3 +20,14 @@
     * Sidebar tag cloud now works
         * Added another get IDs function for tags
         * Tags use result page to display events with tag
+    * Created php script to generate RSS feed
+        * We can write a wrapper script to apply this script to create RSS by:
+            * category
+            * most recently added
+            * popularity
+    * Added a column to events table
+        * dateAdded
+        * Considering possibility of adding link column for each event (discuss?)
+
+
+
