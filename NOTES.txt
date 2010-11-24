@@ -1,0 +1,4 @@
+//Notes
+In php I think it might be better to use require_once() over include().
+The difference is require generates a fatal error. 
+We need this because we need to know when the file we included is not there or was moved to another directory.
