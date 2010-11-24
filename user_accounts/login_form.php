@@ -1,27 +1,13 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Grinnell Open Calendar: Login</title>
-</head>
+<?ph
+    include 'functions.php';
+    include '../global.php';
+    include '../header.php';
+?>
 
-<body>
-
-<form name="frm1" action="login_processing.php">
-  <table>
-    <tr>
-      <td>Username: </td>
-      <td><input type="text" name="username" /></td>
-    </tr>
-    <tr>
-      <td>Password: </td>
-      <td><input type="password" name="password" /></td>
-    </tr>
-    <tr>
-      <td><input type="submit" value="Login" /></td>
-    </tr>
-  </table>
-</form>
-
-</body>
-</html>
+<div class="body">
+    <div class="col large">
+    login form
+    </div>
+    <?php include '../sidebar.php'; ?>
+</div>
+<?php incldue '../footer.php'; ?>
