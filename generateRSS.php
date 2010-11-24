@@ -1,5 +1,6 @@
 <?php
-/*Purpose of Script: Generate RSS feed based on events table
+/*Purpose of Script: Generate core RSS feed based on events table
+ *Establishes its own connection to database
  */
 
 
