@@ -6,7 +6,7 @@
 
 /////////NOTES/////////////////
 //fix the way link information is generated
-$NUM_EVENTS = 20;
+$NUM_EVENTS = 8;
 
 require_once ( 'functions/connection.php' ) ;
 
@@ -20,7 +20,7 @@ echo "<rss version=\"2.0\">";
 echo "<channel>";
 
 //get $NUM_EVENTS events to display in rss feed
-for ( $i = 0, $i < $NUM_EVENTS; $i++) {
+for ( $i = 0; $i < $NUM_EVENTS; $i++) {
   echo "<item>";
   echo "<title>"
     . mysql_result ($event_result, $i, "eventName") 
