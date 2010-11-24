@@ -15,6 +15,8 @@
         $eventIDs = get_advance_search_ids();
     } elseif ($_GET['t'] == 'b') {
         $eventIDs = get_basic_search_ids();
+    } elseif ($_GET['t'] == 't') {
+        $eventIDs = get_tag_ids($_GET['tag']);
     } else {
         $eventIds = array();
     }
@@ -29,7 +31,8 @@
                 if (isset($_GET['w']) && $_GET['w'] != '') {
                     echo urldecode(stripslashes($_GET['w']));
                 } else {
-                    echo 'Showing '.count($eventIDs).' events';
+                    $num_IDs = ($eventIDs === false) ? 0 : count($eventIDs);
+                    echo "Showing $num_IDs events";
                 }
             ?>
             </span>
@@ -39,7 +42,7 @@
             <a href="<?php echo $self; ?>&sort=location">Location</a>
         </div>
 
-        <?php 
+        <?php
             $events = get_events($eventIDs,$sort);
             display_events_inter($events,$sort);
         ?>

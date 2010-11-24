@@ -1,4 +1,22 @@
 <?php
+    function get_tag_ids($tag) {
+        $query = "SELECT DISTINCT tags.eventID 
+                  FROM tags, events
+                  WHERE tags.tag = '$tag'
+                  AND events.eventID = tags.eventID
+                  AND events.startDate >= '".date('Y-m-d')."';";
+        
+        $result = mysql_query($query);
+        if ($result) {
+            $eventIDs = array();
+            while($row = mysql_fetch_row($result)) $eventIDs[] = $row[0];
+        } else {
+            $eventIDs = false;
+        }
+            
+        return $eventIDs;
+    }
+    
     function get_basic_search_ids () {
         $criteria = addslashes($_GET["input"]);
         $terms = explode(" ", $criteria);

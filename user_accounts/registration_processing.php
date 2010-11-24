@@ -1,15 +1,11 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Grinnell Open Calendar: Registration</title>
-</head>
-<body>
-
-
 <?php
 include_once "functions.php";
+include_once "../header.php";
+
 $db = connect();
+
+echo "<div class = 'body'>";
+echo "<div class = 'col large'>";
 
 // Sanitize input
 $username  = mysql_real_escape_string($_POST['username']);
@@ -22,6 +18,7 @@ $user_exists = user_exists($username);
 // check if passwords match, username is alphanumeric, and user does not already exist
 // then send e-mail and insert user into database
 if ($password == $password2 && ctype_alnum($username) && !$user_exists) {
+    $encoded = md5($password);
     $regNo = randomPasswordGen(false);
     
     // Message
@@ -44,13 +41,13 @@ if ($password == $password2 && ctype_alnum($username) && !$user_exists) {
     
     // Insert user into database
     $query = "INSERT INTO users (displayName, email, password, confirmed)
-	          VALUES ('$username', '$username@grinnell.edu', '$password', $regNo);";
+	          VALUES ('$username', '$username@grinnell.edu', '$encoded', $regNo);";
     
     $result = mysql_query($query, $db);
 }
 
 if ($result) {
-    echo '<form name="confirm" action="" method="post">
+    echo '<form name="confirm" action="confirmation_processing.php" method="post">
           Confirmation Code: <input type="text" name="confirm">
           <input type="submit" value="Confirm"></form>';
 } elseif ($password != $password2) {
@@ -60,5 +57,9 @@ if ($result) {
 } elseif (!$user_exists) {
     echo "username already exists";
 }
+
+echo "</div>";
+include "../sidebar.php";
+echo "</div>";
+include "../footer.php";
 ?>
-</body>

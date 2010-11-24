@@ -16,9 +16,9 @@
     <div class="unit happening_links">
         <h3>What's Happening...</h3>
         <ul>
-            <li><a href="results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d'); ?>">Today</a></li>
-            <li><a href="results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next week')); ?>">This Week</a></li>
-            <li><a href="results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next month')); ?>">This Month</a></li>
+            <li><a href="/~liujingt/GCal/results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d'); ?>">Today</a></li>
+            <li><a href="/~liujingt/GCal/results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next week')); ?>">This Week</a></li>
+            <li><a href="/~liujingt/GCal/results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next month')); ?>">This Month</a></li>
         </ul>
     </div>
     
@@ -30,7 +30,7 @@
                 $result = mysql_query ($query);
                 while ($row = mysql_fetch_array($result)) {
                     $w = 'Category: '.urlencode(stripslashes($row[categoryName]));
-                    echo '<li><a href="results.php?category='.$row[categoryName].'&sort=category&t=a&w='.$w.'">'.stripslashes($row[categoryName]).'</a></li>';
+                    echo '<li><a href="/~liujingt/GCal/results.php?category='.$row[categoryName].'&sort=category&t=a&w='.$w.'">'.stripslashes($row[categoryName]).'</a></li>';
                 }
             ?>
         </ul>
@@ -44,7 +44,7 @@
                 $result = mysql_query ($query);
                 while ($row = mysql_fetch_array($result)) {
                     $w = 'Location: '.urlencode(stripslashes($row[locationName]));
-                    echo '<li><a href="results.php?location='.$row[locationName].'&sort=location&t=a&w='.$w.'">'.stripslashes($row[locationName]).'</a></li>';
+                    echo '<li><a href="/~liujingt/GCal/results.php?location='.$row[locationName].'&sort=location&t=a&w='.$w.'">'.stripslashes($row[locationName]).'</a></li>';
                 }
             ?>
         </ul>
@@ -56,11 +56,18 @@
         <?php
             $tags_q = 'SELECT COUNT(*), tag FROM tags GROUP BY tag';
             $tags_r = mysql_query($tags_q);
+            $tags_array = array();
             while ($tag = mysql_fetch_array($tags_r)) {
                 $fs = min(20,(13 + ($tag[0] * 2)));
                 $lh = 20;
-                echo '<span class="tag" style="font-size: '.$fs.'px; line-height: '.$lh.'px;">'.$tag['tag'].', </span> ';
+                $w = 'Tag: '.urlencode(stripslashes($tag['tag']));
+                $str = '<span class="tag" style="font-size: '.$fs.'px; line-height: '.$lh.'px;">';
+                $str .= '<a href="/~liujingt/GCal/results.php?t=t&tag='.$tag['tag'].'&w='.$w.'">'.$tag['tag'].'</a>';
+                $str .= '</span>';
+                $tags_array[] = $str;
+                
             }
+            echo implode(", ", $tags_array);
         ?>
         </div>
     </div>

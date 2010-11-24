@@ -57,9 +57,10 @@
     // ** Need userID **
     $event_query = "INSERT INTO events";
     $event_query .= "( userID, locationID, categoryID, startDate, startTime, endDate, endTime, start, end, public, description, eventName ) ";
-    $event_query .= " VALUES ( $userID, $location, $category, '$start_date', '$start_time', '$end_date', '$end_time', '$start', '$end', $publicity, '$description', '$event_name') ";
+    $event_query .= " VALUES ( $userID, $location, $category, '$start_date', '$start_time', '$end_date', '$end_time', '$start', '$end', $publicity, '$description', '$event_name');";
+    
     $event_result = mysql_query($event_query);
-    $eventID = mysql_insert_id($db_connection);
+    $eventID = mysql_insert_id($link);
         
     // Tags table query
     foreach ($tags as $tag) {
@@ -67,5 +68,5 @@
         $tag_result = mysql_query($tags_query);
     }
 
-    header('Location: http://www.cs.grinnell.edu/~liujingt/CSC325/project/forms.php?s=t');
+    header('Location: http://www.cs.grinnell.edu/~liujingt/GCal/forms.php?s=t');
 ?>

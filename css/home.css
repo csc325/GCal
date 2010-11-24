@@ -227,10 +227,7 @@ div.col.side {
         
     div.side div.unit.tag_cloud { }
     
-        div.unit.tag_cloud span.tag {
-            float: left;
-            margin: 0 5px 0 0;
-        }
+        div.unit.tag_cloud span.tag { }
 
 /* ------------------------------------------ */
 
