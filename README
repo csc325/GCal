@@ -1,5 +1,10 @@
 This is Grinnell Open Calender project page...
-Ok?
+
+//Notes
+Ill put this in a NOTES page as soon as I get back to mathLAN
+In php I think it might be better to use require_once() over include().
+The difference is require generates a fatal error. 
+We need this because we need to know when the file we included is not there or was moved to another directory.
 
 Andrew Hirakawa & Emircan Uysaler, git gurus
 Samuel A. Rebelsky, insane mentor
