@@ -1,20 +1,14 @@
 <?php
-/*Purpose of Script: Generate RSS feed based on events table
+/*Purpose of Script: Generate core RSS feed based on events table
+ *Establishes its own connection to database
  */
 
 
-/////////NOTES///////////////
+/////////NOTES/////////////////
 //fix the way link information is generated
 $NUM_EVENTS = 20;
 
-
-// set certain php.ini variables to exclude server-side session error messages.
-ini_set ('session.bug_compat_42', 1) ;
-ini_set ('session.bug_compat_warn', 0) ;
-
-//establish persistant connection to database
-$db_connection = mysql_pconnect ('localhost', 'csc325generic','password') ;
-$db            = mysql_select_db ('CSC325') ;
+require_once ( 'functions/connection.php' ) ;
 
 //get events ordered by most recently added
 $event_query  = "SELECT * FROM events ORDER BY start DESC";

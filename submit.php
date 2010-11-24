@@ -1,5 +1,6 @@
 <?php
     include 'functions/connection.php';
+    include 'global.php';
     
     if (!isset($_SESSION['userID'])) {
         $userID = 2;
@@ -72,5 +73,5 @@
         $tag_result = mysql_query($tags_query);
     }
 
-    header('Location: http://www.cs.grinnell.edu/~liujingt/GCal/forms.php?s=t');
+    header('Location: '.ed(false).'forms.php?s=t');
 ?>

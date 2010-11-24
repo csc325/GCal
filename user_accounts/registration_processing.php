@@ -1,5 +1,6 @@
 <?php
 include_once "functions.php";
+include_once 'global.php';
 include_once "../header.php";
 
 $db = connect();
@@ -47,7 +48,7 @@ if ($password == $password2 && ctype_alnum($username) && !$user_exists) {
 }
 
 if ($result) {
-    echo '<form name="confirm" action="confirmation_processing.php" method="post">
+    echo '<form name="confirm" action="'.ed(false).'user_accounts/confirmation_processing.php" method="post">
           Confirmation Code: <input type="text" name="confirm">
           <input type="submit" value="Confirm"></form>';
 } elseif ($password != $password2) {
