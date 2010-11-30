@@ -3,7 +3,8 @@
  *Establishes its own connection to database
  */
 
-
+//show RSS header
+header("Content-Type: application/rss+xml; charset=ISO-8859-1"); 
 /////////NOTES/////////////////
 //fix the way link information is generated
 $NUM_EVENTS = 20;
@@ -15,12 +16,12 @@ $event_query  = "SELECT * FROM events ORDER BY start DESC";
 $event_result = mysql_query ($event_query);
 
 //create opening tags for rss feed
-echo "<?xml version=\"1.0\"?>";
+echo "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>";
 echo "<rss version=\"2.0\">";
 echo "<channel>";
 
 //get $NUM_EVENTS events to display in rss feed
-for ( $i = 0, $i < $NUM_EVENTS; $i++) {
+for ( $i = 0; $i < $NUM_EVENTS; $i++) {
   echo "<item>";
   echo "<title>"
     . mysql_result ($event_result, $i, "eventName") 
