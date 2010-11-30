@@ -43,22 +43,26 @@
     
     // Category and Location table query
     if ($location == 'other') {
-        $query = 'INSERT INTO locations (locationName) VALUES ("'.$location_other.'")';
-        mysql_query($query);
-        $location = mysql_insert_id();
+      $location = $location_other;
     }
+    $query = 'INSERT INTO locations (locationName) VALUES ("'.$location.'") ON DUPLICATE KEY UPDATE requestCount=requestCount+1';
+    mysql_query($query);
+    $locationID = mysql_insert_id();
+    
     
     if ($category == 'other') {
-        $query = 'INSERT INTO categories (categoryName) VALUES ("'.$category_other.'")';
-        mysql_query($query);
-        $category = mysql_insert_id();
+      $category = $category_other;
     }
+    $query = 'INSERT INTO categories (categoryName) VALUES ("'.$category.'") ON DUPLICATE KEY UPDATE requestCount=requestCount+1';
+    mysql_query($query);
+    $categoryID = mysql_insert_id();
+    
     
     // Events table query
     // ** Need userID **
     $event_query = "INSERT INTO events";
     $event_query .= "( userID, locationID, categoryID, startDate, startTime, endDate, endTime, start, end, public, description, eventName ) ";
-    $event_query .= " VALUES ( $userID, $location, $category, '$start_date', '$start_time', '$end_date', '$end_time', '$start', '$end', $publicity, '$description', '$event_name');";
+    $event_query .= " VALUES ( $userID, $locationID, $categoryID, '$start_date', '$start_time', '$end_date', '$end_time', '$start', '$end', $publicity, '$description', '$event_name');";
     
     $event_result = mysql_query($event_query);
     $eventID = mysql_insert_id($link);

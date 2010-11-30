@@ -7,7 +7,7 @@
 header("Content-Type: application/rss+xml; charset=ISO-8859-1"); 
 /////////NOTES/////////////////
 //fix the way link information is generated
-$NUM_EVENTS = 20;
+$NUM_EVENTS = 8;
 
 require_once ( 'functions/connection.php' ) ;
 
