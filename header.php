@@ -30,6 +30,8 @@
     <link rel="stylesheet" type="text/css" href="/~liujingt/css/reset.css">
     <link rel="stylesheet" type="text/css" href="<?php ed(); ?>css/home.css">
     <link rel="stylesheet" type="text/css" href="<?php ed(); ?>css/ui-lightness/jquery-ui-1.8.6.custom.css">
+    <link rel="alternate"  type="application/rss+xml"  title="RSS"  href="generateRSS.php" />
+
     <script type="text/javascript" src="<?php ed(); ?>js/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="<?php ed(); ?>js/jquery-ui-1.8.6.custom.min.js"></script>
     <script type="text/javascript" src="<?php ed(); ?>js/fancy_login.php"></script>
