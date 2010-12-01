@@ -1,0 +1,77 @@
+a#fancy-login {
+    position: relative;
+}
+
+    a#fancy-login span.word {
+        cursor: pointer;
+    }
+
+    a#fancy-login div.login-form {
+        display: none;
+        top: 20px;
+        right: -65px;
+        position: absolute;
+        float: left;
+        padding: 10px;
+        width: 200px;
+        color: black;
+        text-align: left;
+        background: #fcfcfc;
+        border: 5px solid #ccc;
+        -moz-box-shadow: 0px 4px 9px #888;
+        -webkit-box-shadow: 0px 4px 9px #888;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        z-index: 3;
+    }
+    
+    a#fancy-login div.login-form label {
+        float: left;
+        width: 100%;
+        margin: 0 0 3px 0;
+        font-size: 12px;
+        font-weight: normal;
+        color: #888;
+    }
+    
+    a#fancy-login div.login-form input[type="text"], 
+    a#fancy-login div.login-form input[type="password"] {
+        float: left;
+        width: 196px;
+        margin: 0 0 6px 0;
+        padding: 3px 4px 2px 4px;
+        border: 1px solid #ccc;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        font-size: 13px;
+    }
+    
+    a#fancy-login div.login-form input[type="button"] {
+        float: left;
+        margin: 2px 0 0 0;
+        height: 24px;
+    }
+    
+    a#fancy-login div.login-form span.warning {
+        display: none;
+        float: left;
+        width: 200px;
+        margin: 8px 0 0 0;
+        font-size: 13px;
+        font-weight: bold;
+        color: firebrick;
+    }
+    
+    a#fancy-login div.login-form span.link {
+        float: left;
+        margin: 2px 0 0 10px;
+        font-size: 13px;
+        line-height: 24px;
+        font-weight: normal;
+        color: #aaa;
+        cursor: pointer;
+    }
+    
+    a#fancy-login div.login-form span.link.hover {
+        color: #666;
+    }

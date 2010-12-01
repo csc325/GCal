@@ -9,7 +9,7 @@
         </form>
     </div>
     
-    <div class="unit">
+    <div class="unit add-event">
         <h3><a href="forms.php">Add Event</a></h3>
     </div>
     

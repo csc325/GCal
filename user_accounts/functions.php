@@ -24,10 +24,11 @@
     }
     
     // Check if is user exists
-    function user_exists ($email) {
+    function user_exists ($user) {
         global $db;
+        $user = addslashes($user);
         $db = isset($db) ? $db : connect();
-        $query = "SELET userID FROM users WHERE email = $email";
+        $query = "SELECT userID FROM users WHERE displayName = '$user'";
         $result = mysql_query ($query);
         if (!have_error($query,$result)) return (mysql_num_rows($result) > 0) ? true : false;
     }
@@ -166,6 +167,3 @@
         }
     }
 ?>
-
-
-

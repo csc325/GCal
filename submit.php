@@ -1,10 +1,9 @@
 <?php
+    session_start();
     include 'functions/connection.php';
     include 'global.php';
     
-    if (!isset($_SESSION['userID'])) {
-        $userID = 2;
-    }
+    $userID = ($_SESSION['userID'] != '') ? $_SESSION['userID'] : 2;
     
     // set table name
     $table_name = "events";
@@ -73,26 +72,27 @@
                        description, 
                        eventName ) ";
     $event_query .= " VALUES ( $userID, 
-                       $location, 
-                       $category, 
-                       $right_now, 
+                       $locationID, 
+                       $categoryID, 
+                       '$right_now', 
                        '$start_date', '$start_time', 
                        '$end_date', '$end_time', 
                        '$start', '$end', 
                        $publicity, 
                        '$description', 
                        '$event_name');";
-    $event_query .= "( userID, locationID, categoryID, startDate, startTime, endDate, endTime, start, end, public, description, eventName ) ";
-    $event_query .= " VALUES ( $userID, $locationID, $categoryID, '$start_date', '$start_time', '$end_date', '$end_time', '$start', '$end', $publicity, '$description', '$event_name');";
-     
+    
     $event_result = mysql_query($event_query);
     $eventID = mysql_insert_id($link);
         
     // Tags table query
-    foreach ($tags as $tag) {
-        $tags_query = 'INSERT INTO tags (tag,eventID) VALUES ("'.$tag.'",'.$eventID.')';
-        $tag_result = mysql_query($tags_query);
+    if (count($tags) == 1 && ($tags[0] == '' || $tags[0] == ' ')) {
+    } else {
+        foreach ($tags as $tag) {
+            $tags_query = 'INSERT INTO tags (tag,eventID) VALUES ("'.$tag.'",'.$eventID.')';
+            $tag_result = mysql_query($tags_query);
+        }
     }
-
+    
     header('Location: '.ed(false).'forms.php?s=t');
 ?>

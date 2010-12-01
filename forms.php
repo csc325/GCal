@@ -6,13 +6,21 @@
 
 <div class="body">
     <div class="col large">
-    
     <?php
-        if ($_GET['s'] == 't') {
-            echo '<h3>Your event has been added sucessfully</h3><hr>';
-        }
-    ?>
-
+        if (!is_logged_in()) : echo '<h1 class="head">You are not logged in</h1><p>Please log in or sign up to add events</p>';
+        else :
+            if ($_GET['s'] == 't') {
+                echo '<h1 class="head">Your event has been added sucessfully</h1><hr>';
+            }
+        ?>
+    
+    <h1 class="head">Add an Event</h1>
+    
+    <p>Please provide as much information about your event as possible.  An 
+    informative description will help users a lot more than a simple one-line.
+    Also, remember to mark your events as NOT visible to 
+    non-Grinnellians if you don't want people off campus to see.</p>
+    
     <form method="post" action="<?php ed(); ?>submit.php">
         <!-- EVENT NAME -->
         <div class="form-unit long">
@@ -99,9 +107,10 @@
         </div>
         
         <div class="form-unit">
-            <input type="submit" value="Add Event" name="submit" id="submit">
+            <label>&nbsp;</label><input type="submit" value="Add Event" name="submit" id="submit">
         </div>
     </form>
+    <?php endif; ?>
     
     </div>
     <?php include 'sidebar.php'; ?>
