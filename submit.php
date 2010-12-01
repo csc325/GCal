@@ -61,6 +61,10 @@
     // Events table query
     // ** Need userID **
     $event_query = "INSERT INTO events";
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 9d7bf1421300df4168d5eeaa20042fb399a4ac13
     $event_query .= "( userID, 
                        locationID, 
                        categoryID, 
@@ -81,6 +85,13 @@
                        $publicity, 
                        '$description', 
                        '$event_name');";
+<<<<<<< HEAD
+=======
+=======
+    $event_query .= "( userID, locationID, categoryID, startDate, startTime, endDate, endTime, start, end, public, description, eventName ) ";
+    $event_query .= " VALUES ( $userID, $locationID, $categoryID, '$start_date', '$start_time', '$end_date', '$end_time', '$start', '$end', $publicity, '$description', '$event_name');";
+>>>>>>> 276b7dcb8e294cf06a2082a51f6d5aad6ebb992c
+>>>>>>> 9d7bf1421300df4168d5eeaa20042fb399a4ac13
     
     $event_result = mysql_query($event_query);
     $eventID = mysql_insert_id($link);
