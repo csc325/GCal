@@ -1,8 +1,6 @@
 <?php
-    include_once '../global.php';
-    include_once "functions.php";
-
-    $db = connect();
+    require_once '../global.php';
+    require_once 'functions.php';
 
     // Sanitize input
     $username  = addslashes($_POST['username']);

@@ -1,4 +1,7 @@
 <?php
+    session_start();
+    require_once 'functions/connection.php';
+    
     /*  -----------------------------------------------------------------------
         IMPORTANT
         
@@ -18,7 +21,7 @@
      *              currently using.  VERY IMPORTANT.
      */
     
-    $_DIR = '/~uysalere/GCal/';  // CHANGE ME
+    $_DIR = '/~liujingt/GCal/';  // CHANGE ME
     
     function ed($e=true) {
         global $_DIR;
@@ -26,5 +29,58 @@
             echo $_DIR;
         else
             return $_DIR;
+    }
+    
+    /* SESSION FUNCTIONS -------------------------------------------------- */
+    
+    function is_logged_in () {
+        return ($_SESSION['sid'] == session_id()) ? true : false;
+    }
+    
+    function get_user_info () {
+        if (is_logged_in()) {
+            $query = 'SELECT *  
+                      FROM users 
+                      WHERE displayName = "'.$_SESSION['displayName'].'"
+                        AND userID = '.$_SESSION['userID'];
+            $result = mysql_query($query);
+            $row = mysql_fetch_array($result,MYSQL_ASSOC);
+            return $row;
+        }
+        return false;
+    }
+    
+    function on_campus() { 
+        if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $UserIP = trim($_SERVER['HTTP_X_FORWARDED_FOR']);
+        else $UserIP = trim($_SERVER['REMOTE_ADDR']);
+        
+        return (strncmp($UserIP, "132.161", 7) == 0) ? TRUE : FALSE;
+    }
+    
+    function is_attending($userID, $eventID) {
+        if(is_logged_in()) {
+            $query = "SELECT attendeeID FROM attendees
+                      WHERE userID = $userID
+                      AND eventID = $eventID";
+            $result = mysql_query($query);
+            if ($result)
+                if(mysql_num_rows($result) > 0) return true;
+        }
+        return false;
+    }
+    
+    function display_attend ($userID,$eventID) {
+        if (is_logged_in()) {
+            if (is_attending($userID,$eventID)) {
+                echo "<a id='event_{$eventID}_{$userID}' class='attend_event attending'>
+                      Attending <span class='cancel'>X</span>";
+            } else {
+                echo "<a id='event_{$eventID}_{$userID}' class='attend_event'>";
+                echo "Attend!";
+            }
+            
+            echo "</a>";
+        }
     }
 ?>

@@ -17,8 +17,9 @@ $(document).ready ( function () {
             url: "<?php ed(); ?>user_accounts/login_processing.php",
             data: ({username:user,password:pass}),
             success: function (r) {
+                if (r == 2) $('div.login-form span.warning').html('Please validate your account').show();
                 if (r == 1) window.location = "<?php echo $_SERVER['HTTP_REFERER']; ?>";
-                if (r == 0) $('div.login-form span.warning').show();
+                if (r == 0) $('div.login-form span.warning').html('Wrong username/password').show();
             }
         });
     }

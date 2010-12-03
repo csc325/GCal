@@ -1,5 +1,4 @@
 <?php
-    require_once '../functions/connection.php';
     require_once '../global.php';
     require_once 'functions.php';
 

@@ -1,0 +1,95 @@
+11/22
+    * [Jing] Continue work on user account features/functions
+        * Registration may be buggy (saying that username already exists when
+          it doesn't, double checked with databse).
+        * Authentication code is displayed after account creation (e.g. user
+          can see the auth code without checking their email)
+        * Auth code submission, login processing, change password needs work
+        
+        LEFT OFF: debugging and continuing work on user account features,
+        currently working on "registration_processing.php"
+
+11/23
+    * [Terian/Jing] Continued working on user account features/functions
+        * Incorporated user registration, and confirmation into existing style
+        * Debugged user registration and confirmation
+            * Passwords entered into databse is now MD5 hashed
+            * No more conflicting existing users
+            * Confirmation code generated is 10 digits long
+            * Confirmation changes 'confirmed' column in database to NULL
+    * [Terian/Jing] Sidebar tag cloud now works
+        * Added another get IDs function for tags
+        * Tags use result page to display events with tag
+    * [Andy] Created php script to generate RSS feed
+        * We can write a wrapper script to apply this script to create RSS by:
+            * category
+            * most recently added
+            * popularity
+    * [Andy] Added a column to events table
+        * dateAdded
+        * Consider possibility of adding link column for each event (discuss?)
+    ! [Jing] IMPORTANT UPDATE
+        
+        * Added global variable $_DIR to "global.php" to hold string containing
+          the URL path to where GCal is currently being deployed.  YOU NEED TO 
+          MODIFY THIS.
+          
+          This will allow users to change it so that everything is no longer 
+          hard linked to my (Jing's) directory.  E.g. by changing $_DIR from 
+          '/~liujingt/GCal/' to '/~rebelsky/GCal/' all links, redirects, and 
+          calls will be to Sam's deployment of GCal in his directory.
+          
+11/30
+    * [Jing] Added new column to users to indicate user access level
+        * We can use this level to determine access privileges and what not.
+          The current levels I have in mind are:
+            0 - guest, someone that's not logged in
+            1 - registered and logged in user, can add events and edit/delete
+                their own stuff
+            2 - to be determined
+            3 - administrator
+    * [Jing] Implemented login/user system
+        * Javascript/AJAX login system at the top right of each page
+        * Test user info [username, password, accessLevel]
+            [dummyuser,   password,      1]
+            [dummyadmin,  sam1rebelsky,  3]
+        * See /user_accounts/login_processing.php and /js/fancy_login.php for 
+          more info, and ask me for explanation of code
+        * Added 2 important functions into header.php: is_logged_in() and
+          get_user_info() that help with user session stuff
+            * is_logged_in() checks whether or not a user is logged in, useful
+              when you need a section off a part of the site to logged in users
+              only.  For instance, see 'Add Events' logged in and not.
+            * get_user_info() is user is logged in, you can get all the info
+              about the user, good for retreiving info about a user, needed
+              when implementing administrator sections.
+    * [Jing] Debugged and worked on registration form
+        * Created validate.php which ended up taking over the function of 
+          registration_confirmation.php, with integration into login system
+        * Added better error handling for cases when passwords don't match,
+          username is invalid, or user already exists
+          * Implemented javascript client side checks
+          * As well as server side PHP checks
+        
+        * ANNOYING THINGS THAT NEED TO BE DONE, E.G. HOUSE KEEPING:
+            * Consolidate all functions into at least one directory, maybe 
+              even down to 1 or 2 files.
+            * Create/decide-on a global MySQL connection method. Currently
+              there are 2: one mainly used by user account stuff, and another
+              for everything else.  These 2 can be combined, however thorough
+              changes in code will be needed.
+            * Get rid of unused files.  They are starting to pile up now,
+              especially in the user_accounts directory.
+              
+    * [Terian & Jing] Implemented user features (lots)
+        * "My Upcoming Events"
+        * "Attending" button + features
+        * Event specific page
+        * Manage link for categories and locations
+        * Stylistic changes
+    * [Terian & Jing] Minor house cleaning
+        * Moved several functions into global
+            * on_campus (formally IPcheck)
+            * is_attending
+            * display_attend
+            

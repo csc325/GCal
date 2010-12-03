@@ -1,27 +1,3 @@
-<?php
-    session_start();
-    
-    // These functions need to be moved.  Heck, all functions need to be moved
-    // to a central location/directory
-    
-    function is_logged_in () {
-        return ($_SESSION['sid'] == session_id()) ? true : false;
-    }
-    
-    function get_user_info () {
-        if (is_logged_in()) {
-            $query = 'SELECT *  
-                      FROM users 
-                      WHERE displayName = "'.$_SESSION['displayName'].'"
-                        AND userID = '.$_SESSION['ID'];
-            $result = mysql_query($query);
-            $row = mysql_fetch_array($result,MYSQL_ASSOC);
-            return $row;
-        }
-        return false;
-    }
-?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -35,6 +11,7 @@
     <script type="text/javascript" src="<?php ed(); ?>js/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="<?php ed(); ?>js/jquery-ui-1.8.6.custom.min.js"></script>
     <script type="text/javascript" src="<?php ed(); ?>js/fancy_login.php"></script>
+    <script type="text/javascript" src="<?php ed(); ?>js/main.php"></script>
 </head>
 <body>
 

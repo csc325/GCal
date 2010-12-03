@@ -9,9 +9,7 @@
     $table_name = "events";
     
     // get variables from form page
-    foreach($_POST as $field_name => $value){
-        $$field_name = addslashes($value);
-    }
+    foreach($_POST as $field_name => $value) $$field_name = addslashes($value);
     
     // process start and end times
     $start_temp = explode(' ',date('Y-m-d H:i:s', strtotime($start_date . " ". $start_time)));
@@ -33,38 +31,29 @@
     $tags = array_map('trim',$tags);
     
     // process publicity
-    if ($public == "yes") {
-        $publicity = 1;
-    } else {
-        $publicity = 0;
-    }
-    
-    // ** Proper error handling needed **
+    if ($public == "yes") $publicity = 1;
+    else $publicity = 0;
     
     // Category and Location table query
-    if ($location == 'other') {
-      $location = $location_other;
-    }
-    $query = 'INSERT INTO locations (locationName) VALUES ("'.$location.'") ON DUPLICATE KEY UPDATE requestCount=requestCount+1';
+    if ($location == 'other') $location = $location_other;
+    $query = 'INSERT INTO locations (locationName) 
+              VALUES ("'.$location.'") 
+              ON DUPLICATE KEY 
+              UPDATE requestCount = requestCount + 1';
     mysql_query($query);
     $locationID = mysql_insert_id();
     
-    
-    if ($category == 'other') {
-      $category = $category_other;
-    }
-    $query = 'INSERT INTO categories (categoryName) VALUES ("'.$category.'") ON DUPLICATE KEY UPDATE requestCount=requestCount+1';
+    if ($category == 'other') $category = $category_other;
+    $query = 'INSERT INTO categories (categoryName) 
+              VALUES ("'.$category.'") 
+              ON DUPLICATE KEY 
+              UPDATE requestCount = requestCount + 1';
     mysql_query($query);
     $categoryID = mysql_insert_id();
     
     
     // Events table query
-    // ** Need userID **
     $event_query = "INSERT INTO events";
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 9d7bf1421300df4168d5eeaa20042fb399a4ac13
     $event_query .= "( userID, 
                        locationID, 
                        categoryID, 
@@ -85,13 +74,6 @@
                        $publicity, 
                        '$description', 
                        '$event_name');";
-<<<<<<< HEAD
-=======
-=======
-    $event_query .= "( userID, locationID, categoryID, startDate, startTime, endDate, endTime, start, end, public, description, eventName ) ";
-    $event_query .= " VALUES ( $userID, $locationID, $categoryID, '$start_date', '$start_time', '$end_date', '$end_time', '$start', '$end', $publicity, '$description', '$event_name');";
->>>>>>> 276b7dcb8e294cf06a2082a51f6d5aad6ebb992c
->>>>>>> 9d7bf1421300df4168d5eeaa20042fb399a4ac13
     
     $event_result = mysql_query($event_query);
     $eventID = mysql_insert_id($link);

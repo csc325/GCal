@@ -1,8 +1,8 @@
 <?php
-    include 'functions/connection.php';
-    include 'functions/listView.php';
-    include 'global.php';
-    include 'header.php';
+    require_once 'functions/connection.php';
+    require_once 'functions/listView.php';
+    require_once 'global.php';
+    require_once 'header.php';
     
     $self = $_SERVER['REQUEST_URI'];
     if(isset($_GET['sort'])) {

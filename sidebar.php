@@ -1,4 +1,9 @@
-<div class="col small side">
+<?php 
+    require_once 'global.php';
+    if($_POST['action'] != 'update') {
+        echo '<div class="col small side">';
+    }
+?>
     <div class="unit">
         <h3>Search Events</h3>
         <form method="get" action="<?php ed(); ?>results.php">
@@ -13,17 +18,49 @@
         <h3><a href="forms.php">Add Event</a></h3>
     </div>
     
+    <?php if(is_logged_in()) { ?>
+    <div class="unit my-events">
+        <h3>My Upcoming Events</h3>
+        <ul>
+        <?php
+            $user = get_user_info();
+            $query = "SELECT events.eventName, events.eventID
+                      FROM events, attendees 
+                      WHERE attendees.userID = {$user['userID']} 
+                      AND events.eventID = attendees.eventID
+                      AND events.startDate >= NOW()
+                      ORDER BY start ASC LIMIT 10;";
+            $result = mysql_query($query);
+  
+            if($result) {
+                while($row = mysql_fetch_row($result)) {
+                    $path = ed(false); 
+                    echo "<li><a href = " . $path . "detailView.php?eventID={$row[1]}>{$row[0]}</a></li>";
+                }
+            }
+        ?>
+        </ul>
+    </div>
+    <?php } ?>
+    
     <div class="unit happening_links">
         <h3>What's Happening...</h3>
         <ul>
             <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d'); ?>">Today</a></li>
-            <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next week')); ?>">This Week</a></li>
-            <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next month')); ?>">This Month</a></li>
+            <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next week')); ?>">Next 7 days</a></li>
+            <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next month')); ?>">Next 30 days</a></li>
         </ul>
     </div>
     
     <div class="unit">
-        <h3>Categories</h3>
+        <h3>
+            Categories
+            <?php
+                $user = get_user_info();
+                if ($user[accessLevel] == 3)
+                    echo '<a href="'.ed(false).'categories.php">(manage)</a>';
+            ?>
+        </h3>
         <ul>
             <?php
                 $query = 'SELECT * FROM categories WHERE permanent = 1';
@@ -37,7 +74,14 @@
     </div>
     
     <div class="unit">
-        <h3>Locations</h3>
+        <h3>
+            Locations
+            <?php
+                $user = get_user_info();
+                if ($user[accessLevel] == 3)
+                    echo '<a href="'.ed(false).'categories.php">(manage)</a>';
+            ?>
+        </h3>
         <ul>
             <?php
                 $query = 'SELECT * FROM locations WHERE permanent = 1';
@@ -54,7 +98,11 @@
         <h3>Tag Cloud</h3>
         <div class="tags">
         <?php
-            $tags_q = 'SELECT COUNT(*), tag FROM tags GROUP BY tag';
+            $tags_q = 'SELECT COUNT(*), tags.tag 
+                       FROM tags, events 
+                       WHERE tags.eventID = events.eventID 
+                         AND end > NOW()
+                       GROUP BY tag';
             $tags_r = mysql_query($tags_q);
             $tags_array = array();
             while ($tag = mysql_fetch_array($tags_r)) {
@@ -71,4 +119,4 @@
         ?>
         </div>
     </div>
-</div>
+<?php if($_POST['action'] != 'update') echo '</div>'; ?>

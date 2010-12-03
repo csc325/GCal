@@ -1,11 +1,4 @@
 <?php
-    // connect to database
-    function connect(){
-        $conn = mysql_connect('localhost', 'csc325generic', 'password');
-        $db = mysql_select_db('CSC325', $conn);
-        return ($conn && $db) ? $conn : false;
-    }
-    
     // simple mysql error handling
     function have_error($q,$r) {
         if (!$r) {
@@ -15,19 +8,10 @@
             return false;
         }
     }
-
-    // disconnect from database and possibly free a result
-    function disconnect ($db, $result) {
-        if ($result) $freed = mysql_free_result($result);
-        $disconn = mysql_close($db);
-        return ($disconn) ? 0 : -1;
-    }
     
     // Check if is user exists
     function user_exists ($user) {
-        global $db;
         $user = addslashes($user);
-        $db = isset($db) ? $db : connect();
         $query = "SELECT userID FROM users WHERE displayName = '$user'";
         $result = mysql_query ($query);
         if (!have_error($query,$result)) return (mysql_num_rows($result) > 0) ? true : false;
@@ -35,9 +19,6 @@
 
     // Check that a username with corresponding password exists in the db
     function chk_user_pw ($user, $pw) {
-        global $db;
-        $db = (isset($db)) ? $db : connect();
-        
         $query = "SELECT password FROM users
                   WHERE email = '$user'
                   AND password = '$pw';";
@@ -79,7 +60,7 @@
     function passwordReset ($email){
         // create password and connect to database
         $new_password = randomPasswordGen();
-        $db = connect();
+        // $db = connect();
         $email = mysql_real_escape_string($email);
 
         // Query for email in database
@@ -90,7 +71,7 @@
         if (!$result) {
             $message = "Error in query ($query): " . mysql_error();
             mysql_close($db);
-            disconnect($db, NULL);
+            // disconnect($db, NULL);
             die($message);
         }
 
@@ -125,7 +106,7 @@
             $sent = FALSE;
         }
 
-        disconnect($db, $sql_result);  
+        // disconnect($db, $sql_result);  
         return $sent;
     }
 
@@ -134,8 +115,8 @@
         
         // Connect to database, store variables to prevent sql injections, encrypt
         // password data.
-        global $db;
-        $db = (isset($db)) ? $db : connect();
+        // global $db;
+        // $db = (isset($db)) ? $db : connect();
         $old_pw = md5($old_pw);
         $new_pw = md5($new_pw);
         $email = mysql_real_escape_string(strtolower($email));
@@ -154,11 +135,11 @@
                 if (!$result2) {
                     // exit and send error message if query2 was unsuccessful
                     $message = "Error in query ($query2): " . mysql_error();
-                    disconnect($db, $result);
+                    // disconnect($db, $result);
                     die($message);
                 } elseif ($result2 && mysql_num_rows($result)){
                     // exit and return TRUE if password was successfully changed
-                    disconnect($db, $result);
+                    // disconnect($db, $result);
                     return true;
                 }
             } else { 
