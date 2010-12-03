@@ -7,12 +7,14 @@
 header("Content-Type: application/rss+xml; charset=ISO-8859-1"); 
 /////////NOTES/////////////////
 //fix the way link information is generated
-$NUM_EVENTS = 6;
+$NUM_EVENTS = 10;
 
 require_once ( 'functions/connection.php' ) ;
 
 //get events ordered by most recently added
-$event_query  = "SELECT * FROM events ORDER BY start DESC";
+$start_date = date('Y-m-d');
+$start_time = date('H:i:s',strtotime($start_time));
+$event_query  = "SELECT * FROM events WHERE events.startDate >= '$start_date' ORDER BY startDate ASC";
 $event_result = mysql_query ($event_query);
 
 //create opening tags for rss feed
