@@ -127,7 +127,7 @@
 
         $query = "SELECT events.eventID FROM events, locations, categories ";
         $query .= "WHERE " . implode(" AND ", $input) . ";";
-       
+
         $resource = mysql_query($query);
        
         if ($resource) {
