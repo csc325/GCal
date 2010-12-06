@@ -141,6 +141,7 @@
     }
 
     function get_events($eventIDs,$sort='time',$limit=10) {
+        if (!is_logged_in()) $public = "AND events.public = 0";
         if ($eventIDs === false) return false;
         $IDs = array();
         $results = array();
@@ -160,6 +161,7 @@
                   WHERE events.locationID=locations.locationID
                   AND events.categoryID=categories.categoryID
                   AND events.userID=users.userID
+                  $public
                   AND (";
        
         foreach ($eventIDs as $id) {
