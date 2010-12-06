@@ -24,8 +24,7 @@ $(document).ready ( function () {
         });
     }
     
-    // Function that makes an AJAX call to check the login information and 
-    // take appropriate actions afterwards depending on success or failure
+    // Function that makes an AJAX call to add tags to the database
     var submit_tag = function () {
         var tag = $('input#tag-list').val();
         var eventID = $('.event_listing').attr("id");
@@ -35,8 +34,7 @@ $(document).ready ( function () {
             url: "<?php ed(); ?>submit_tag.php",
               data: ({tags:tag,eventID:eventID}),
             success: function (r) {
-              $('span.val.tags').append(', '+tag);
-              alert(r);
+              $('span.val.tags').append(", "+tag);
             }
            
         });
@@ -44,6 +42,7 @@ $(document).ready ( function () {
     
     // When the 'login' button is clicked, call function submit_login
     $('input#fancy-login-button').click ( function () { submit_login(); });
+    // When the 'add tags' button is clicked, call function submit_tags
     $('input#fancy-tag-button').click ( function () { submit_tag(); });
     
     // When the enter key is pressed in the password field, call submit_login

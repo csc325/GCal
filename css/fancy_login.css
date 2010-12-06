@@ -6,6 +6,24 @@ a#fancy-login {
         cursor: pointer;
     }
 
+    div.details a#fancy-login div.login-form {
+        display: none;
+        top: -5px;
+        right: -280px;
+        position: absolute;
+        float: left;
+        padding: 10px;
+        width: 250px;
+        color: black;
+        text-align: left;
+        background: #FFB3B1;
+        border: 5px solid #ccc;
+        -moz-box-shadow: 0px 4px 9px #888;
+        -webkit-box-shadow: 0px 4px 9px #888;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        z-index: 3;
+    }
     a#fancy-login div.login-form {
         display: none;
         top: 20px;

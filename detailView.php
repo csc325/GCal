@@ -82,14 +82,19 @@
                 ?>
                 </span></span></div>
 
+                <div class = "details">
+                <span>Created by: 
+                <span class = "val"> <?php echo $event[8]; ?>
+                </span></span></div>
+
             <?php 
                 if(is_logged_in()) :
             ?>
-                 <div class="details">
+                 <div class="details" id="addtag">
                  <a class="fake" id="fancy-login">
                  <span class="word">Add Tags</span>
                         <div class="login-form">
-                            <label for="tag-list">Tags:</label>
+                            <label for="tag-list">Tags: (Comma separated tags)</label>
                             <input type="text" name="tag-list" id="tag-list">
                             <input type="button" value="Add" id="fancy-tag-button">
                         </div>
@@ -99,10 +104,19 @@
                 endif;
             ?>
 
+            <?php 
+                if(is_logged_in()) :
+            ?>
+
                 <div class = "details">
-                <span>Created by: 
-                <span class = "val"> <?php echo $event[8]; ?>
-                </span></span></div>
+                <a href="edit.php?eventID=<?php echo $eventID; ?>" class="edit" id="edit-event">
+                <span class = "word">Edit Event Details 
+                </a></span></div>
+
+            <?php
+                endif;
+            ?>
+
                 
             </div>
         </div>
