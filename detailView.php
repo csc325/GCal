@@ -78,12 +78,29 @@
                 <p><?php echo $event[1]; ?></p>
 
                 <div class = "details">
-                <span>Tags: <span class = "val">
+                <span>Tags: <span class = "val tags">
                 <?php
                     echo implode(", ", $tags);
                 ?>
                 </span></span></div>
-                
+
+            <?php 
+                if(is_logged_in()) :
+            ?>
+                 <div class="details">
+                 <a class="fake" id="fancy-login">
+                 <span class="word">Add Tags</span>
+                        <div class="login-form">
+                            <label for="tag-list">Tags:</label>
+                            <input type="text" name="tag-list" id="tag-list">
+                            <input type="button" value="Add" id="fancy-tag-button">
+                        </div>
+                    </a>
+        </div>
+            <?php
+                endif;
+            ?>
+
                 <div class = "details">
                 <span>Created by: 
                 <span class = "val"> <?php echo $event[8]; ?>
