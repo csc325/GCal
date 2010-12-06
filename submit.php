@@ -1,7 +1,6 @@
 <?php
     session_start();
-    include 'functions/connection.php';
-    include 'global.php';
+    require_once 'global.php';
     
     $userID = ($_SESSION['userID'] != '') ? $_SESSION['userID'] : 2;
     

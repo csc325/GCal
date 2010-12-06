@@ -1,8 +1,6 @@
 <?php
     require_once "global.php";
     require_once "header.php";
-    require_once "functions/listView.php";
-    require_once "functions/connection.php";
 ?>
 
     <div class = "body">
@@ -109,11 +107,9 @@
             </div>
         </div>
         
-        </body>
 <?php 
     include 'sidebar.php';
     echo "</div>";
     include 'footer.php';
-    echo "</div>";
+    echo "</body></html>";
 ?>
-</html>  

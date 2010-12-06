@@ -228,7 +228,7 @@ div.event_listing {
             }
             
             div.details a.attend_event {
-                margin: 0 0 6px 0;
+                margin: 0 0 0 0;
                 position: relative;
                 text-align: right;
                 float: right;
@@ -271,8 +271,10 @@ div.event_listing {
                         color: #666;
                         cursor: pointer;
                         background: #ddd;
-                        -moz-border-radius: 6px;
-                        -webkit-border-radius: 6px;
+                        -moz-border-radius-topright: 6px;
+                        -moz-border-rddius-bottomright: 6px;
+                        -webkit-border-top-right-radius: 6px;
+                        -webkit-border-bottom-right-radius: 6px;
                     }
 
 div.body div.bottom {

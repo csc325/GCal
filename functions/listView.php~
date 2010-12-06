@@ -127,7 +127,7 @@
 
         $query = "SELECT events.eventID FROM events, locations, categories ";
         $query .= "WHERE " . implode(" AND ", $input) . ";";
-
+       
         $resource = mysql_query($query);
        
         if ($resource) {
@@ -141,7 +141,7 @@
     }
 
     function get_events($eventIDs,$sort='time',$limit=10) {
-        if (!is_logged_in()) $public = "AND events.public = 0";
+        $public = is_logged_in() ? 0 : 1;
         if ($eventIDs === false) return false;
         $IDs = array();
         $results = array();
@@ -161,7 +161,7 @@
                   WHERE events.locationID=locations.locationID
                   AND events.categoryID=categories.categoryID
                   AND events.userID=users.userID
-                  $public
+                  AND events.public=$public
                   AND (";
        
         foreach ($eventIDs as $id) {

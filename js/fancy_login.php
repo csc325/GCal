@@ -1,6 +1,6 @@
 <?php 
     header('Content-type: application/x-javascript');
-    include '../global.php';
+    require_once '../global.php';
 ?>
 
 $(document).ready ( function () {
@@ -28,7 +28,6 @@ $(document).ready ( function () {
     // take appropriate actions afterwards depending on success or failure
     var submit_tag = function () {
         var tag = $('input#tag-list').val();
-        alert(tag);
         
         $.ajax({
             type: "POST",
@@ -47,8 +46,9 @@ $(document).ready ( function () {
     // When the enter key is pressed in the password field, call submit_login
     $('#password').keypress ( function (e) {
         code = (e.keyCode ? e.keyCode : e.which);
-        if (code == 13) submit_tag();
+        if (code == 13) submit_login();
     });
+    
     $('#tag-list').keypress ( function (e) {
         code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13) submit_tag();

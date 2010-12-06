@@ -44,7 +44,7 @@
     $query = "INSERT INTO users (displayName, email, password, confirmed)
 	          VALUES ('$username', '$username@grinnell.edu', '$encoded', $regNo);";
     
-    $result = mysql_query($query);
+    $result = mysql_query($query, $db);
     
     header('Location: '.ed(false).'user_accounts/validate.php');
 ?>

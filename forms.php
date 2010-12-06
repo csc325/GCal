@@ -1,7 +1,6 @@
 <?php
-    include 'functions/connection.php';
-    include 'global.php';
-    include 'header.php';
+    require_once 'global.php';
+    require_once 'header.php';
 ?>
 
 <div class="body">

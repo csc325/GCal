@@ -15,8 +15,8 @@ $(document).ready ( function () {
         
         $.ajax({
             type: "POST",
-            url: "<?php ed(); ?>functions/listView.php",
-            data: ({eventID:event_id, userID:user_id, action:'attend'}),
+            url: "<?php ed(); ?>functions/ajax.php",
+            data: ({action:'ajax',function:'attend_event',eventID:event_id, userID:user_id}),
             success: function (r) {
                 if (r == 1) {
                     var sel = $('a#event_'+event_id+'_'+user_id);
@@ -40,8 +40,8 @@ $(document).ready ( function () {
         
         $.ajax({
             type: "POST",
-            url: "<?php ed(); ?>functions/listView.php",
-            data: ({eventID:event_id, userID:user_id, action:'cancel'}),
+            url: "<?php ed(); ?>functions/ajax.php",
+            data: ({action:'ajax',function:'cancel_attend',eventID:event_id, userID:user_id}),
             success: function (r) {
                 if (r == 1) {
                     var sel = $('a#event_'+event_id+'_'+user_id);

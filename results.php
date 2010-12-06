@@ -1,8 +1,6 @@
 <?php
-    include 'functions/connection.php';
-    include 'functions/listView.php';
-    include 'global.php';
-    include 'header.php';
+    require_once 'global.php';
+    require_once 'header.php';
     
     $self = $_SERVER['REQUEST_URI'];
     if(isset($_GET['sort'])) {
@@ -21,6 +19,8 @@
     } else {
         $eventIds = array();
     }
+    
+    $events = get_events($eventIDs,$sort);
 ?>
 
     <div class="body">
@@ -32,7 +32,7 @@
                 if (isset($_GET['w']) && $_GET['w'] != '') {
                     echo urldecode(stripslashes($_GET['w']));
                 } else {
-                    $num_IDs = ($eventIDs === false) ? 0 : count($eventIDs);
+                    $num_IDs = ($eventIDs === false) ? 0 : count($events);
                     echo "Showing $num_IDs events";
                 }
             ?>
@@ -44,7 +44,6 @@
         </div>
 
         <?php
-            $events = get_events($eventIDs,$sort);
             display_events_inter($events,$sort);
         ?>
         

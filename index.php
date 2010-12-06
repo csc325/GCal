@@ -1,6 +1,4 @@
 <?php
-    require_once 'functions/connection.php';
-    require_once 'functions/listView.php';
     require_once 'global.php';
     require_once 'header.php';
     
@@ -15,12 +13,13 @@
     unset($_GET);
     $_GET['start_date'] = date('Y-m-d');
     $eventIDs = get_advance_search_ids();
+    $events = get_events($eventIDs,$sort);
 ?>
     <div class="body">
         <div class="col large">
         
         <div class="sortby">
-            <span style="float: left;">Showing <?php echo count($eventIDs); ?> upcoming events</span>
+            <span style="float: left;">Showing <?php echo count($events); ?> upcoming events</span>
             Sort by: 
             <a href="<?php echo $self; ?>?sort=time">Time</a>
             <a href="<?php echo $self; ?>?sort=category">Category</a>
@@ -28,7 +27,6 @@
         </div>
         
         <?php
-            $events = get_events($eventIDs,$sort);
             display_events_inter($events,$sort);
         ?>
         
