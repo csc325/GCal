@@ -28,15 +28,17 @@ $(document).ready ( function () {
     // take appropriate actions afterwards depending on success or failure
     var submit_tag = function () {
         var tag = $('input#tag-list').val();
-        alert(tag);
+        var eventID = $('.event_listing').attr("id");
         
         $.ajax({
             type: "POST",
-            url: "<?php ed(); ?>submit.php",
-            data: ({tags:tag}),
+            url: "<?php ed(); ?>submit_tag.php",
+              data: ({tags:tag,eventID:eventID}),
             success: function (r) {
               $('span.val.tags').append(', '+tag);
+              alert(r);
             }
+           
         });
     }
     

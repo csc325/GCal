@@ -47,7 +47,7 @@
         $dif_days = ($event[2] != $event[4]) ? true : false;    
         $user = get_user_info();
     ?>
-            <div class="event_listing">
+            <div class="event_listing" id="<?php echo $eventID; ?>">
                 <div class = "top_section">
                 <h1>
                     <?php echo $event[0]; ?>
