@@ -70,7 +70,7 @@
                     </span>
                     
                     <?php
-                        display_attend($userID, $event[10]); 
+                        display_attend($user[userID], $event[10]); 
                      ?>
                      
                 </div>
