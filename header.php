@@ -11,6 +11,7 @@
     <script type="text/javascript" src="<?php ed(); ?>js/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="<?php ed(); ?>js/jquery-ui-1.8.6.custom.min.js"></script>
     <script type="text/javascript" src="<?php ed(); ?>js/fancy_login.php"></script>
+    <script type="text/javascript" src="<?php ed(); ?>js/fancy_tag_add.php"></script>
     <script type="text/javascript" src="<?php ed(); ?>js/main.php"></script>
 </head>
 <body>

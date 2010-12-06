@@ -24,13 +24,34 @@ $(document).ready ( function () {
         });
     }
     
+    // Function that makes an AJAX call to check the login information and 
+    // take appropriate actions afterwards depending on success or failure
+    var submit_tag = function () {
+        var tag = $('input#tag-list').val();
+        alert(tag);
+        
+        $.ajax({
+            type: "POST",
+            url: "<?php ed(); ?>submit.php",
+            data: ({tags:tag}),
+            success: function (r) {
+              $('span.val.tags').append(', '+tag);
+            }
+        });
+    }
+    
     // When the 'login' button is clicked, call function submit_login
     $('input#fancy-login-button').click ( function () { submit_login(); });
+    $('input#fancy-tag-button').click ( function () { submit_tag(); });
     
     // When the enter key is pressed in the password field, call submit_login
     $('#password').keypress ( function (e) {
         code = (e.keyCode ? e.keyCode : e.which);
-        if (code == 13) submit_login();
+        if (code == 13) submit_tag();
+    });
+    $('#tag-list').keypress ( function (e) {
+        code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) submit_tag();
     });
     
     
