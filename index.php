@@ -19,7 +19,7 @@
         <div class="col large">
         
         <div class="sortby">
-            <span style="float: left;">Showing <?php echo count($events); ?> upcoming events</span>
+            <span style="float: left;">Showing <?php echo $events ? count($events) : 0; ?> upcoming events</span>
             Sort by: 
             <a href="<?php echo $self; ?>?sort=time">Time</a>
             <a href="<?php echo $self; ?>?sort=category">Category</a>

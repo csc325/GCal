@@ -17,7 +17,7 @@
     } elseif ($_GET['t'] == 't') {
         $eventIDs = get_tag_ids($_GET['tag']);
     } else {
-        $eventIds = array();
+        $eventIDs = array();
     }
     
     $events = get_events($eventIDs,$sort);
@@ -32,7 +32,7 @@
                 if (isset($_GET['w']) && $_GET['w'] != '') {
                     echo urldecode(stripslashes($_GET['w']));
                 } else {
-                    $num_IDs = ($eventIDs === false) ? 0 : count($events);
+                    $num_IDs = $events ? count($events) : 0;
                     echo "Showing $num_IDs events";
                 }
             ?>

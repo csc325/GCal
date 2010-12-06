@@ -82,7 +82,7 @@
        
         if ($category == 'other')
             $input[] = "categories.categoryName = '$category_other'";
-
+        
         if(strlen($start_date) > 0) {
             $start_date = date('Y-m-d',strtotime($start_date));
             $input[] = "events.startDate >= '$start_date'";
