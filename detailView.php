@@ -99,7 +99,7 @@
                             <input type="button" value="Add" id="fancy-tag-button">
                         </div>
                     </a>
-        </div>
+                </div>
             <?php
                 endif;
             ?>
