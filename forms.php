@@ -18,7 +18,7 @@
     <p>Please provide as much information about your event as possible.  An 
     informative description will help users a lot more than a simple one-line.
     Also, remember to mark your events as NOT visible to 
-    non-Grinnellians if you don't want people off campus to see.</p>
+    non-Grinnellians if you do not want people off campus to see.</p>
     
     <form method="post" action="<?php ed(); ?>submit.php">
         <!-- EVENT NAME -->
@@ -45,7 +45,7 @@
         <!-- CATEGORIES -->
         <div class="form-unit long">
             <label for="category" id="category_label">Category:</label>
-            <select name="category" id="category" tabindex=3">
+            <select name="category" id="category" tabindex=3>
                <?php
                     $category_query = "SELECT categoryName FROM categories WHERE permanent=1";
                     $category_result = mysql_query($category_query);

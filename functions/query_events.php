@@ -140,7 +140,8 @@
                          categories.categoryName,
                          users.displayName,
                          events.popularity,
-                         events.eventID
+                         events.eventID,
+                         events.visible
                   FROM events, locations, categories, users
                   WHERE events.locationID=locations.locationID
                   AND events.categoryID=categories.categoryID

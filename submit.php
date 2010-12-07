@@ -4,9 +4,6 @@
     
     $userID = ($_SESSION['userID'] != '') ? $_SESSION['userID'] : 2;
     
-    // set table name
-    $table_name = "events";
-    
     // get variables from form page
     foreach($_POST as $field_name => $value) $$field_name = addslashes($value);
     

@@ -2,6 +2,10 @@
     function is_logged_in () {
         return ($_SESSION['sid'] == session_id()) ? true : false;
     }
+
+    function is_owner ($owner) {
+        return ($_SESSION['userID'] == $owner) ? true : false;
+    }
     
     function get_user_info () {
         if (is_logged_in()) {
@@ -13,6 +17,14 @@
             $row = mysql_fetch_array($result,MYSQL_ASSOC);
             return $row;
         }
+        return false;
+    }
+
+    function is_admin () {
+      $user = get_user_info();
+      if($user["accessLevel"] == 3)
+        return true;
+      else
         return false;
     }
     

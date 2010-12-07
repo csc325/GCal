@@ -105,7 +105,12 @@
             ?>
 
             <?php 
-                if(is_logged_in()) :
+                    $user_query = 'SELECT userID FROM events WHERE eventID='. $eventID;
+                    $user_result = mysql_query($user_query);
+                    $row = mysql_fetch_array($user_result);
+                    $owner = $row[0];
+
+                    if(is_owner($owner) || is_admin()) :
             ?>
 
                 <div class = "details">

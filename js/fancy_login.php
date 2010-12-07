@@ -34,7 +34,7 @@ $(document).ready ( function () {
             url: "<?php ed(); ?>submit_tag.php",
               data: ({tags:tag,eventID:eventID}),
             success: function (r) {
-              $('span.val.tags').append(", "+tag);
+              $('span.val.tags').append(", "+encodeURI(tag));
             }
            
         });
