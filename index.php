@@ -11,7 +11,8 @@
     }
     
     unset($_GET);
-    $_GET['start_date'] = date('Y-m-d');
+    // $_GET['start_date'] = date('Y-m-d');
+    $_GET['current'] = 'true';
     $eventIDs = get_advance_search_ids();
     $events = get_events($eventIDs,$sort);
 ?>

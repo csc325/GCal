@@ -82,6 +82,13 @@
        
         if ($category == 'other')
             $input[] = "categories.categoryName = '$category_other'";
+            
+        if ($current == 'true') {
+            $input_current = $input;
+            $current_time = date('Y-m-d H:i:s');
+            $input_current[] = "events.start <= '$current_time'";
+            $input_current[] = "events.end >= '$current_time'";
+        }
         
         if(strlen($start_date) > 0) {
             $start_date = date('Y-m-d',strtotime($start_date));
@@ -119,6 +126,13 @@
             while($row = mysql_fetch_row($resource)) $eventIDs[] = $row[0];
         } else {
             $eventIDs = false;
+        }
+        
+        if ($current == 'true') {
+            $query = "SELECT events.eventID FROM events, locations, categories ";
+            $query .= "WHERE " . implode(" AND ", $input_current) . ";";
+            $resource = mysql_query($query);
+            if ($resource) while($row = mysql_fetch_row($resource)) $eventIDs[] = $row[0];
         }
            
         return $eventIDs;
@@ -164,11 +178,9 @@
         $query .= ' LIMIT '.$limit;
        
         $result = mysql_query($query);
+        
         if ($result) {
-            while($row = mysql_fetch_row($result)){
-                $results[] = $row;
-            }
-       
+            while($row = mysql_fetch_row($result))$results[] = $row;
             return $results;
         } else {
             return false;
