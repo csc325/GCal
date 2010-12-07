@@ -18,6 +18,14 @@
                 $tags[] = $row[0];
         }
                
+        $comment_query = "SELECT comments.comment, users.displayName FROM comments, users WHERE comments.userID = users.userID AND comments.eventID=$eventID;";
+        $comment_result = mysql_query($comment_query);
+        $comments = array();
+        if($comment_result) {
+            while($row = mysql_fetch_array($comment_result))
+                $comments[$row[0]] = $row[1];
+        }
+
         if ($eventArray === false) {       
             echo '<h1 class="head">No events were found</h1>';
                 return false;
@@ -122,6 +130,26 @@
                 endif;
             ?>
 
+                <div class = "details">
+                <span>Comments: <span class = "val tags">
+                <?php
+                   foreach($comments as $comment => $user) 
+                    echo '<br><br>'.$comment." [".$user."]";
+                ?>
+                </span></span></div>
+
+                    <?php 
+                if(is_logged_in()) :
+                  ?>
+
+                  <form method="post" action="<?php ed(); ?>submit_comment.php?eventID=<?php echo $eventID; ?>">
+                  <textarea name="comment" cols="40" rows="3">Enter your comments here...</textarea><br>
+                     <input type="submit" value="Add Comment" />
+                     </form>
+
+                     <?php
+                     endif;
+                     ?>
                 
             </div>
         </div>
