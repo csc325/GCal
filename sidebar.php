@@ -101,7 +101,7 @@
             $tags_q = 'SELECT COUNT(*), tags.tag 
                        FROM tags, events 
                        WHERE tags.eventID = events.eventID 
-                         AND end > NOW()
+                         AND events.startDate >= CURDATE()
                        GROUP BY tag';
             $tags_r = mysql_query($tags_q);
             $tags_array = array();
