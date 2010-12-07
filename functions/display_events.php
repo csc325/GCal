@@ -42,23 +42,36 @@
        
         $group = array();
         foreach ($info as $event) :
+            // Stripslashes and sanitize output.
             $event = array_map('stripslashes',$event);
-           
+            $event = array_map('htmlspecialchars',$event);
+            
             $startTime = strtotime($event[2].' '.$event[3]);
             $endTime = strtotime($event[4].' '.$event[5]);
+            
+            $happening_now = (time() > $startTime) ? true : false;
+            
             $event[2] = date('M j, Y',$startTime);
             $event[3] = date('g:i A',$startTime);
             $event[4] = date('M j, Y',$endTime);
             $event[5] = date('g:i A',$endTime);
+            
             $dif_days = ($event[2] != $event[4]) ? true : false;
-           
+            
+            
+            /* Display the header only if the sort group isn't already part of
+               the array $group that keeps track of all the headers that have
+               already been displayed  */
             if(!in_array($event[$check],$group)) {
                 if ($sort) {
-                    if ($sort == 'time' && $event[2] == $today) {
+                    if ($sort == 'time' && $event[2] == $today && !$happening_now) {
                         echo '<h3 class="time_label">Today</h3>';
-                    } elseif ($sort == 'time' && $event[2] == $tomorrow) {
+                    } elseif ($sort == 'time' && $event[2] == $tomorrow && !$happening_now) {
                         echo '<h3 class="time_label">Tomorrow</h3>';
-                    } else {
+                    } elseif ($happening_now && !$happening_now_display) {
+                        echo '<h3 class="time_label">Happening Now</h3>';
+                        $happening_now_display = true;
+                    } elseif (!$happening_now) {
                         echo '<h3 class="time_label">'.$event[$check].'</h3>';
                     }
                 }
