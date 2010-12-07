@@ -49,7 +49,7 @@
             $startTime = strtotime($event[2].' '.$event[3]);
             $endTime = strtotime($event[4].' '.$event[5]);
             
-            $happening_now = (time() > $startTime) ? true : false;
+            $happening_now = ((time() > $startTime) && (time() < $endTime)) ? true : false;
             
             $event[2] = date('M j, Y',$startTime);
             $event[3] = date('g:i A',$startTime);

@@ -101,6 +101,9 @@
         if(strlen($start_time) > 0) {
             $start_time = date('H:i:s',strtotime($start_time));
             $input[] = "events.startTime >= '$start_time'";
+        } else {
+            $start_time = date('H:i:s');
+            $input[] = "events.startTime >= '$start_time'";
         }
 
         if(strlen($end_date) > 0) {
