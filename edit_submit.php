@@ -11,6 +11,15 @@
     // get variables from form page
     foreach($_POST as $field_name => $value) $$field_name = addslashes($value);
     
+    //check required fields
+    if((strlen($event_name) == 0) || (strlen($start_date) == 0) ||
+       (strlen($end_date) == 0) || (strlen($location) == 0) ||
+       (strlen($start_time) == 0) || (strlen($end_time) == 0) ||
+       (strlen($category) == 0)) {
+      header('Location: '.ed(false).'edit.php?s=f&eventID='.$eventID);
+      exit();
+    }
+
     // process start and end times
     $start_temp = explode(' ',date('Y-m-d H:i:s', strtotime($start_date . " ". $start_time)));
     $end_temp = explode(' ',date('Y-m-d H:i:s', strtotime($end_date . " " . $end_time)));
