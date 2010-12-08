@@ -21,7 +21,7 @@
      *              currently using.  VERY IMPORTANT.
      */
     
-    $_DIR = '/~uysalere/GCal/';  // CHANGE ME
+    $_DIR = '/~liujingt/GCal/';  // CHANGE ME
     
     function ed($e=true) {
         global $_DIR;

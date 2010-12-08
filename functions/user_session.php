@@ -1,10 +1,49 @@
 <?php
+    /*  EVENT & COMMENT --------------------------------------------------- */
+    
+    function is_owner ($eventID) {
+        $user_query = 'SELECT userID FROM events WHERE eventID='. $eventID;
+        $user_result = mysql_query($user_query);
+        $row = mysql_fetch_array($user_result);
+        $owner = $row[0];
+        return ($_SESSION['userID'] == $owner) ? true : false;
+    }
+    
+    function add_comment ($args) {
+        if (!is_logged_in()) return 0;
+        
+        $comment = trim(htmlspecialchars($args["comment"]));
+        $eventID = addslashes($args["eventID"]);
+        $userID = $_SESSION['userID'];
+        $timestamp = date('Y-m-d H:i:s');
+        
+        if ($comment != '' && comment != ' ') {
+            $query = "INSERT INTO comments (comment, eventID, userID, timestamp) 
+                      VALUES ('$comment',$eventID,$userID,'$timestamp')";
+            $result = mysql_query($query);
+        }
+        
+        return 1;
+    }
+    
+    function delete_comment ($args) {
+        $commentID = addslashes($args["commentID"]);
+        $eventID = addslashes($args["eventID"]);
+        $owner = addslashes($args["owner"]);
+
+        if(is_owner($eventID) || is_admin()) {
+            $query = 'DELETE FROM comments WHERE commentID='.$commentID;
+            $result = mysql_query($query);
+        }
+        
+        return 1;
+    }
+    
+    
+    /*  SESSION & USER ---------------------------------------------------- */
+    
     function is_logged_in () {
         return ($_SESSION['sid'] == session_id()) ? true : false;
-    }
-
-    function is_owner ($owner) {
-        return ($_SESSION['userID'] == $owner) ? true : false;
     }
     
     function get_user_info () {
@@ -22,10 +61,7 @@
 
     function is_admin () {
       $user = get_user_info();
-      if($user["accessLevel"] == 3)
-        return true;
-      else
-        return false;
+      return ($user["accessLevel"] == 3) ? true : false;
     }
     
     function on_campus() { 

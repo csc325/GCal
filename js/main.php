@@ -4,6 +4,14 @@
 ?>
 
 $(document).ready ( function () {
+    $('a.attend_event').click ( function () {
+        attend_event($(this));
+    });
+    
+    $('a.attend_event span.cancel').click ( function () {
+        cancel_attend($(this));
+    });
+
     var attend_event = function (this_el) {
         if (this_el.hasClass('attending')) return false;
         
@@ -30,7 +38,7 @@ $(document).ready ( function () {
             }
         });
     }
-    
+
     var cancel_attend = function (this_el) {
         var this_id = this_el.parent().attr('id');
         this_id = this_id.split('_');
@@ -55,7 +63,7 @@ $(document).ready ( function () {
             }
         });
     }
-    
+
     var update_sidebar = function () {
         $.ajax({
             type: "POST",
@@ -66,12 +74,4 @@ $(document).ready ( function () {
             }
         });
     }
-    
-    $('a.attend_event').click ( function () {
-        attend_event($(this));
-    });
-    
-    $('a.attend_event span.cancel').click ( function () {
-        cancel_attend($(this));
-    });
 });

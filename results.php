@@ -20,7 +20,7 @@
         $eventIDs = array();
     }
     
-    $events = get_events($eventIDs,$sort);
+    $events = get_events($eventIDs,$sort,100);
 ?>
 
     <div class="body">
