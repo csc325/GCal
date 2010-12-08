@@ -74,7 +74,7 @@ $(document).ready(function()  {
 	  <?php include 'change_password_form.php';?>
 	  </div>
 	  <div id="dispNameForm">
-	  <?php include 'change_disp_name.php';?>
+	  <?php include 'change_disp_name.html';?>
 	  </div>
 	  <div id="rmvAccountForm">
 	  <?php include 'remove_account.html';?>

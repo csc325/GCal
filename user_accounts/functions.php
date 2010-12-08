@@ -18,7 +18,7 @@
     }
 
     // Check that a username with corresponding password exists in the db
-    function chk_user_pw ($user, $pw) {
+    function chk_user_pw ($user, $pw, $db) {
         $query = "SELECT password FROM users
                   WHERE email = '$user'
                   AND password = '$pw';";
@@ -26,9 +26,10 @@
         $result = mysql_query($query, $db);
 
         // exit and send error message if query was unsuccessful
-        if (!$result){
-            $message = "Error in query ($query): mysql_error()";
-            disconnect($db, NULL);
+        if (mysql_num_rows($result) == 0){
+            echo "Error in query ($query): mysql_error()";
+            mysql_free_result($result);
+	    mysql_close($db);
             return 0;
         }
         
@@ -60,18 +61,17 @@
     function passwordReset ($email){
         // create password and connect to database
         $new_password = randomPasswordGen();
-        // $db = connect();
-        $email = mysql_real_escape_string($email);
+        include '../functions/connection.php';
+	$email = mysql_real_escape_string($email);
 
         // Query for email in database
         $query = "SELECT * FROM users WHERE email = '".$email."';";
-        $result = mysql_query($query, $db);
+        $result = mysql_query($query, $link);
 
         //if query was unsuccessful, print error and die
         if (!$result) {
             $message = "Error in query ($query): " . mysql_error();
-            mysql_close($db);
-            // disconnect($db, NULL);
+            mysql_close($link);
             die($message);
         }
 
@@ -81,12 +81,12 @@
             $query2  = "UPDATE users
                         SET password = '$np_md5'
                         WHERE email = '$email';";
-            $result2 = mysql_query($query2, $db);
+            $result2 = mysql_query($query2, $link);
         }
 
 
         // If successful, send e-mail to user informing them of their new password
-        if ($result && $result2) {
+        if ($result && (mysql_affected_rows($link))) {
             // Message
             $message = '<html><body>
                         <p>Your password for Grinnell Open Calender has been reset <br /><br />
@@ -105,8 +105,9 @@
         } else { 
             $sent = FALSE;
         }
-
-        // disconnect($db, $sql_result);  
+	
+	mysql_free_result($result);
+        mysql_close($link); 
         return $sent;
     }
 
@@ -115,35 +116,35 @@
         
         // Connect to database, store variables to prevent sql injections, encrypt
         // password data.
-        // global $db;
-        // $db = (isset($db)) ? $db : connect();
+        include '../functions/connection.php';
         $old_pw = md5($old_pw);
         $new_pw = md5($new_pw);
         $email = mysql_real_escape_string(strtolower($email));
 
-        chk_user_pw($email, $old_pw);
+        $exists = chk_user_pw($email, $old_pw, $link);
+	  
 
-        if ($db) {
+        if ($link) {
             // Store new password if old password and email are correct
             $query2 = "UPDATE users
                        SET password = '$new_pw'
                        WHERE email = '$email' AND password = '$old_pw';";
             
-            if (mysql_num_rows($result)) {
-                $result2 = mysql_query($query2, $db);
+            if ($exists) {
+                $result = mysql_query($query2, $link);
                 
-                if (!$result2) {
+                if (mysql_affected_rows($link) != 1) {
                     // exit and send error message if query2 was unsuccessful
                     $message = "Error in query ($query2): " . mysql_error();
-                    // disconnect($db, $result);
+                      mysql_free_result($result);
+		      mysql_close($link);
                     die($message);
-                } elseif ($result2 && mysql_num_rows($result)){
-                    // exit and return TRUE if password was successfully changed
-                    // disconnect($db, $result);
+                } elseif (mysql_affected_rows($link) && $exists){
+		      mysql_close($link);
                     return true;
                 }
             } else { 
-                return 0;
+                return false;
             }
         }
     }
