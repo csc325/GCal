@@ -1,4 +1,21 @@
 <?php
+    function get_event_comments($eventID) {
+        $comment_query = "SELECT comments.commentID, 
+                                 comments.comment, 
+                                 users.displayName, 
+                                 comments.userID,
+                                 comments.timestamp
+                          FROM comments, users 
+                          WHERE comments.userID = users.userID 
+                            AND comments.eventID = $eventID;";
+        $comment_result = mysql_query($comment_query);
+        $comments = array();
+        if($comment_result)
+            while($row = mysql_fetch_array($comment_result)) $comments[] = $row;
+        
+        return $comments;
+    }
+    
     function get_tag_ids($tag) {
         $query = "SELECT DISTINCT tags.eventID
                   FROM tags, events
@@ -90,35 +107,38 @@
             $input_current[] = "events.end >= '$current_time'";
         }
         
-        if(strlen($start_date) > 0) {
+        if (strlen($start_date) > 0 && strlen($start_time) == 0) {
             $start_date = date('Y-m-d',strtotime($start_date));
             $input[] = "events.startDate >= '$start_date'";
-        } else {
+        } elseif (strlen($start_time) > 0 && strlen($start_date) == 0) {
             $start_date = date('Y-m-d');
-            $input[] = "events.startDate >= '$start_date'";
-        }
-       
-        if(strlen($start_time) > 0) {
             $start_time = date('H:i:s',strtotime($start_time));
+            $input[] = "events.startDate >= '$start_date'";
             $input[] = "events.startTime >= '$start_time'";
+        } elseif (strlen($start) > 0) {
+            $start = date('Y-m-d H:i:s',strtotime($start));
+            $input[] = "events.start >= '$start'";
         } else {
-            $start_time = date('H:i:s');
-            $input[] = "events.startTime >= '$start_time'";
+            $start = date('Y-m-d H:i:s');
+            $input[] = "events.start >= '$start'";
         }
-
-        if(strlen($end_date) > 0) {
+        
+        if (strlen($end_date) > 0 && strlen($end_time) == 0) {
             $end_date = date('Y-m-d',strtotime($end_date));
             $input[] = "events.endDate <= '$end_date'";
-        } else {
+        } elseif (strlen($end_time) > 0 && strlen($end_date) == 0) {
             $end_date = date('Y-m-d');
-            $input[] = "events.endDate >= '$end_date'";
-        }
-       
-        if(strlen($end_time) > 0) {
             $end_time = date('H:i:s',strtotime($end_time));
+            $input[] = "events.endDate <= '$end_date'";
             $input[] = "events.endTime <= '$end_time'";
+        } elseif (strlen($end) > 0) {
+            $end = date('Y-m-d H:i:s',strtotime($end));
+            $input[] = "events.end <= '$end'";
+        } else {
+            $end = date('Y-m-d H:i:s');
+            $input[] = "events.end >= '$end'";
         }
-
+        
         $query = "SELECT events.eventID FROM events, locations, categories ";
         $query .= "WHERE " . implode(" AND ", $input) . ";";
 
@@ -174,9 +194,9 @@
         $query .= ") ";
        
         if ($sort == 'time') $query .= 'ORDER BY events.startDate ASC';
-        if ($sort == 'popularity') $query .= 'ORDER BY events.popularity DESC';
-        if ($sort == 'location') $query .= 'ORDER BY locations.locationName ASC';
-        if ($sort == 'category') $query .= 'ORDER BY categories.categoryName ASC';
+        if ($sort == 'popularity') $query .= 'ORDER BY events.startDate ASC, events.popularity DESC';
+        if ($sort == 'location') $query .= 'ORDER BY events.startDate ASC, locations.locationName ASC';
+        if ($sort == 'category') $query .= 'ORDER BY events.startDate ASC, categories.categoryName ASC';
        
         $query .= ' LIMIT '.$limit;
        

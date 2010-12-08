@@ -13,7 +13,7 @@
     session_start();
     require_once 'functions.php';
     
-    if ($_POST['action'] = 'ajax') {
+    if ($_POST['action'] == 'ajax') {
         $function = str_replace(array(';','$'),array('',''),$_POST['function']);
         unset($_POST['action']);
         unset($_POST['function']);

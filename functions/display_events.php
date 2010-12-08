@@ -69,7 +69,7 @@
                     } elseif ($sort == 'time' && $event[2] == $tomorrow && !$happening_now) {
                         echo '<h3 class="time_label">Tomorrow</h3>';
                     } elseif ($happening_now && !$happening_now_display) {
-                        echo '<h3 class="time_label">Happening Now</h3>';
+                        echo '<h3 class="time_label now">Happening Now</h3>';
                         $happening_now_display = true;
                     } elseif (!$happening_now) {
                         echo '<h3 class="time_label">'.$event[$check].'</h3>';

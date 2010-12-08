@@ -46,9 +46,10 @@
     <div class="unit happening_links">
         <h3>What's Happening...</h3>
         <ul>
-            <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d'); ?>&current=true">Today</a></li>
-            <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next week')); ?>&current=true">Next 7 days</a></li>
-            <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next month')); ?>&current=true">Next 30 days</a></li>
+            <li><a href="<?php ed(); ?>results.php?t=a&start=<?php echo date('Y-m-d H:i:s'); ?>&end_date=<?php echo date('Y-m-d'); ?>&current=true">Today</a></li>
+            <li><a href="<?php ed(); ?>results.php?t=a&start_date=<?php echo date('Y-m-d',strtotime('tomorrow')); ?>&end_date=<?php echo date('Y-m-d',strtotime('tomorrow')); ?>">Tomorrow</a></li>
+            <li><a href="<?php ed(); ?>results.php?t=a&start=<?php echo date('Y-m-d H:i:s'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next week')); ?>">Next 7 days</a></li>
+            <li><a href="<?php ed(); ?>results.php?t=a&start=<?php echo date('Y-m-d H:i:s'); ?>&end_date=<?php echo date('Y-m-d',strtotime('next month')); ?>">Next 30 days</a></li>
         </ul>
     </div>
     

@@ -2,6 +2,8 @@
     require_once 'global.php';
     require_once 'header.php';
     
+    if($_GET['delete'] == 't') 
+      echo '<h1 class="head">Event deleted successfully</h1><hr>';
     $self = $_SERVER['REQUEST_URI'];
     if(isset($_GET['sort'])) {
         $sort = $_GET['sort'];
@@ -10,10 +12,10 @@
         $sort = 'time';
     }
     
-    unset($_GET);
-    // $_GET['start_date'] = date('Y-m-d');
-    $_GET['current'] = 'true';
-    $eventIDs = get_advance_search_ids();
+    $query = 'SELECT eventID FROM events
+              WHERE start >= NOW() OR end >= NOW()';
+    $result = mysql_query ($query);
+    while ($row = mysql_fetch_array($result)) $eventIDs[] = $row[eventID];
     $events = get_events($eventIDs,$sort);
 ?>
     <div class="body">

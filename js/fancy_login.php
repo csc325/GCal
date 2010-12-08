@@ -42,6 +42,7 @@ $(document).ready ( function () {
     
     // When the 'login' button is clicked, call function submit_login
     $('input#fancy-login-button').click ( function () { submit_login(); });
+    
     // When the 'add tags' button is clicked, call function submit_tags
     $('input#fancy-tag-button').click ( function () { submit_tag(); });
     

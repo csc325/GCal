@@ -1,0 +1,73 @@
+h3.comment_label {
+    float: left;
+    width: 608px;
+    margin: 13px 0 0 0;
+    padding: 5px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #777;
+}
+
+div.event_comments {
+    float: left;
+    width: 608px;
+    padding: 10px 10px 6px 10px;
+    margin: 0 0 0 0;
+}
+    
+    div.event_comments div.comment {
+        float: left;
+        width: 608px;
+        margin: 0 0 20px 0;
+    }
+    
+        div.comment div.meta {
+            float: left;
+            margin: 0 15px 0 0;
+            width: 130px;
+        }
+        
+            div.comment div.meta span {
+                float: left;
+                margin: 0 0 4px 0;
+                width: 130px;
+            }
+            
+            div.comment div.meta span.user {
+                font-size: 13px;
+                font-weight: bold;
+            }
+            
+            div.comment div.meta span.timestamp {
+                font-size: 13px;
+                line-height: 18px;
+                color: #666;
+            }
+            
+            div.comment div.meta span.delete {
+                font-size: 13px;
+            }
+            
+        div.comment div.content {
+            float: left;
+            width: 463px;
+        }
+
+div.comment_form {
+    float: left;
+    width: 608px;
+    margin: 15px 0 15px 0;
+}
+
+    div.comment_form textarea {
+        float: left;
+        clear: both;
+        margin: 0 0 10px 0;
+        width: 66%;
+        height: 100px;
+    }
+    
+    div.comment_form input[type="submit"] {
+        float: left;
+        clear: both;
+    }
