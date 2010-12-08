@@ -13,6 +13,9 @@
             if ($_GET['s'] == 'f') {
                 echo '<h1 class="head">Required fields have been left empty</h1><hr>';
             }
+            if ($_GET['time'] == 'f') {
+               echo '<h1 class="head">Invalid value for time field</h1><hr>';
+            }
 
         $eventID = htmlspecialchars($_GET['eventID']);
         $eventArray = get_events(array($eventID));
