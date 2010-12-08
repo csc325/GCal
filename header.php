@@ -27,7 +27,8 @@
             <?php 
                 if(is_logged_in()) :
                     echo '<h3>Logged in as <span class="user">'.$_SESSION['displayName'].'</span>, ';
-                    echo '<a href="'.ed(false).'user_accounts/logout.php?ref='.rawurlencode($_SERVER['REQUEST_URI']).'">log out</a>';
+                    echo '<a href="'.ed(false).'user_accounts/logout.php?ref='.rawurlencode($_SERVER['REQUEST_URI']).'">log out </a>';
+                    echo '<a href="'.ed(false).'user_accounts/user_settings.php?ref='.rawurlencode($_SERVER['REQUEST_URI']).'"> Settings</a>';
                 else :
             ?>
                 <h3>You are not logged in, 
