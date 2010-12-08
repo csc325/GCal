@@ -18,12 +18,12 @@
                 $tags[] = $row[0];
         }
                
-        $comment_query = "SELECT comments.comment, users.displayName FROM comments, users WHERE comments.userID = users.userID AND comments.eventID=$eventID;";
+        $comment_query = "SELECT comments.commentID, comments.comment, users.displayName, comments.userID FROM comments, users WHERE comments.userID = users.userID AND comments.eventID=$eventID;";
         $comment_result = mysql_query($comment_query);
         $comments = array();
         if($comment_result) {
             while($row = mysql_fetch_array($comment_result))
-                $comments[$row[0]] = $row[1];
+                $comments[] = $row;
         }
 
         if ($eventArray === false) {       
@@ -129,12 +129,21 @@
             <?php
                 endif;
             ?>
+                
+            </div>
 
+            <div class="event_listing">
                 <div class = "details">
                 <span>Comments: <span class = "val tags">
                 <?php
-                   foreach($comments as $comment => $user) 
-                    echo '<br><br>'.$comment." [".$user."]";
+                      for( $i = 0; $i < sizeof($comments); $i++) {
+
+                    if(is_owner($comments[$i][3]) || is_admin()) {
+                      echo "<br><br>".$comments[$i][1]." [".$comments[$i][2].']   <a href="delete_comment.php?owner='.$comments[$i][3].'&eventID='.$eventID.'&commentID='.$comments[$i][0].'">Delete</a>';
+                    } else {
+                    echo '<br><br>'.$comments[$i][1]." [".$comments[$i][2]."]";
+                    }
+                      }
                 ?>
                 </span></span></div>
 
@@ -143,16 +152,16 @@
                   ?>
 
                   <form method="post" action="<?php ed(); ?>submit_comment.php?eventID=<?php echo $eventID; ?>">
-                  <textarea name="comment" cols="40" rows="3">Enter your comments here...</textarea><br>
+                  <textarea name="comment" cols="60" rows="2">Enter your comments here...</textarea><br>
                      <input type="submit" value="Add Comment" />
                      </form>
 
                      <?php
                      endif;
                      ?>
-                
-            </div>
         </div>
+        </div>
+                
         
 <?php 
     include 'sidebar.php';
