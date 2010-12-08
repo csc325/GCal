@@ -10,7 +10,7 @@
 
     // get variables from form page
     foreach($_POST as $field_name => $value) $$field_name = addslashes($value);
-    
+
     //check required fields
     if((strlen($event_name) == 0) || (strlen($start_date) == 0) ||
        (strlen($end_date) == 0) || (strlen($location) == 0) ||
@@ -23,15 +23,20 @@
     // process start and end times
     $start_temp = explode(' ',date('Y-m-d H:i:s', strtotime($start_date . " ". $start_time)));
     $end_temp = explode(' ',date('Y-m-d H:i:s', strtotime($end_date . " " . $end_time)));
-    
     $right_now = date('Y-m-d H:i:s');
+    
     $start_date = $start_temp[0];
     $start_time = $start_temp[1];
     $end_date = $end_temp[0];
     $end_time = $end_temp[1];
     $start = $start_date.' '.$start_time;
     $end = $end_date.' '.$end_time;
-    
+    if(($start < $right_now) || ($end < $right_now)) {
+      header('Location: '.ed(false).'edit.php?time=f&s=t&eventID='.$eventID);
+      exit();
+    }    
+
+
     // sanitize description box
     $description = htmlspecialchars($description);
     
