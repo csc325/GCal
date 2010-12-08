@@ -2,6 +2,8 @@
     require_once 'global.php';
     require_once 'header.php';
     
+    if($_GET['delete'] == 't') 
+      echo '<h1 class="head">Event deleted successfully</h1><hr>';
     $self = $_SERVER['REQUEST_URI'];
     if(isset($_GET['sort'])) {
         $sort = $_GET['sort'];
