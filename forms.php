@@ -8,7 +8,10 @@
     <?php
         if (!is_logged_in()) : echo '<h1 class="head">You are not logged in</h1><p>Please log in or sign up to add events</p>';
         else :
-            if ($_GET['s'] == 't') {
+          if($_GET['s'] == 'f') {
+               echo '<h1 class="head">Missing some fields; event not added</h1><hr>';
+          }
+            elseif ($_GET['s'] == 't') {
                 echo '<h1 class="head">Your event has been added sucessfully</h1><hr>';
             }
         ?>
@@ -19,17 +22,18 @@
     informative description will help users a lot more than a simple one-line.
     Also, remember to mark your events as NOT visible to 
     non-Grinnellians if you do not want people off campus to see.</p>
+    <p>(Required fields in red)</p>
     
     <form method="post" action="<?php ed(); ?>submit.php">
         <!-- EVENT NAME -->
         <div class="form-unit long">
-            <label for="event_name" id="event_name_label">Event Name:</label>
+            <label for="event_name" id="event_name_label"><font color = "firebrick">Event Name:</font></label>
             <input type="text" id="event_name" name="event_name" tabindex="1">
         </div>
         
         <!-- LOCATIONS -->
         <div class="form-unit long">
-            <label for="location" id="location_label">Location:</label>
+            <label for="location" id="location_label"><font color = "firebrick">Location:</label></font>
             <select name="location" id="location" tabindex="2">
                 <?php
                     $location_query = "SELECT locationID,locationName FROM locations WHERE permanent=1";
@@ -44,7 +48,7 @@
         
         <!-- CATEGORIES -->
         <div class="form-unit long">
-            <label for="category" id="category_label">Category:</label>
+            <label for="category" id="category_label"><font color = "firebrick">Category:</label></font>
             <select name="category" id="category" tabindex=3>
                <?php
                     $category_query = "SELECT categoryName FROM categories WHERE permanent=1";
@@ -59,7 +63,7 @@
         
         <!-- START DATE -->
         <div class="form-unit">
-            <span class="lb">Start Time</span>
+            <span class="lb"><font color = "firebrick">Start Time</span></font>
         
             <label for="start_date" id="start_date_label" class="small">Date:</label>
             <input type="text" id="start_date" name="start_date" class="date" tabindex=4">
@@ -71,7 +75,7 @@
         
         <!-- END DATE -->
         <div class="form-unit">
-            <span class="lb">End Time</span>
+            <span class="lb"><font color = "firebrick">End Time</span></font>
             
             <label for="end_date" id="end_date_label" class="small">Date:</label>
             <input type="text" id="end_date" name="end_date" class="date" tabindex=5">

@@ -7,6 +7,28 @@
     // get variables from form page
     foreach($_POST as $field_name => $value) $$field_name = addslashes($value);
     
+    // Category and Location processing
+    if ($location == 'other') {     
+      $location = $location_other;
+      if(strlen($location) == 0) 
+        $location = 'other';
+    }
+
+    if ($category == 'other') {
+      $category = $category_other;
+      if(strlen($category) == 0) 
+        $category = 'other';
+    }
+
+    //check required fields
+    if((strlen($event_name) == 0) || (strlen($start_date) == 0) || 
+       (strlen($end_date) == 0) || (strlen($location) == 0) || 
+       (strlen($start_time) == 0) || (strlen($end_time) == 0) ||
+       (strlen($category) == 0)) {
+      header('Location: '.ed(false).'forms.php?s=f');
+      exit();
+    }
+
     // process start and end times
     $start_temp = explode(' ',date('Y-m-d H:i:s', strtotime($start_date . " ". $start_time)));
     $end_temp = explode(' ',date('Y-m-d H:i:s', strtotime($end_date . " " . $end_time)));
@@ -18,7 +40,7 @@
     $end_time = $end_temp[1];
     $start = $start_date.' '.$start_time;
     $end = $end_date.' '.$end_time;
-    
+
     // sanitize description box
     $description = htmlspecialchars($description);
     
@@ -29,26 +51,15 @@
     // process publicity
     if ($public == "yes") $publicity = 1;
     else $publicity = 0;
-    
-    // Category and Location table query
-    if ($location == 'other') $location = $location_other;
-    if ($category == 'other') $category = $category_other;
 
-    //check required fields
-    if((strlen($event_name) == 0) || (strlen($start_date) == 0) || (strlen($end_date) == 0)
-       || (strlen($location) == 0) || (strlen($category) == 0)) {
-      header('Location: '.ed(false).'forms.php?s=f');
-      exit();
-    }
-
+    //queries for location and category
     $query = 'INSERT INTO locations (locationName) 
               VALUES ("'.$location.'") 
               ON DUPLICATE KEY 
               UPDATE requestCount = requestCount + 1';
     mysql_query($query);
     $locationID = mysql_insert_id();
-    
-    
+   
     $query = 'INSERT INTO categories (categoryName) 
               VALUES ("'.$category.'") 
               ON DUPLICATE KEY 
