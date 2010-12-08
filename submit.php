@@ -32,6 +32,15 @@
     
     // Category and Location table query
     if ($location == 'other') $location = $location_other;
+    if ($category == 'other') $category = $category_other;
+
+    //check required fields
+    if((strlen($event_name) == 0) || (strlen($start_date) == 0) || (strlen($end_date) == 0)
+       || (strlen($location) == 0) || (strlen($category) == 0)) {
+      header('Location: '.ed(false).'forms.php?s=f');
+      exit();
+    }
+
     $query = 'INSERT INTO locations (locationName) 
               VALUES ("'.$location.'") 
               ON DUPLICATE KEY 
@@ -39,7 +48,7 @@
     mysql_query($query);
     $locationID = mysql_insert_id();
     
-    if ($category == 'other') $category = $category_other;
+    
     $query = 'INSERT INTO categories (categoryName) 
               VALUES ("'.$category.'") 
               ON DUPLICATE KEY 
