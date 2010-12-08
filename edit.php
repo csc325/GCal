@@ -10,8 +10,8 @@
     <?php
         if (!is_logged_in()) : echo '<h1 class="head">You are not logged in</h1><p>Please log in or sign up to add events</p>';
         else :
-            if ($_GET['s'] == 't') {
-                echo '<h1 class="head">Your event has been added sucessfully</h1><hr>';
+            if ($_GET['s'] == 'f') {
+                echo '<h1 class="head">Required fields have been left empty</h1><hr>';
             }
 
         $eventID = htmlspecialchars($_GET['eventID']);
