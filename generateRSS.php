@@ -14,7 +14,7 @@ require_once ( 'functions/connection.php' ) ;
 //get events ordered by most recently added
 $start_date = date('Y-m-d');
 $start_time = date('H:i:s',strtotime($start_time));
-$event_query  = "SELECT * FROM events WHERE events.startDate >= '$start_date' ORDER BY startDate ASC";
+$event_query  = "SELECT * FROM events WHERE events.endDate >= '$start_date' ORDER BY startDate ASC, startTime ASC";
 $event_result = mysql_query ($event_query);
 
 //create opening tags for rss feed
