@@ -13,25 +13,14 @@
         $query = "SELECT tag FROM tags WHERE eventID = $eventID;";
         $result = mysql_query($query);
         $tags = array();
-        if($result) {
-            while($row = mysql_fetch_array($result))
-                $tags[] = $row[0];
-        }
-               
-        $comment_query = "SELECT comments.comment, users.displayName 
-                          FROM comments, users 
-                          WHERE comments.userID = users.userID 
-                          AND comments.eventID=$eventID;";
-        $comment_result = mysql_query($comment_query);
-        $comments = array();
-        if($comment_result) {
-            while($row = mysql_fetch_array($comment_result))
-                $comments[$row[0]] = $row[1];
-        }
+        if($result) 
+            while($row = mysql_fetch_array($result)) $tags[] = $row[0];
+            
+        $comments = get_event_comments($eventID);
 
         if ($eventArray === false) {       
             echo '<h1 class="head">No events were found</h1>';
-                return false;
+            return false;
         }
          /* Values of $eventArray are:
            [0] = eventName
@@ -78,9 +67,7 @@
                     <span>Attending: <span class="val attend_count"><?php echo $event[9]; ?></span>
                     </span>
                     
-                    <?php
-                        display_attend($user[userID], $event[10]); 
-                     ?>
+                    <?php display_attend($user[userID], $event[10]);  ?>
                      
                 </div>
                 </div>
@@ -88,9 +75,7 @@
 
                 <div class = "details">
                 <span>Tags: <span class = "val tags">
-                <?php
-                    echo implode(", ", $tags);
-                ?>
+                <?php echo implode(", ", $tags); ?>
                 </span></span></div>
 
                 <div class = "details">
@@ -98,67 +83,131 @@
                 <span class = "val"> <?php echo $event[8]; ?>
                 </span></span></div>
 
-            <?php 
-                if(is_logged_in()) :
-            ?>
-                 <div class="details" id="addtag">
-                 <a class="fake" id="fancy-login">
-                 <span class="word">Add Tags</span>
-                        <div class="login-form">
-                            <label for="tag-list">Tags: (Comma separated tags)</label>
-                            <input type="text" name="tag-list" id="tag-list">
-                            <input type="button" value="Add" id="fancy-tag-button">
-                        </div>
-                    </a>
-                </div>
-            <?php
-                endif;
-            ?>
-
-            <?php 
-                    $user_query = 'SELECT userID FROM events WHERE eventID='. $eventID;
-                    $user_result = mysql_query($user_query);
-                    $row = mysql_fetch_array($user_result);
-                    $owner = $row[0];
-
-                    if(is_owner($owner) || is_admin()) :
-            ?>
-
-                <div class = "details">
-                <a href="edit.php?eventID=<?php echo $eventID; ?>" class="edit" id="edit-event">
-                <span class = "word">Edit Event Details 
-                </a></span>
-
-                <a href="delete_event.php?eventID=<?php echo $eventID; ?>">
-                   <span class = "word">Delete Event</a></span></div>
-
-            <?php
-                endif;
-            ?>
-
-                <div class = "details">
-                <span>Comments: <span class = "val tags">
-                <?php
-                   foreach($comments as $comment => $user) 
-                    echo '<br><br>'.$comment." [".$user."]";
-                ?>
-                </span></span></div>
-
-                    <?php 
-                if(is_logged_in()) :
-                  ?>
-
-                  <form method="post" action="<?php ed(); ?>submit_comment.php?eventID=<?php echo $eventID; ?>">
-                  <textarea name="comment" cols="40" rows="3">Enter your comments here...</textarea><br>
-                     <input type="submit" value="Add Comment" />
-                     </form>
-
-                     <?php
-                     endif;
-                     ?>
+                <?php  if(is_logged_in()) : ?>
+                     <div class="details" id="addtag">
+                     <a class="fake" id="fancy-login">
+                     <span class="word">Add Tags</span>
+                            <div class="login-form">
+                                <label for="tag-list">Tags: (Comma separated tags)</label>
+                                <input type="text" name="tag-list" id="tag-list">
+                                <input type="button" value="Add" id="fancy-tag-button">
+                            </div>
+                        </a>
+                    </div>
+                <?php endif; ?>
+            
+                <?php if(is_owner($eventID) || is_admin()) : ?>
+                    <div class = "details">
+                    <a href="edit.php?eventID=<?php echo $eventID; ?>" class="edit" id="edit-event">
+                    <span class = "word">Edit Event Details 
+                    </a></span></div>
+                <?php endif; ?>
                 
             </div>
+
+            <h3 class="comment_label">Comments</h3>
+            <div class="event_comments">
+                <?php
+                    if (count($comments) == 0) :
+                        echo '<h3>No comments yet, be the first!</h3>';
+                    else :
+                        foreach ($comments as $row) : ?>
+                            <div class="comment">
+                                <div class="meta">
+                                    <span class="user"><?php echo $row[displayName]; ?></span>
+                                    <span class="timestamp"><?php echo time_to_relative($row['timestamp']); ?></span>
+                                    <?php
+                                        if (is_owner($eventID) || is_admin()) {
+                                            $href = "owner={$row[3]}";
+                                            $href .= "&commentID={$row[0]}";
+                                            $href .= "&eventID=$eventID";
+                                            echo '<span class="delete">';
+                                            echo '<a class="delete_comment" href="'.$href.'">Delete</a>';
+                                            echo '</span>';
+                                        }
+                                    ?>
+                                </div>
+                                <div class="content">
+                                    <?php echo $row[comment]; ?>
+                                </div>
+                            </div> <?php
+                        endforeach;
+                    endif;
+                ?>
+                
+                <?php if(is_logged_in()) : ?>
+                    <div class="comment_form">
+                        <form id="comment">
+                            <textarea name="comment" cols="60" rows="2">Enter your comment here...</textarea><br>
+                            <input type="submit" value="Add Comment" />
+                        </form>
+                    </div>
+                <?php else : ?>
+                    <div class="comment_form">  
+                        <h3 class="info">Log in to leave comments</h3>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
+        
+        <script type="text/javascript">
+            $(document).ready ( function () {
+                var self = window.location.href;
+                var textarea = $('textarea[name="comment"]');
+                var default_val = textarea.val();
+                
+                textarea.focus ( function () {
+                    if ($(this).val() == default_val) $(this).val('');
+                }).blur ( function () {
+                    if ($(this).val() == '' || $(this).val() == ' ') $(this).val(default_val);
+                });
+                
+                $('#comment').submit( function () {
+                    if (textarea.val() == default_val && textarea.val() != '') return false;
+                    add_comment(textarea,<?php echo $eventID; ?>);
+                    return false;
+                });
+                
+                $('.delete_comment').click ( function () {
+                    var data_str = 'action=ajax&function=delete_comment&'+$(this).attr('href');
+                    delete_comment(data_str);
+                    return false;
+                });
+                
+                var add_comment = function (textarea,event_id) {
+                    var comment_text = textarea.val();
+                    
+                    $.ajax({
+                        type:'post',
+                        url:'functions/ajax.php',
+                        data:({action:'ajax',function:'add_comment',eventID:event_id,comment:comment_text}),
+                        success: function (r) {
+                            r = parseInt(r);
+                            if (r == 1) window.location = self;
+                            if (r == 0) return false;
+                        }
+                    });
+                    
+                    return false;
+                }
+
+                var delete_comment = function (dataStr) {
+                    $.ajax({
+                        type:'post',
+                        url:'functions/ajax.php',
+                        data:dataStr,
+                        success: function (r) {
+                            r = parseInt(r);
+                            if (r == 1) window.location = self;
+                            if (r == 0) return false;
+                        }
+                    });
+                    
+                    return false;
+                }
+            });
+        </script>
+                
         
 <?php 
     include 'sidebar.php';

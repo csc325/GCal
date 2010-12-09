@@ -39,6 +39,26 @@
         return 1;
     }
     
+    function attend_event($args) {
+        $eventID = addslashes($args[eventID]);
+        $userID = addslashes($args[userID]);
+        $query = "INSERT INTO attendees (userID, eventID) VALUES ($userID, $eventID);";
+        $result = mysql_query($query);
+        $query2 = "UPDATE events SET popularity = popularity + 1 WHERE eventID = $eventID;";
+        $result2 = mysql_query($query2);
+        return ($result && $result2) ? 1 : 0;
+    }
+    
+    function cancel_attend($args) {
+        $eventID = addslashes($args[eventID]);
+        $userID = addslashes($args[userID]);
+        $query = "DELETE FROM attendees WHERE userID = $userID AND eventID = $eventID;";
+        $result = mysql_query($query);
+        $query2 = "UPDATE events SET popularity = popularity - 1 WHERE eventID = $eventID;";
+        $result2 = mysql_query($query2);
+        return ($result && $result2) ? 1 : 0;
+    }
+    
     
     /*  SESSION & USER ---------------------------------------------------- */
     
@@ -82,25 +102,5 @@
                 if(mysql_num_rows($result) > 0) return true;
         }
         return false;
-    }
-    
-    function attend_event($args) {
-        $eventID = addslashes($args[eventID]);
-        $userID = addslashes($args[userID]);
-        $query = "INSERT INTO attendees (userID, eventID) VALUES ($userID, $eventID);";
-        $result = mysql_query($query);
-        $query2 = "UPDATE events SET popularity = popularity + 1 WHERE eventID = $eventID;";
-        $result2 = mysql_query($query2);
-        return ($result && $result2) ? 1 : 0;
-    }
-    
-    function cancel_attend($args) {
-        $eventID = addslashes($args[eventID]);
-        $userID = addslashes($args[userID]);
-        $query = "DELETE FROM attendees WHERE userID = $userID AND eventID = $eventID;";
-        $result = mysql_query($query);
-        $query2 = "UPDATE events SET popularity = popularity - 1 WHERE eventID = $eventID;";
-        $result2 = mysql_query($query2);
-        return ($result && $result2) ? 1 : 0;
     }
 ?>
