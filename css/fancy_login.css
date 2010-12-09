@@ -24,6 +24,7 @@ a#fancy-login {
         -webkit-border-radius: 10px;
         z-index: 3;
     }
+    
     a#fancy-login div.login-form {
         display: none;
         top: 20px;
