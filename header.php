@@ -11,7 +11,7 @@
     <script type="text/javascript" src="<?php ed(); ?>js/fancy_login.php"></script>
     <script type="text/javascript" src="<?php ed(); ?>js/fancy_tag_add.php"></script>
     <script type="text/javascript" src="<?php ed(); ?>js/main.php"></script>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> 
 </head>
 <body>
