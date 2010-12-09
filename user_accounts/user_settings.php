@@ -1,6 +1,11 @@
 <?php
     include '../global.php';
     include '../header.php';
+
+if ($_GET['sent'] == 't') 
+  echo "<h1 class = 'head'>Your password has been successfully changed \n</h1>";
+elseif ($_GET['sent'] == 'f') 
+  echo "<h1 class = 'head'> Failed to change password</h1>";
 ?>
 
 
@@ -43,7 +48,6 @@ $(document).ready(function()  {
 }
 </style>
 
-
 <div class="body">
     <div class="col large">
 
@@ -74,6 +78,7 @@ $(document).ready(function()  {
 	  </tr>
 	</table>
 	</td>
+
 	<td name="forms" style="padding-top:25px;padding-left:50px">
 	  <div id="passwordForm">
 	  <?php include 'change_password_form.php';?>

@@ -1,8 +1,6 @@
 <?php 
     require_once 'global.php';
-    if($_POST['action'] != 'update') {
-        echo '<div class="col small side">';
-    }
+    if($_POST['action'] != 'update') echo '<div class="col small side">';
 ?>
     <div class="unit">
         <h3>Search Events</h3>
@@ -59,7 +57,7 @@
             <?php
                 $user = get_user_info();
                 if ($user[accessLevel] == 3)
-                    echo '<a href="'.ed(false).'categories.php">(manage)</a>';
+                    echo '<a href="'.ed(false).'categoryAdmin2.php">(manage)</a>';
             ?>
         </h3>
         <ul>
@@ -77,11 +75,11 @@
     <div class="unit">
         <h3>
             Locations
-            <?php
+            <!-- <?php
                 $user = get_user_info();
                 if ($user[accessLevel] == 3)
                     echo '<a href="'.ed(false).'categories.php">(manage)</a>';
-            ?>
+            ?> -->
         </h3>
         <ul>
             <?php
@@ -102,7 +100,7 @@
             $tags_q = 'SELECT COUNT(*), tags.tag 
                        FROM tags, events 
                        WHERE tags.eventID = events.eventID 
-                         AND events.startDate >= CURDATE()
+                         AND events.start >= NOW()
                        GROUP BY tag';
             $tags_r = mysql_query($tags_q);
             $tags_array = array();

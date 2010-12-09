@@ -52,6 +52,11 @@ div.event_comments {
             float: left;
             width: 463px;
         }
+            
+            div.comment div.content p {
+                margin: 0;
+                line-height: 19px;
+            }
 
 div.comment_form {
     float: left;

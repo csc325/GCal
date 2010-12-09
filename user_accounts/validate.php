@@ -19,7 +19,7 @@
                 require_once '../header.php';
                 echo "<div class = 'body'>";
                 echo "<div class = 'col large'>";
-            
+                
                 echo "<h1 class='head'>Welcome $row[1]!</h1>";
                 echo '<p>Your account has been successfully activated! Now 
                       you\'ll be able to <a href="'.ed(false).'forms.php">add 

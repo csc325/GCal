@@ -59,6 +59,14 @@
         return ($result && $result2) ? 1 : 0;
     }
     
+    function flag_event($args) {
+        $eventID = addslashes($args[eventID]);
+        $flagged = intval($args[flagged]) + 1;
+        $query = "UPDATE events SET flagged = $flagged WHERE eventID = $eventID";
+        mysql_query($query);
+        return $result ? 1 : 0;
+    }
+    
     
     /*  SESSION & USER ---------------------------------------------------- */
     
