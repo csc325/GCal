@@ -98,9 +98,14 @@
             
                 <?php if(is_owner($eventID) || is_admin()) : ?>
                     <div class = "details">
-                    <a href="edit.php?eventID=<?php echo $eventID; ?>" class="edit" id="edit-event">
-                    <span class = "word">Edit Event Details 
-                    </a></span></div>
+                        <a href="edit.php?eventID=<?php echo $eventID; ?>" class="edit" id="edit-event">
+                            Edit Event Details 
+                        </a>
+                        &nbsp;-&nbsp;
+                        <a href="delete_event.php?eventID=<?php echo $eventID; ?>">
+                            Delete Event
+                        </a>
+                    </div>
                 <?php endif; ?>
                 
             </div>
@@ -128,7 +133,7 @@
                                     ?>
                                 </div>
                                 <div class="content">
-                                    <?php echo $row[comment]; ?>
+                                    <p><?php echo $row[comment]; ?></p>
                                 </div>
                             </div> <?php
                         endforeach;
