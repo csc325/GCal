@@ -37,7 +37,7 @@
 <div id="main">
     <div class="head">
         <div class="col large">
-            <a href="<?php ed(); ?>"><h1><?php if($_SESSION['css']==1) echo 'GRINNELL OPEN CALENDAR';?></h1></a>
+            <a href="<?php ed(); ?>"><h1><?php if($_SESSION['css']==1|| $_SESSION['css']==NULL) echo 'GRINNELL OPEN CALENDAR';?></h1></a>
         </div>
         
         <div class="col small" id="login">
