@@ -5,8 +5,23 @@
 
 body {
     font-family:helvetica,arial;
-    background: url('../../img/dots.jpg') left top repeat #ccc;
+    background: url('../../img/dots.jpg') center top repeat #ccc;
     background-attachment: fixed;
+}
+
+table {
+    float: left;
+    clear: both;
+}
+
+td {
+    padding: 3px;
+    width: 110px;
+}
+
+button#update {
+    float: left;
+    clear: both;
 }
 
 p {
@@ -44,8 +59,14 @@ div#main {
     -moz-box-shadow: 0px 0px 20px #888;
     -webkit-box-shadow: 0px 0px 20px #888;
 }
+    
+div.head {
+    float: left;
+    width: 960px;
+    padding: 30px 0;
+}
 
-div.head, div.body, div.foot {
+div.body, div.foot {
     float: left;
     width: 960px;
     padding: 15px 0;
@@ -56,8 +77,7 @@ div.head, div.foot {
 }
 
 div.head {
-    background: url('../../img/header.jpg') center bottom no-repeat;
-    padding: 0px;
+    background: url('../../img/header.jpg') right center no-repeat;
 }
 
 div.col {
@@ -72,9 +92,8 @@ div.col.full {
 }
 
 div.col.large {
-    margin: 8px;
+    margin: 0 15px;
     width: 630px;
-    height: 30px;
 }
 
 div.col.third {
@@ -107,12 +126,14 @@ a:hover {
 /* -------------------------------------- */
 
 div.head h1 {
+    text-indent: 20px;
+    font-size: 20px;
     color: white;
 }
 
 div#login {
     position: absolute;
-    top: 10px;
+    top: 25px;
     float: right;
     height: 26px;
     text-align: center;
