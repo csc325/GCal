@@ -20,7 +20,7 @@
 	    $_SESSION['email'] = $row['email'];
             $_SESSION['displayName'] = $row['displayName'];
             $_SESSION['userID'] = $row['userID'];
-            
+            $_SESSION['css'] = $row['css']; 
             $return = 1;
         } elseif ($row[confirmed] != null) {
             $return = 2;

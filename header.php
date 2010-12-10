@@ -1,11 +1,28 @@
 <head>
     <META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Grinnell Open Calendar</title>
-    <link rel="stylesheet" type="text/css" href="/~liujingt/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="<?php ed(); ?>css/home.css">
-    <link rel="stylesheet" type="text/css" href="<?php ed(); ?>css/ui-lightness/jquery-ui-1.8.6.custom.css">
-    <link rel="alternate"  type="application/rss+xml"  title="RSS"  href="generateRSS.php" />
+    <?php
+    if($_SESSION['css']){
+	switch ($_SESSION['css'])
+        {
+        case 1:
+  	echo '<link rel="stylesheet" type="text/css" href="/~liujingt/css/reset.css">
+  	      <link rel="stylesheet" type="text/css" href="';ed();echo 'css/home.css">
+  	      <link rel="stylesheet" type="text/css" href="';ed();echo 'css/ui-lightness/jquery-ui-1.8.6.custom.css">';
+        break;
+        case 2:
+  	echo '<link rel="stylesheet" type="text/css" href="/~liujingt/css/reset.css">
+  	      <link rel="stylesheet" type="text/css" href="';ed();echo 'css/Space/home.css">
+  	      <link rel="stylesheet" type="text/css" href="';ed();echo 'css/Space/ui-lightness/jquery-ui-1.8.6.custom.css">';
+        break;
+	}
+    }
+    else {echo '<link rel="stylesheet" type="text/css" href="/~liujingt/css/reset.css">
+  	       <link rel="stylesheet" type="text/css" href="';ed();echo 'css/home.css">
+  	       <link rel="stylesheet" type="text/css" href="';ed();echo 'css/ui-lightness/jquery-ui-1.8.6.custom.css">';}
 
+    ?>
+    <link rel="alternate"  type="application/rss+xml"  title="RSS"  href="generateRSS.php" />
     <script type="text/javascript" src="<?php ed(); ?>js/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="<?php ed(); ?>js/jquery-ui-1.8.6.custom.min.js"></script>
     <script type="text/javascript" src="<?php ed(); ?>js/fancy_login.php"></script>
@@ -20,7 +37,7 @@
 <div id="main">
     <div class="head">
         <div class="col large">
-            <a href="<?php ed(); ?>"><h1>GRINNELL OPEN CALENDAR</h1></a>
+            <a href="<?php ed(); ?>"><h1><?php if($_SESSION['css']==1) echo 'GRINNELL OPEN CALENDAR';?></h1></a>
         </div>
         
         <div class="col small" id="login">
