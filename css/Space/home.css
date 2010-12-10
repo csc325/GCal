@@ -1,0 +1,259 @@
+@import url('fancy_login.css');
+@import url('sidebar.css');
+@import url('event_listing.css');
+@import url('comments.css');
+
+body {
+    font-family:helvetica,arial;
+    background: url('../../img/dots.jpg') left top repeat #ccc;
+    background-attachment: fixed;
+}
+
+p {
+    font-size: 15px;
+    line-height: 21px;
+    margin: 1em 0;
+}
+
+.info {
+    font-style: italic;
+    font-weight: bold;
+    color: #666;
+}
+
+h1.head {
+    font-size: 26px;
+    line-height: 26px;
+    margin: 0.1em 0 0.5em 0;
+}
+
+h2.warning {
+    margin: 0 0 0.5em 0;
+    color: firebrick;
+}
+
+div.wrap {
+    margin: 0 auto;
+    width: 960px;
+}
+
+div#main {
+    float: left;
+    width: 960px;
+    background: white;
+    -moz-box-shadow: 0px 0px 20px #888;
+    -webkit-box-shadow: 0px 0px 20px #888;
+}
+
+div.head, div.body, div.foot {
+    float: left;
+    width: 960px;
+    padding: 15px 0;
+}
+
+div.head, div.foot {
+    background: #e2e2e2;
+}
+
+div.head {
+    background: url('../../img/header.jpg') center bottom no-repeat;
+    padding: 0px;
+}
+
+div.col {
+    position: relative;
+    display: inline;
+    float: left;
+}
+
+div.col.full {
+    margin: 0 15px;
+    width: 930px;
+}
+
+div.col.large {
+    margin: 8px;
+    width: 630px;
+    height: 30px;
+}
+
+div.col.third {
+    margin: 0 15px;
+    width: 290px;
+}
+
+div.col.small {
+    margin: 0 15px;
+    width: 270px !important;
+}
+
+.small {
+    font-size: 12px;
+}
+
+a {
+    color: firebrick;
+    text-decoration:none;
+}
+
+a:visited {
+    color: maroon;
+}
+
+a:hover {
+    color: crimson;
+}
+
+/* -------------------------------------- */
+
+div.head h1 {
+    color: white;
+}
+
+div#login {
+    position: absolute;
+    top: 10px;
+    float: right;
+    height: 26px;
+    text-align: center;
+    background: rgba(100,100,100,0.8);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+    div#login h3 {
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 26px;
+        color: #ddd;
+    }
+    
+        div#login h3 span.user {
+            font-size: 12px;
+            color: white;
+        }
+    
+        div#login h3 a {
+            color: crimson;
+        }
+        
+        div#login h3 a:hover {
+            color: crimson;
+        }
+
+/* -------------------------------------- */
+
+
+div.body div.bottom {
+    float: left;
+    width: 630px;
+}
+
+    div.body div.bottom a#more_events {
+        float: right;
+    }
+    
+
+/* ------------------------------------------ */
+
+div.foot {
+    font-size: 13px;
+}
+
+/* ------------------------------------------ */
+
+#event_name_label {
+    position: relative;
+}
+
+div.form-unit {
+    float: left;
+    width: 260px;
+    margin: 10px 0;
+}
+
+div.form-unit.long {
+    width: 630px;
+}
+
+    div.form-unit span.lb {
+        float: left;
+        width: 145px;
+        margin: 0 0 5px 115px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #888;
+    }
+    
+    div.form-unit span.tt {
+        float: left;
+        clear: both;
+        margin: 0 0 5px 115px;
+        font-size: 9px;
+        color: #ccc;
+    }
+        
+        div.form-unit span.tt.warning {
+            font-size: 12px;
+            color: firebrick;
+        }
+    
+    div.form-unit span.alert {
+        float: left;
+        clear: both;
+        margin: 0 0 5px 115px;
+        font-size: 10px;
+        font-weight: bold;
+        color: firebrick;
+    }
+
+    div.form-unit label {
+        float: left;
+        width: 100px;
+        padding: 3px 0;
+        margin: 0 15px 0 0;
+        font-size: 12px;
+        font-weight: bold;
+        color: #888;
+        text-align: right;
+    }
+    
+        div.form-unit label.radio {
+            width: auto;
+            font-weight: normal;
+            color: #444;
+        }
+    
+        div.form-unit label.small {
+            font-weight: normal;
+            color: #444;
+        }
+    
+    div.form-unit input, div.form-unit textarea, div.form-unit select {
+        float: left;
+    }
+        
+        div.form-unit select {
+            margin: 0 10px 0 0;
+        }
+    
+        div.form-unit input[type="text"], div.form-unit input[type="password"] {
+            width: 250px;
+        }
+        
+        div.form-unit input.other {
+            width: 200px;
+        }
+        
+        div.form-unit input.date {
+            width: 90px;
+        }
+        
+        div.form-unit input.time {
+            width: 90px;
+        }
+    
+        div.form-unit textarea {
+            width: 515px;
+            height: 100px;
+        }

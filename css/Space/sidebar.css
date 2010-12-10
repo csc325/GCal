@@ -1,0 +1,49 @@
+div.col.small.side {
+    position: relative;
+    top: -15px;
+    margin: 0;
+    padding: 15px 15px 0 15px;
+    background: #f3f3f3;
+}
+    
+    div.side div.unit {
+        float: left;
+        width: 270px;
+        margin: 0 0 15px 0;
+    }
+    
+    div.side div.unit h3 {
+        margin: 0 0 5px 0;
+        font-size: 15px;
+        color: #666;
+    }
+    
+    div.side div.unit ul {
+        margin: 0 0 0 1.5em;
+        list-style-type: square;
+    }
+    
+        div.side div.unit ul li {
+            list-style-type: square;
+            font-size: 14px;
+            line-height: 18px;
+        }
+    
+    
+    /*  My events */
+    div.side div.unit.my-events { 
+        position: relative;
+        left: -15px; top: -15px;
+        width: 270px;
+        margin: 10px 0 0 0;
+        padding: 15px;
+        background: #e7e7e7;
+    }
+    
+    
+    /*  What's happening... */
+    div.side div.unit.happening_links { }
+    
+        div.side div.unit.happening_links li {
+            /* font-weight: bold; */
+        }
