@@ -1,0 +1,19 @@
+body  {
+    font-family:arial,helvetica,sans-serif;
+    font-size:12px;
+} 
+
+table {
+    float: left;
+    clear: both;
+}
+
+td, th {
+    padding: 5px;
+    width: 80px;
+}
+
+button {
+    float: left;
+    clear: both;
+]

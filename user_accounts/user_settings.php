@@ -1,6 +1,11 @@
 <?php
     include '../global.php';
     include '../header.php';
+
+if ($_GET['sent'] == 't') 
+  echo "<h1 class = 'head'>Your password has been successfully changed \n</h1>";
+elseif ($_GET['sent'] == 'f') 
+  echo "<h1 class = 'head'> Failed to change password</h1>";
 ?>
 
 
@@ -43,7 +48,6 @@ $(document).ready(function()  {
 }
 </style>
 
-
 <div class="body">
     <div class="col large">
 
@@ -52,30 +56,41 @@ $(document).ready(function()  {
       <tr>
 	<td id="options" height="315px" width="150px" >
         <table id= >
-	  <tr height="10px" id="password" OnMouseOver="this.style.cursor='e-resize'">
-	    <td style="color:#700000;font-family:arial,sans-serif">
-	      <p>Change Your Password</p>
+	  <tr height="10px" id="password" OnMouseOver="this.style.cursor='pointer'">
+	    <td style="color: firebrick;font-family:arial,sans-serif">
+	      <p><b>Change Your Password</b></p>
 	    </td>
 	  </tr>
-	  <tr height="10px" id="displayName" OnMouseOver="this.style.cursor='e-resize'">
-	    <td style="color:#700000;font-family:arial,sans-serif">
-	      <p>Change Your Display Name</p>
+
+          <!-- 
+          I don't know if people should be able to do this...
+	  <tr height="10px" id="displayName" OnMouseOver="this.style.cursor='pointer'">
+	    <td style="color: firebrick;font-family:arial,sans-serif">
+	      <p><b>Change Your Display Name</b></p>
 	    </td>
 	  </tr>
-	  <tr height="10px" id="removeAccount" OnMouseOver="this.style.cursor='e-resize'">
-	    <td style="color:#700000;font-family:arial,sans-serif">
-	      <p>Delete Account</p>
+          -->
+
+	  <tr height="10px" id="removeAccount" OnMouseOver="this.style.cursor='pointer'">
+	    <td style="color: firebrick;font-family:arial,sans-serif">
+	      <p><b>Delete Account</b></p>
 	    </td>
 	  </tr>
 	</table>
 	</td>
+
 	<td name="forms" style="padding-top:25px;padding-left:50px">
 	  <div id="passwordForm">
 	  <?php include 'change_password_form.php';?>
 	  </div>
-	  <div id="dispNameForm">
+	  
+          <!-- 
+          Display name is tied to email; probably shouldn't be able to change
+          <div id="dispNameForm">
 	  <?php include 'change_disp_name.php';?>
 	  </div>
+          -->
+
 	  <div id="rmvAccountForm">
 	  <?php include 'remove_account.html';?>
 	  </div>

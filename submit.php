@@ -6,7 +6,7 @@
     
     // get variables from form page
     foreach($_POST as $field_name => $value) $$field_name = addslashes($value);
-    
+echo $eventID;
     // Category and Location processing
     if ($location == 'other') {     
       $location = $location_other;
@@ -103,5 +103,5 @@
         }
     }
     
-    header('Location: '.ed(false).'forms.php?s=t');
+    header('Location: '.ed(false).'detailView.php?eventID='.$eventID);
 ?>
