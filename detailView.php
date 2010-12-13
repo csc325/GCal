@@ -107,7 +107,52 @@
                         </a>
                     </div>
                 <?php endif; ?>
-                
+
+                    //Display 'like' feature from facebook
+         <div class="details" id="facebook" padding="20px">
+
+        	<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+		<fb:like href="http://www.cs.grinnell.edu/~knolldug/GCal/detailView.php?eventID=<?php echo $eventID;?>" show_faces="true" width="450" 		font="arial"></fb:like>
+                </div>
+                <div class="details" id="googleCal">
+                <?php
+                    //CREATE GOOGLE CAL BUTTON
+
+                    //Cleans up CGI characters from event input
+                    function encodeURIComponent($str) {
+                    $revert = array('%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')');
+                        return strtr(rawurlencode($str), $revert); }
+
+                    //Takes the date and converts to the format readable by google calender
+                    function date_to_string($array) {
+                      $startingDate = explode("-", $array[0][2]);
+                      $startingTime = explode(":", $array[0][3]);
+                      $endingDate = explode("-", $array[0][4]);
+                      $endingTime = explode(":", $array[0][5]);
+                      $googleDate = sprintf("%04d%02d%02dT%02d%02d00Z/%04d%02d%02dT%02d%02d00Z",
+                                            $startingDate[1], $startingDate[1], $startingDate[2],
+                                            ($startingTime[0] + 6), $endingTime[1],
+                                            $endingDate[0], $endingDate[1], $endingDate[2],
+                                           ($endingTime[0] + 06), $endingTime[1]);
+                      return $googleDate;
+                    }
+
+                    //CREATE THE BUTTON BY APPENDING THE ELEMENTS TOGETHER
+                    $url = 'http://www.google.com/calendar/event?action=TEMPLATE';
+                    $url .= "&text=" . encodeURIComponent($eventArray[0][0]);
+                    $url .= "&dates=" . date_to_string($eventArray);
+                    $url .= "&details=" . encodeURIComponent($eventArray[0][1]);
+                    $url .= "&location=" . encodeURIComponent($eventArray[0][6]);
+                    $url .= "&trp=false";
+                    $url .= '&sprop=www.grinnellopencalender.com';
+                    $url .= "&sprop=name:" . encodeURIComponent($eventArray[0][8]);
+                    $button = "<img src=\"http://www.google.com/calendar/images/ext/gc_button2.gif\" border=0>";
+                    $html = '<a href="' . $url . '" >' . $button . '</a>';
+                    echo $html;
+                    ?>
+                </div>
+         
+
             </div>
 
             <h3 class="comment_label">Comments</h3>
