@@ -130,7 +130,7 @@
                       $endingDate = explode("-", $array[0][4]);
                       $endingTime = explode(":", $array[0][5]);
                       $googleDate = sprintf("%04d%02d%02dT%02d%02d00Z/%04d%02d%02dT%02d%02d00Z",
-                                            $startingDate[1], $startingDate[1], $startingDate[2],
+                                            $startingDate[0], $startingDate[1], $startingDate[2],
                                             ($startingTime[0] + 6), $endingTime[1],
                                             $endingDate[0], $endingDate[1], $endingDate[2],
                                            ($endingTime[0] + 06), $endingTime[1]);
