@@ -37,7 +37,7 @@
      function get_basic_search_ids () {
         $criteria = addslashes($_GET["input"]);
         $terms = explode(" ", $criteria);
-
+        
         $input = array();
         $input[] = 'events.endDate >= "'.date('Y-m-d').'"';
         $input[] = "locations.locationID = events.locationID";
@@ -205,6 +205,7 @@
         if ($eventIDs === false) return false;
         $IDs = array();
         $results = array();
+        $oderby = false;
        
         $query = "SELECT events.eventName,
                          events.description,
@@ -232,13 +233,27 @@
         $query .= implode(" OR ", $IDs);
         $query .= ") ";
        
-        if ($sort == 'time') $query .= 'ORDER BY events.startDate ASC';
-        if ($sort == 'popularity') $query .= 'ORDER BY events.startDate ASC, events.popularity DESC';
-        if ($sort == 'location') $query .= 'ORDER BY events.startDate ASC, locations.locationName ASC';
-        if ($sort == 'category') $query .= 'ORDER BY events.startDate ASC, categories.categoryName ASC';
+        if ($sort == 'time') {
+          $query .= 'ORDER BY events.startDate ASC, events.startTime';
+          $orderby = true;
+        }
+        if ($sort == 'popularity') {
+          $query .= 'ORDER BY events.startDate ASC, events.popularity DESC, events.startTime';
+          $orderby = true;
+        }
+        if ($sort == 'location') {
+          $query .= 'ORDER BY events.startDate ASC, locations.locationName ASC, events.startTime';
+          $orderby = true;
+        }
+        if ($sort == 'category') {
+          $query .= 'ORDER BY events.startDate ASC, categories.categoryName ASC, events.startTime';
+          $orderby = true;
+        }
+        if(!$orderby){
+          $query .= 'ORDER BY events.startTime';
+        }
        
         $query .= ' LIMIT '.$limit;
-       
         $result = mysql_query($query);
         
         if (mysql_num_rows($result) != 0) {
