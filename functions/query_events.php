@@ -211,7 +211,7 @@
           $orderby = true;
         }
         if(!$orderby){
-          $query .= 'ORDER BY ,events.startTime';
+          $query .= 'ORDER BY events.startTime';
         }
        
         $query .= ' LIMIT '.$limit;
