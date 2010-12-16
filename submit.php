@@ -40,6 +40,10 @@ echo $eventID;
     $end_time = $end_temp[1];
     $start = $start_date.' '.$start_time;
     $end = $end_date.' '.$end_time;
+    if(($start < $right_now) || ($end < $right_now) || ($end < $start)) {
+      header('Location: '.ed(false).'forms.php?s=time');
+      exit();
+    }    
 
     // sanitize description box
     $description = htmlspecialchars($description);

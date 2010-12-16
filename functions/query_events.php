@@ -180,6 +180,7 @@
         
         $query = "SELECT events.eventID FROM events, locations, categories ";
         $query .= "WHERE " . implode(" AND ", $input) . ";";
+        echo $query;
 
         $resource = mysql_query($query);
        
