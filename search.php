@@ -127,6 +127,7 @@
                                             $('#end_date').val($(this).val());
                                         }
                                      } });
+        
         // initializes calender picker for #end_date
         $('#end_date').datepicker({dateFormat:"M d, yy",
                                    numberOfMonths:1,

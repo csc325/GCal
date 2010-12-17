@@ -3,6 +3,7 @@
     require_once 'user_session.php';
     require_once 'query_events.php';
     require_once 'display_events.php';
+    require_once 'filter_functions.php';
     
     function time_to_relative ($t) {
         $t = strtotime($t);

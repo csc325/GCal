@@ -1,0 +1,118 @@
+
+div.filter {
+    position: absolute;
+    top: 80px; left: -160px;
+    width: 130px;
+    margin: 0;
+    padding: 15px 15px 0 15px;
+    float: left;
+    background: #f3f3f3;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    z-index: 0;
+}
+
+div.filter {
+    position: relative;
+    top: 0; left: 0;
+    padding: 0;
+    width: 210px;
+}
+
+    div.filter h3 {
+        float: left;
+        position: relative;
+        top: -15px; left: -45px;
+        margin: 0 0 -5px 0;
+        padding: 10px 15px;
+        width: 160px;
+        height: 16px;
+        background: #e8e8e8;
+        -moz-border-radius-topleft: 8px;
+        -moz-border-radius-bottomleft: 8px;
+        -webkit-border-top-left-radius: 8px;
+        -webkit-border-bottom-left-radius: 8px;
+    }
+    
+    div.filter h3 {
+        display: none;
+    }
+    
+        div.filter h3 span.arrow {
+            position: absolute;
+            top: 0px; left: 0;
+            float: left;
+            margin: 0;
+            padding: 7px 0 13px 0;
+            width: 30px;
+            height: 16px;
+            font-size: 30px;
+            font-family: 'book antiqua','times new roman';
+            line-height: 16px;
+            text-align: center;
+            color: #999;
+            background: #ddd;
+            cursor: pointer;
+            -moz-border-radius-topleft: 8px;
+            -moz-border-radius-bottomleft: 8px;
+            -webkit-border-top-left-radius: 8px;
+            -webkit-border-bottom-left-radius: 8px;
+        }
+        
+        div.filter h3 span.text {
+            position: absolute;
+            top: 1px; left: 45px;
+            line-height: 36px;
+        }
+
+    div.filter span.cur {
+        float: left;
+        width: 100%;
+        margin: 0 0 15px 0;
+        font-size: 12px;
+        font-weight: bold;
+        color: #777;
+    }
+
+    div.filter ul {
+        width: 100%;
+        float: left;
+        margin: 0 0 15px 0;
+    }
+    
+    div.filter ul li {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    
+        div.filter ul li a.remove {
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 20px;
+        }
+        
+        div.filter ul li div.indicator {
+            float: left;
+            margin: 5px 5px 5px 0;
+            width: 10px;
+            height: 10px;
+            background: #e6e6e6;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+        
+            div.filter ul li.cur div.indicator {
+                font-size: 10px;
+                font-weight: bold;
+                line-height: 10px;
+                color: maroon;
+                text-align: center;
+                background: maroon;
+            }
+    
+    div.filter input[type=text] {
+        width: 180px;
+        margin: 0 0 5px 0;
+    }

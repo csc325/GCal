@@ -51,7 +51,9 @@
         </ul>
     </div>
     
-    <div class="unit">
+    <?php include 'filter.php'; ?>
+    
+    <!-- <div class="unit">
         <h3>
             Categories
             <?php
@@ -75,11 +77,11 @@
     <div class="unit">
         <h3>
             Locations
-            <!-- <?php
+            <?php
                 $user = get_user_info();
                 if ($user[accessLevel] == 3)
                     echo '<a href="'.ed(false).'categories.php">(manage)</a>';
-            ?> -->
+            ?>
         </h3>
         <ul>
             <?php
@@ -91,7 +93,7 @@
                 }
             ?>
         </ul>
-    </div>
+    </div> -->
     
     <div class="unit tag_cloud">
         <h3>Tag Cloud</h3>

@@ -92,6 +92,6 @@ $(document).ready ( function () {
     }, function () {
         $(this).removeClass('hover');
     }).click ( function () {
-        window.location = "<?php ed(); ?>user_accounts/change_password_form.php";
+        window.location = "<?php ed(); ?>user_accounts/forgot_password.php";
     });
 });

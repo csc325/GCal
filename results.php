@@ -20,11 +20,16 @@
         $eventIDs = array();
     }
     
-    $events = get_events($eventIDs,$sort,100);
+    $events = get_events($eventIDs,$sort,20);
 ?>
-
+    
     <div class="body">
+        
         <div class="col large">
+        
+        <?php if($_GET['delete'] == 't') : ?>
+        <h1 class="head info">Event deleted successfully</h1>
+        <?php endif; ?>
         
         <div class="sortby">
             <span style="float: left;">

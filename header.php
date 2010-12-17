@@ -34,6 +34,12 @@
 <body>
 
 <div class="wrap">
+
+<?php
+    if (preg_match('/results.php|index.php/',$_SERVER['SCRIPT_NAME']))     
+        // include 'filter.php';
+?>
+
 <div id="main">
     <div class="head">
         <div class="col large">

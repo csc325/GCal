@@ -7,27 +7,28 @@
         $query = "SELECT * FROM users WHERE users.confirmed = $conf_num;";
         $result = mysql_query($query);
         
-        if(!have_error($result, $query)) {
+        if($result) {
             $row = mysql_fetch_array($result,MYSQL_ASSOC);
             
             if($row[confirmed] == $conf_num) {
+                $query = "UPDATE users SET confirmed = null WHERE confirmed = $conf_num";
+                $result = mysql_query($query);
+                
                 $_POST['username'] = $row[displayName];
                 $_POST['password'] = $row[password];
-                $_POST['static'] = true;
-                $login = require_once 'login_processing.php';
+                $_POST['static'] = 'true';
+                require_once 'login_processing.php';
             
                 require_once '../header.php';
                 echo "<div class = 'body'>";
                 echo "<div class = 'col large'>";
                 
-                echo "<h1 class='head'>Welcome $row[1]!</h1>";
+                echo "<h1 class='head'>Welcome $row[displayName]!</h1>";
                 echo '<p>Your account has been successfully activated! Now 
                       you\'ll be able to <a href="'.ed(false).'forms.php">add 
                       events</a> for all to see, and view private Grinnell 
                       only events!</p>';
                 echo '<p>As always, remember that SELF GOV IS LOVE.</p>';
-                
-                $result = mysql_query("UPDATE users SET confirmed = null WHERE confirmed = $conf_num;");
             } else {
                 require_once '../header.php';
                 echo "<div class = 'body'>";

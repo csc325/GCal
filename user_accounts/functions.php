@@ -61,54 +61,40 @@
     function passwordReset ($email){
         // create password and connect to database
         $new_password = randomPasswordGen();
-        include '../functions/connection.php';
-	$email = mysql_real_escape_string($email);
+	    $email = mysql_real_escape_string($email);
 
         // Query for email in database
-        $query = "SELECT * FROM users WHERE email = '".$email."';";
-        $result = mysql_query($query, $link);
-
-        //if query was unsuccessful, print error and die
-        if (!$result) {
-            $message = "Error in query ($query): " . mysql_error();
-            mysql_close($link);
-            die($message);
-        }
-
+        $query = "SELECT * FROM users WHERE email = '$email'";
+        $result = mysql_query($query);
+        
         // if email exists in database, change their password
         if ($result) {
             $np_md5 = md5($new_password);
-            $query2  = "UPDATE users
-                        SET password = '$np_md5'
-                        WHERE email = '$email';";
-            $result2 = mysql_query($query2, $link);
+            $query  = "UPDATE users SET password = '$np_md5' WHERE email = '$email';";
+            $result = mysql_query($query);
         }
-
-
+        
         // If successful, send e-mail to user informing them of their new password
-        if ($result && (mysql_affected_rows($link))) {
+        if ($result) {
             // Message
             $message = '<html><body>
-                        <p>Your password for Grinnell Open Calender has been reset <br /><br />
-                        Your new password is: '.$new_password.'</p> <br /> <br />
+                        <p>Here is your new password for Grinnell Open Calendar.  Don\'t
+                        forget to change it after you\'ve logged in.</p>
+                        <p>New password: '.$new_password.'</p>
                         </body></html>';
 
             // Headers
             $header = 'MIME-Version: 1.0' . "\r\n" .
                       'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
-                      'From: webmaster@grinnellopencalender.com' . "\r\n" .
+                      'From: Grinnell Open Calendar <webmaster@grinnellopencalender.com>' . "\r\n" .
                       'Reply-To: webmaster@grinnellopencalender.com' . "\r\n" .
                       'X-Mailer: PHP/' . phpversion();
 
             // Send Message
-            $sent = mail( $email, 'GOC Password Reset', $message, $header);
-        } else { 
-            $sent = FALSE;
+            $sent = mail( $email, 'Grinnell Open Calendar Password Reset', $message, $header);
+            return true;
         }
-	
-	mysql_free_result($result);
-        mysql_close($link); 
-        return $sent;
+        return false;
     }
 
     function changePassword($email, $old_pw, $new_pw, $new2_pw){

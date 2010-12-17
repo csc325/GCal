@@ -17,7 +17,7 @@
         if ($count == 1 && $row[confirmed] == null) {
             // Username and password match, continue login
             $_SESSION['sid'] = session_id();
-	    $_SESSION['email'] = $row['email'];
+	        $_SESSION['email'] = $row['email'];
             $_SESSION['displayName'] = $row['displayName'];
             $_SESSION['userID'] = $row['userID'];
             $_SESSION['css'] = $row['css']; 

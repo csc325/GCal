@@ -2,6 +2,7 @@
 @import url('sidebar.css');
 @import url('event_listing.css');
 @import url('comments.css');
+@import url('filter.css');
 
 body {
     font-family:helvetica,arial;
@@ -45,6 +46,10 @@ h1.head {
 h2.warning {
     margin: 0 0 0.5em 0;
     color: firebrick;
+}
+
+div {
+    position: relative;
 }
 
 div.wrap {

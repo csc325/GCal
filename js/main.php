@@ -11,6 +11,14 @@ $(document).ready ( function () {
     $('a.attend_event span.cancel').click ( function () {
         cancel_attend($(this));
     });
+    
+    $('div.filter h3 span.arrow').toggle ( function () {
+        $(this).parent().parent().animate({left:'0px'},250);
+        $(this).html("&laquo;");
+    }, function () {
+        $(this).parent().parent().animate({left:'-160px'},250);
+        $(this).html("&raquo;");
+    });
 
     var attend_event = function (this_el) {
         if (this_el.hasClass('attending')) return false;

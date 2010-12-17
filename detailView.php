@@ -108,12 +108,12 @@
                     </div>
                 <?php endif; ?>
 
-                    //Display 'like' feature from facebook
-         <div class="details" id="facebook" padding="20px">
-
-        	<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-		<fb:like href="http://www.cs.grinnell.edu/~knolldug/GCal/detailView.php?eventID=<?php echo $eventID;?>" show_faces="true" width="450" 		font="arial"></fb:like>
+                <!-- Display 'like' feature from facebook -->
+                <div class="details" id="facebook" padding="20px">
+        	        <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+		            <fb:like href="http://www.cs.grinnell.edu/~knolldug/GCal/detailView.php?eventID=<?php echo $eventID;?>" show_faces="true" width="450" font="arial"></fb:like>
                 </div>
+                
                 <div class="details" id="googleCal">
                 <?php
                     //CREATE GOOGLE CAL BUTTON
@@ -151,8 +151,6 @@
                     echo $html;
                     ?>
                 </div>
-         
-
             </div>
 
             <h3 class="comment_label">Comments</h3>

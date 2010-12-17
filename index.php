@@ -1,7 +1,13 @@
 <?php
-    require_once 'global.php';
-    require_once 'header.php';
+    $_GET[start] = date('Y-m-d H:i:s');
+    $_GET[end_date] = date('Y-m-d',strtotime('30 days'));
+    $_GET[t] = 'a';
+    $_GET[current] = 'true';
     
+    include 'results.php';
+    
+    /* require_once 'global.php';
+    require_once 'header.php';
     
     $self = $_SERVER['REQUEST_URI'];
     if(isset($_GET['sort'])) {
@@ -25,7 +31,16 @@
         <?php endif; ?>
         
         <div class="sortby">
-            <span style="float: left;">Showing <?php echo $events ? count($events) : 0; ?> upcoming events</span>
+            <span style="float: left;">
+            <?php
+                if (isset($_GET['w']) && $_GET['w'] != '') {
+                    echo urldecode(stripslashes($_GET['w']));
+                } else {
+                    $num_IDs = $events ? count($events) : 0;
+                    echo "Showing $num_IDs events";
+                }
+            ?>
+            </span>
             Sort by: 
             <a href="<?php echo $self; ?>?sort=time">Time</a>
             <a href="<?php echo $self; ?>?sort=category">Category</a>
@@ -44,3 +59,4 @@
 
 </body>
 </html>
+<?php */ ?>
