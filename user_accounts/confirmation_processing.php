@@ -8,6 +8,7 @@
     echo "<div class = 'col large'>";
       
     $conf_num = mysql_real_escape_string($_POST["confirm"]);
+    $conf_num = str_replace(" ","", $conf_num);
     $query = "SELECT confirmed, displayName FROM users WHERE users.confirmed = $conf_num;";
     $result = mysql_query($query);
     if(!have_error($result, $query)) {
