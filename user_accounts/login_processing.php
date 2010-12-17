@@ -5,7 +5,7 @@
     if(isset($_POST['username']) && isset($_POST['password'])) {
         require_once '../global.php';
         
-        $user = addslashes($_POST['username']);
+        $user = trim(addslashes($_POST['username']));
         $pass = $static ? $_POST['password'] : md5($_POST['password']);
         
         $query = "SELECT * FROM users ";

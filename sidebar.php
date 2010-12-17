@@ -1,5 +1,6 @@
 <?php 
     require_once 'global.php';
+
     if($_POST['action'] != 'update') echo '<div class="col small side">';
 ?>
     <div class="unit">

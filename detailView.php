@@ -2,11 +2,13 @@
     require_once "global.php";
     require_once "header.php";
 ?>
-
     <div class = "body">
         <div class = "col large">
 
     <?php
+
+         if ($_GET['flag'] == 'true') echo '<h1 class="head">Your report has been submitted to the administrators...</h1><hr>';
+
         $eventID = htmlspecialchars($_GET['eventID']);
         $eventArray = get_events(array($eventID));
         
@@ -65,7 +67,7 @@
                     <span>What: <span class="val"><?php echo $event[7]; ?></span></span>
                     <span>Where: <span class="val"><?php echo $event[6]; ?></span></span>
                     <span>Attending: <span class="val attend_count"><?php echo $event[9]; ?></span>
-                    </span>
+                    </span>                    
                     
                     <?php display_attend($user[userID], $event[10]);  ?>
                      
@@ -85,6 +87,7 @@
 
                 <?php  if(is_logged_in()) : ?>
                      <div class="details" id="addtag">
+                    <a href="flag_event.php?eventID=<?php echo $eventID; ?>" class='attend_event'>Report!</a>   
                      <a class="fake" id="fancy-login">
                      <span class="word">Add Tags</span>
                             <div class="login-form">
@@ -108,10 +111,17 @@
                     </div>
                 <?php endif; ?>
 
+<<<<<<< HEAD
                 <!-- Display 'like' feature from facebook -->
                 <div class="details" id="facebook" padding="20px">
         	        <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
 		            <fb:like href="http://www.cs.grinnell.edu/~knolldug/GCal/detailView.php?eventID=<?php echo $eventID;?>" show_faces="true" width="450" font="arial"></fb:like>
+=======
+         <div class="details" id="facebook" padding="20px">
+
+        	<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+		<fb:like href="http://www.cs.grinnell.edu/~knolldug/GCal/detailView.php?eventID=<?php echo $eventID;?>" show_faces="true" width="450" 		font="arial"></fb:like>
+>>>>>>> 1ef07e0bea934714cba763681af66315bd2e000b
                 </div>
                 
                 <div class="details" id="googleCal">
@@ -130,7 +140,7 @@
                       $endingDate = explode("-", $array[0][4]);
                       $endingTime = explode(":", $array[0][5]);
                       $googleDate = sprintf("%04d%02d%02dT%02d%02d00Z/%04d%02d%02dT%02d%02d00Z",
-                                            $startingDate[1], $startingDate[1], $startingDate[2],
+                                            $startingDate[0], $startingDate[1], $startingDate[2],
                                             ($startingTime[0] + 6), $endingTime[1],
                                             $endingDate[0], $endingDate[1], $endingDate[2],
                                            ($endingTime[0] + 06), $endingTime[1]);

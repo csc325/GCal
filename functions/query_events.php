@@ -10,11 +10,30 @@
                             AND comments.eventID = $eventID;";
         $comment_result = mysql_query($comment_query);
         $comments = array();
-        if($comment_result)
+        if(mysql_num_rows($comment_result) != 0)
             while($row = mysql_fetch_array($comment_result)) $comments[] = $row;
         
         return $comments;
     }
+
+    function get_number_of_flagged() {
+        $flagged_query = "SELECT count(*) FROM events 
+                                            WHERE events.flagged=1";
+        $flagged_result = mysql_query($flagged_query);
+        $row = mysql_fetch_array($flagged_result);
+        
+        return $row[0];
+    }
+
+    function get_number_of_flaggedCount() {
+        $flagged_query = "SELECT sum(flaggedCount) FROM events 
+                                            WHERE events.flagged=1";
+        $flagged_result = mysql_query($flagged_query);
+        $row = mysql_fetch_array($flagged_result);
+        
+        return $row[0];
+    }
+
     
     function get_tag_ids($tag) {
         $query = "SELECT DISTINCT tags.eventID
@@ -24,7 +43,7 @@
                   AND events.startDate >= '".date('Y-m-d')."';";
        
         $result = mysql_query($query);
-        if ($result) {
+        if (mysql_num_rows($result) != 0) {
             $eventIDs = array();
             while($row = mysql_fetch_row($result)) $eventIDs[] = $row[0];
         } else {
@@ -33,17 +52,17 @@
            
         return $eventIDs;
     }
-   
-    function get_basic_search_ids () {
+
+     function get_basic_search_ids () {
         $criteria = addslashes($_GET["input"]);
         $terms = explode(" ", $criteria);
-
+        
         $input = array();
+        $input[] = 'events.endDate >= "'.date('Y-m-d').'"';
         $input[] = "locations.locationID = events.locationID";
         $input[] = "categories.categoryID = events.categoryID";
         $input[] = "users.userID = events.userID";
         $input[] = "tags.eventID = events.eventID";
-        $input[] = "events.startDate >= \"".date('Y-m-d')."\"";
 
         $inputpt2 = array();
         foreach ($terms as $term) {
@@ -59,13 +78,52 @@
             }
         }
 
-        $query = "SELECT events.eventID FROM events, locations, categories, users, tags ";
+        $query = "SELECT DISTINCT events.eventID FROM events, locations, categories, users, tags ";
         $query .= "WHERE " . implode(" AND ", $input) ;
         $query .= " AND (" . implode(" OR ", $inputpt2) . ")" ;
        
         $resource = mysql_query($query);
            
-        if ($resource) {
+        if (mysql_num_rows($resource) != 0) {
+            $eventIDs = array();
+            while($row = mysql_fetch_row($resource)) $eventIDs[] = $row[0];
+        } else {
+            $eventIDs = get_basic_search_ids_without_tags();
+        }
+           
+        return $eventIDs;
+    }   
+  
+     function get_basic_search_ids_without_tags () {
+        $criteria = addslashes($_GET["input"]);
+        $terms = explode(" ", $criteria);
+
+        $input = array();
+        $input[] = 'events.endDate >= "'.date('Y-m-d').'"';
+        $input[] = "locations.locationID = events.locationID";
+        $input[] = "categories.categoryID = events.categoryID";
+        $input[] = "users.userID = events.userID";
+
+        $inputpt2 = array();
+        foreach ($terms as $term) {
+            if(strlen($term) > 0){
+                $inputpt2[] = "(events.eventName LIKE '%$term%')";
+                $inputpt2[] = "(events.description LIKE '%$term%')";
+                $inputpt2[] = "(locations.locationName LIKE '%$term%')";
+                $inputpt2[] = "(categories.categoryName LIKE '%$term%')";
+                $inputpt2[] = "(users.displayName LIKE '%$term%')";
+            } else {
+                return false;
+            }
+        }
+
+        $query = "SELECT DISTINCT events.eventID FROM events, locations, categories, users ";
+        $query .= "WHERE " . implode(" AND ", $input) ;
+        $query .= " AND (" . implode(" OR ", $inputpt2) . ")" ;
+       
+        $resource = mysql_query($query);
+           
+        if (mysql_num_rows($resource) != 0) {
             $eventIDs = array();
             while($row = mysql_fetch_row($resource)) $eventIDs[] = $row[0];
         } else {
@@ -144,7 +202,7 @@
 
         $resource = mysql_query($query);
        
-        if ($resource) {
+        if (mysql_num_rows($resource) != 0) {
             $eventIDs = array();
             while($row = mysql_fetch_row($resource)) $eventIDs[] = $row[0];
         } else {
@@ -155,7 +213,7 @@
             $query = "SELECT events.eventID FROM events, locations, categories ";
             $query .= "WHERE " . implode(" AND ", $input_current) . ";";
             $resource = mysql_query($query);
-            if ($resource) while($row = mysql_fetch_row($resource)) $eventIDs[] = $row[0];
+            if (mysql_num_rows($resource) != 0) while($row = mysql_fetch_row($resource)) $eventIDs[] = $row[0];
         }
            
         return $eventIDs;
@@ -166,6 +224,7 @@
         if ($eventIDs === false) return false;
         $IDs = array();
         $results = array();
+        $oderby = false;
        
         $query = "SELECT events.eventName,
                          events.description,
@@ -193,16 +252,30 @@
         $query .= implode(" OR ", $IDs);
         $query .= ") ";
        
-        if ($sort == 'time') $query .= 'ORDER BY events.startDate ASC';
-        if ($sort == 'popularity') $query .= 'ORDER BY events.startDate ASC, events.popularity DESC';
-        if ($sort == 'location') $query .= 'ORDER BY events.startDate ASC, locations.locationName ASC';
-        if ($sort == 'category') $query .= 'ORDER BY events.startDate ASC, categories.categoryName ASC';
+        if ($sort == 'time') {
+          $query .= 'ORDER BY events.startDate ASC, events.startTime';
+          $orderby = true;
+        }
+        if ($sort == 'popularity') {
+          $query .= 'ORDER BY events.startDate ASC, events.popularity DESC, events.startTime';
+          $orderby = true;
+        }
+        if ($sort == 'location') {
+          $query .= 'ORDER BY events.startDate ASC, locations.locationName ASC, events.startTime';
+          $orderby = true;
+        }
+        if ($sort == 'category') {
+          $query .= 'ORDER BY events.startDate ASC, categories.categoryName ASC, events.startTime';
+          $orderby = true;
+        }
+        if(!$orderby){
+          $query .= 'ORDER BY events.startTime';
+        }
        
         $query .= ' LIMIT '.$limit;
-       
         $result = mysql_query($query);
         
-        if ($result) {
+        if (mysql_num_rows($result) != 0) {
             while($row = mysql_fetch_row($result))$results[] = $row;
             return $results;
         } else {

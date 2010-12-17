@@ -8,7 +8,7 @@
                 <!-- EVENT NAME -->
                 <div class="form-unit long">
                     <label for="event_name" id="event_name_label">Event Name:</label>
-                    <input type="text" id="event_name" name="event_name">
+                    <input type="text" id="eventName" name="event_name">
                 </div>
                 
                 <!-- LOCATIONS -->

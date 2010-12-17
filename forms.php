@@ -11,6 +11,9 @@
           if($_GET['s'] == 'f') {
                echo '<h1 class="head">Missing some fields; event not added</h1><hr>';
           }
+          if($_GET['s'] == 'time') {
+               echo '<h1 class="head">You cannot add an old event</h1><hr>';
+          }
             elseif ($_GET['s'] == 't') {
                 echo '<h1 class="head">Your event has been added sucessfully</h1><hr>';
             }

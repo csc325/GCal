@@ -6,7 +6,7 @@
     
     // get variables from form page
     foreach($_POST as $field_name => $value) $$field_name = addslashes($value);
-echo $eventID;
+    echo $eventID;
     // Category and Location processing
     if ($location == 'other') {     
       $location = $location_other;
@@ -40,6 +40,10 @@ echo $eventID;
     $end_time = $end_temp[1];
     $start = $start_date.' '.$start_time;
     $end = $end_date.' '.$end_time;
+    if(($start < $right_now) || ($end < $right_now) || ($end < $start)) {
+      header('Location: '.ed(false).'forms.php?s=time');
+      exit();
+    }    
 
     // sanitize description box
     $description = htmlspecialchars($description);

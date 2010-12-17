@@ -11,15 +11,15 @@
         
         //check if the user created the event
         $query = "SELECT userID
-                  FROM events
-                  WHERE eventID = $eventID;";
+FROM events
+WHERE eventID = $eventID;";
         $result = mysql_query($query);
         $row = mysql_fetch_row($result);
         
         //check if the user is an admin
         $query = "SELECT accessLevel
-                  FROM users
-                  WHERE userID = $userID;";
+FROM users
+WHERE userID = $userID;";
         $result = mysql_query($query);
         $row2 = mysql_fetch_row($result);
         
@@ -41,7 +41,7 @@
             exit();
         }
     } else {
-        header('Location: '.ed(false).'detailView.php?s=f&eventID='.$eventID);
+        header('Location: '.ed(false).'detailView.php?eventID='.$eventID);
         exit();
     }
 ?>

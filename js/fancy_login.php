@@ -28,15 +28,16 @@ $(document).ready ( function () {
     var submit_tag = function () {
         var tag = $('input#tag-list').val();
         var eventID = $('.event_listing').attr("id");
+        var html = $('.event_listing').attr("id");
         
         $.ajax({
             type: "POST",
             url: "<?php ed(); ?>submit_tag.php",
-              data: ({tags:tag,eventID:eventID}),
-            success: function (r) {
-              $('span.val.tags').append(", "+encodeURI(tag));
-            }
-           
+            data: ({tags:tag,eventID:eventID}),
+            success: function (r) {       
+              $('span.val.tags').load('<?php echo $_SERVER["HTTP_REFERER"]; ?> span.val.tags').hide().fadeIn("slow");
+            }      
+     
         });
     }
     
