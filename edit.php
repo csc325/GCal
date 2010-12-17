@@ -1,65 +1,87 @@
 <?php
-    require_once 'global.php';
-    $eventID = $_GET[eventID];
-    if(!is_owner($eventID) && !is_admin()) header('Location: '.ed(false).'detailView.php?eventID='.$eventID);
+/*
+ * edit.php: provides HTML to edit an event
+ * PHP version 5
+ *
+ * LICENSE: This source file is subject to version 3.01 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_01.txt. If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category edit
+ * @author CSC-325 Database and Web Application Fall 2010 Class
+ * @license http://www.php.net/license/3_01.txt PHP License 3.01
+ * @version 3.0
+ */
+require_once 'global.php';
+
+$eventID = $_GET[eventID];
+
+if(!is_owner($eventID) && !is_admin()) 
+  header('Location: '.ed(false).'detailView.php?eventID='.$eventID);
     
-    require_once 'header.php';
+require_once 'header.php';
 ?>
 
 <div class="body">
-    <div class="col large">
-    <?php
-        if (!is_logged_in()) :
-            echo '<h1 class="head">You are not logged in</h1>';
-            echo '<p>Please log in or sign up to add events</p>';
-        else :
-            if ($_GET['s'] == 'f') echo '<h1 class="head">Required fields have been left empty</h1><hr>';
-            if ($_GET['time'] == 'f') echo '<h1 class="head">Invalid value for time field</h1><hr>';
+  <div class="col large">
+  <?php
+  if (!is_logged_in()) :
+    echo '<h1 class="head">You are not logged in</h1>';
+    echo '<p>Please log in or sign up to add events</p>';
+else :
+  if ($_GET['s'] == 'f') echo '<h1 class="head">Required fields have been left empty</h1><hr>';
+if ($_GET['time'] == 'f') echo '<h1 class="head">Invalid value for time field</h1><hr>';
 
-            $eventID = htmlspecialchars($_GET['eventID']);
-            $eventArray = get_events(array($eventID));
+$eventID = htmlspecialchars($_GET['eventID']);
+$eventArray = get_events(array($eventID));
             
-            $public_query = "SELECT public FROM events WHERE eventID = $eventID;";
-            $public_result = mysql_query($public_query);
-            $row = mysql_fetch_array($public_result);
-            $public = $row[0];
+$public_query = "SELECT public 
+                 FROM events 
+                 WHERE eventID = $eventID;";
+$public_result = mysql_query($public_query);
+$row = mysql_fetch_array($public_result);
+$public = $row[0];
 
-            $tag_query = "SELECT tag FROM tags WHERE eventID = $eventID;";
-            $tag_result = mysql_query($tag_query);
-            $tags = array();
+$tag_query = "SELECT tag 
+              FROM tags 
+              WHERE eventID = $eventID;";
+$tag_result = mysql_query($tag_query);
+$tags = array();
             
-            if($tag_result)
-                while($row = mysql_fetch_array($tag_result)) $tags[] = $row[0];
+if($tag_result)
+  while($row = mysql_fetch_array($tag_result)) $tags[] = $row[0];
                    
-            if ($eventArray === false) {       
-                echo '<h1 class="head">No events were found</h1>';
-                return false;
-            }
+if ($eventArray === false) {       
+  echo '<h1 class="head">No events were found</h1>';
+  return false;
+}
             
-            /*  Values of $eventArray are:
-                [0] = eventName
-                [1] = description
-                [2] = startDate
-                [3] = startTime
-                [4] = endDate
-                [5] = endTime
-                [6] = locationName
-                [7] = categoryName
-                [8] = user displayName
-                [9] = popularity
-                [10] = eventID
-                [11] = public */
+/*  Values of $eventArray are:
+    [0] = eventName
+    [1] = description
+    [2] = startDate
+    [3] = startTime
+    [4] = endDate
+    [5] = endTime
+    [6] = locationName
+    [7] = categoryName
+    [8] = user displayName
+    [9] = popularity
+    [10] = eventID
+    [11] = public */
              
-            $event = array_map('stripslashes',$eventArray[0]);
-            $startTime = strtotime($event[2].' '.$event[3]);
-            $endTime = strtotime($event[4].' '.$event[5]);
-            $event[2] = date('M j, Y',$startTime);
-            $event[3] = date('g:i A',$startTime);
-            $event[4] = date('M j, Y',$endTime);
-            $event[5] = date('g:i A',$endTime);
-            $dif_days = ($event[2] != $event[4]) ? true : false;    
-            $user = get_user_info();
-        ?>
+$event = array_map('stripslashes',$eventArray[0]);
+$startTime = strtotime($event[2].' '.$event[3]);
+$endTime = strtotime($event[4].' '.$event[5]);
+$event[2] = date('M j, Y',$startTime);
+$event[3] = date('g:i A',$startTime);
+$event[4] = date('M j, Y',$endTime);
+$event[5] = date('g:i A',$endTime);
+$dif_days = ($event[2] != $event[4]) ? true : false;    
+$user = get_user_info();
+?>
     
         <h1 class="head">Edit Event</h1>
         
@@ -77,12 +99,16 @@
                 <label for="location" id="location_label">Location:</label>
                 <select name="location" id="location" class="'<?php echo $event[6]; ?>" tabindex="2">
                     <?php
-                        $permanent_query = 'SELECT permanent FROM locations WHERE locationName="'. $event[6].'"';
+                        $permanent_query = 'SELECT permanent 
+                                            FROM locations 
+                                           WHERE locationName="'. $event[6].'"';
                         $permanent_result = mysql_query($permanent_query);
                         $row = mysql_fetch_array($permanent_result);
                         $permanent = $row[0];
 
-                        $location_query = "SELECT locationID,locationName FROM locations WHERE permanent=1";
+                        $location_query = "SELECT locationID,locationName
+                                           FROM locations 
+                                           WHERE permanent=1";
                         $location_result = mysql_query($location_query);
                         while($row = mysql_fetch_array($location_result)){
                           if($row['locationName']==$event[6])
@@ -109,12 +135,15 @@
                 <label for="category" id="category_label">Category:</label>
                 <select name="category" id="category"  class="'<?php echo $event[7]; ?>"tabindex=3>
                    <?php
-                        $permanent_query = 'SELECT permanent FROM categories WHERE categoryName="'. $event[7].'"';
+                        $permanent_query = 'SELECT permanent 
+                                            FROM categories 
+                                           WHERE categoryName="'. $event[7].'"';
                         $permanent_result = mysql_query($permanent_query);
                         $row = mysql_fetch_array($permanent_result);
                         $permanent = $row[0];
 
-                        $category_query = "SELECT categoryName FROM categories WHERE permanent=1";
+                        $category_query = "SELECT categoryName 
+                                           FROM categories WHERE permanent=1";
                         $category_result = mysql_query($category_query);
                         while($row = mysql_fetch_array($category_result)){
                           if($row['categoryName']==$event[7])
