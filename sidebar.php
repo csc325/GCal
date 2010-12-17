@@ -1,5 +1,6 @@
 <?php 
     require_once 'global.php';
+
     if($_POST['action'] != 'update') echo '<div class="col small side">';
 ?>
     <div class="unit">
@@ -92,6 +93,14 @@
             ?>
         </ul>
     </div>
+            <?php
+                $user = get_user_info();
+                $flags = get_number_of_flagged();
+                if (($user[accessLevel] == 3) && ($flags > 0)){
+                    echo '<div class="unit"><h3>';
+                    echo '<a href="'.ed(false).'flag_admin.php">'.$flags.' events were flagged '.get_number_of_flaggedCount().' times!<br> Check them!</a>';
+                    echo '</h3></div>';}
+            ?>
     
     <div class="unit tag_cloud">
         <h3>Tag Cloud</h3>

@@ -2,11 +2,13 @@
     require_once "global.php";
     require_once "header.php";
 ?>
-
     <div class = "body">
         <div class = "col large">
 
     <?php
+
+         if ($_GET['flag'] == 'true') echo '<h1 class="head">Your report has been submitted to the administrators...</h1><hr>';
+
         $eventID = htmlspecialchars($_GET['eventID']);
         $eventArray = get_events(array($eventID));
         
@@ -65,7 +67,7 @@
                     <span>What: <span class="val"><?php echo $event[7]; ?></span></span>
                     <span>Where: <span class="val"><?php echo $event[6]; ?></span></span>
                     <span>Attending: <span class="val attend_count"><?php echo $event[9]; ?></span>
-                    </span>
+                    </span>                    
                     
                     <?php display_attend($user[userID], $event[10]);  ?>
                      
@@ -85,6 +87,7 @@
 
                 <?php  if(is_logged_in()) : ?>
                      <div class="details" id="addtag">
+                    <a href="flag_event.php?eventID=<?php echo $eventID; ?>" class='attend_event'>Report!</a>   
                      <a class="fake" id="fancy-login">
                      <span class="word">Add Tags</span>
                             <div class="login-form">
@@ -108,7 +111,6 @@
                     </div>
                 <?php endif; ?>
 
-                    //Display 'like' feature from facebook
          <div class="details" id="facebook" padding="20px">
 
         	<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>

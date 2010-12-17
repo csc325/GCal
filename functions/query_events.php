@@ -15,6 +15,25 @@
         
         return $comments;
     }
+
+    function get_number_of_flagged() {
+        $flagged_query = "SELECT count(*) FROM events 
+                                            WHERE events.flagged=1";
+        $flagged_result = mysql_query($flagged_query);
+        $row = mysql_fetch_array($flagged_result);
+        
+        return $row[0];
+    }
+
+    function get_number_of_flaggedCount() {
+        $flagged_query = "SELECT sum(flaggedCount) FROM events 
+                                            WHERE events.flagged=1";
+        $flagged_result = mysql_query($flagged_query);
+        $row = mysql_fetch_array($flagged_result);
+        
+        return $row[0];
+    }
+
     
     function get_tag_ids($tag) {
         $query = "SELECT DISTINCT tags.eventID
@@ -180,7 +199,6 @@
         
         $query = "SELECT events.eventID FROM events, locations, categories ";
         $query .= "WHERE " . implode(" AND ", $input) . ";";
-        echo $query;
 
         $resource = mysql_query($query);
        
