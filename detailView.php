@@ -111,17 +111,16 @@
                     </div>
                 <?php endif; ?>
 
-<<<<<<< HEAD
+
                 <!-- Display 'like' feature from facebook -->
                 <div class="details" id="facebook" padding="20px">
         	        <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
 		            <fb:like href="http://www.cs.grinnell.edu/~knolldug/GCal/detailView.php?eventID=<?php echo $eventID;?>" show_faces="true" width="450" font="arial"></fb:like>
-=======
+
          <div class="details" id="facebook" padding="20px">
 
         	<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
 		<fb:like href="http://www.cs.grinnell.edu/~knolldug/GCal/detailView.php?eventID=<?php echo $eventID;?>" show_faces="true" width="450" 		font="arial"></fb:like>
->>>>>>> 1ef07e0bea934714cba763681af66315bd2e000b
                 </div>
                 
                 <div class="details" id="googleCal">
