@@ -39,10 +39,10 @@ function display_hide ($userID,$eventID)
 {
   if (is_logged_in()) {
     if (is_hidden($userID,$eventID)) {
-      echo "<a id='event_{$eventID}_{$userID}' class='hide_event
+      echo "<a id='hidden_{$eventID}_{$userID}' class='hide_event
       hidden'>Show";
     } else {
-      echo "<a id='event_{$eventID}_{$userID}' class='hide_event'>";
+      echo "<a id='hidden_{$eventID}_{$userID}' class='hide_event'>";
       echo "Hide";
     }
     echo "</a>";
