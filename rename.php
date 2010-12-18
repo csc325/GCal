@@ -74,8 +74,6 @@ if ( $_POST )
                 mysql_query($queryMerge);
                 mysql_query($queryUpdateID);
                 mysql_query($queryDeleteOld);
-
-                echo 1; exit();
               }
           }
         else
@@ -85,7 +83,6 @@ if ( $_POST )
               . $catID;
             // echo $queryRename . '<br />';
             mysql_query($queryRename);
-            echo 1; exit();
           }
       }
     mysql_query('UNLOCK TABLES');
