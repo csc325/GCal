@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once 'global.php';
-    
+	   	
     $userID = ($_SESSION['userID'] != '') ? $_SESSION['userID'] : 2;
     
     // get variables from form page
@@ -107,5 +107,17 @@
         }
     }
     
-    header('Location: '.ed(false).'detailView.php?eventID='.$eventID);
+    // If there are conflicts, alert user
+	$conflicting_eventIDs = get_conflicting_event_IDs($locationID, $start, $end);
+	//print_r($conflicting_eventIDs);
+	if ($conflicting_eventIDs) {
+		$header_arr = array("eventID=$eventID");
+		foreach ($conflicting_eventIDs as $conflicting_eventID) {
+			$header_arr[] = "$conflicting_eventID=conflict";
+		}
+		header('Location: '.ed(false).'conflicts.php?'.implode('&', $header_arr));
+	}
+	else {
+	    header('Location: '.ed(false).'detailView.php?eventID='.$eventID);
+	}
 ?>

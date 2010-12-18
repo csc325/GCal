@@ -224,7 +224,7 @@
         if ($eventIDs === false) return false;
         $IDs = array();
         $results = array();
-        $oderby = false;
+        $orderby = false;
        
         $query = "SELECT events.eventName,
                          events.description,
@@ -281,5 +281,26 @@
         } else {
             return false;
         }
+    }
+
+    function get_conflicting_event_IDs($locationID, $start, $end) {
+		$query = "SELECT events.eventID
+				  FROM events
+				  WHERE locationID=$locationID
+        	          AND (
+        	               (start >= '$start' AND start <= '$end')
+        	            OR (end >= '$start' AND end <= '$end')
+        	              )";
+
+		$result = mysql_query($query);
+		
+		if (mysql_num_rows($result) != 0) {
+            $eventIDs = array();
+            while($row = mysql_fetch_row($result)) $eventIDs[] = $row[0];
+        } else {
+            $eventIDs = false;
+        }
+
+		return $eventIDs;
     }
 ?>
