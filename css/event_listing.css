@@ -50,6 +50,13 @@ div.event_listing {
     border-top: 0;
     background: #f8f8f8;
 }
+    
+    div.event_listing a.hide_event {
+        float: right;
+        cursor: pointer;
+        font-size: 12px;
+    }
+ 
 
     div.event_listing h1 {
         font-size:24px;
