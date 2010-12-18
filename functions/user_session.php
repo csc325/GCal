@@ -192,4 +192,21 @@ function is_attending($userID, $eventID) {
   }
   return false;
 }
+/*
+* checks to see if user has hidden the event
+* @param int $userID
+* @param int $eventID
+* @return boolean
+*/
+function is_hidden($userID, $eventID) {
+  if(is_logged_in()) {
+    $query = "SELECT hiddenID FROM hidden
+                      WHERE userID = $userID
+                      AND eventID = $eventID";
+    $result = mysql_query($query);
+    if ($result)
+      if(mysql_num_rows($result) > 0) return true;
+  }
+  return false;
+}
 ?>
