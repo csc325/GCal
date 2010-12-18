@@ -4,6 +4,7 @@
     $_GET[t] = 'a';
     $_GET[current] = 'true';
     
+    $is_index = "true";
     include 'results.php';
     
     /* require_once 'global.php';
