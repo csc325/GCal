@@ -50,7 +50,7 @@
         </div>
         
         <!-- CATEGORIES -->
-        <div class="form-unit long">
+      	<div class="form-unit long">
             <label for="category" id="category_label"><font color = "firebrick">Category:</label></font>
             <select name="category" id="category" tabindex=3>
                <?php
