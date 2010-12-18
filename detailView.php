@@ -25,8 +25,12 @@ require_once "header.php";
   if ($_GET['flag'] == 'true') {
     echo '<h1 class="head">';
     echo 'Your report has been submitted to the administrators...</h1><hr>';
+<<<<<<< HEAD
 	}
 
+=======
+  }
+>>>>>>> bec4325cec5f1f29a329b786ffc79e8f78146f93
 $event_id = htmlspecialchars($_GET['eventID']);
 $event_array = get_events(array($event_id));
         

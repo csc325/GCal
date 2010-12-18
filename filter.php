@@ -13,7 +13,7 @@
         // CATEGORY FILTER LIST 
             
         echo '<ul>';
-        echo '<li><b>Categories</b> '.($admin ? '<a href="'.ed(false).'categoryAdmin2.php">(manage)</a>' : '').'</li>';
+        echo '<li><b>Categories</b> '.($admin ? '<a href="'.ed(false).'categoryAdmin2.php?admintype=1">(manage)</a>' : '').'</li>';
         $categories = get_category_list();
         
         foreach ($categories as $row) {
@@ -37,7 +37,7 @@
         
         // LOCATION FILTER LIST
         echo '<ul>';
-        echo '<li><b>Locations</b></li>';
+        echo '<li><b>Locations</b> '.($admin ? '<a href="'.ed(false).'categoryAdmin2.php?admintype=2">(manage)</a>' : '').'</li>';
         $locations = get_location_list();
         
         foreach ($locations as $row) {

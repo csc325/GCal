@@ -2,7 +2,7 @@
     require_once 'global.php';
     require_once 'header.php';
 /*
- * categoryAdmin2.php: Current version of category management
+ * categoryAdmin2.php: Current version of category/location management
  * PHP version 5
  *
  * LICENSE: This source file is subject to version 3.01 of the PHP license
@@ -23,37 +23,61 @@ require_once 'global.php';
 require_once 'header.php';
 ?>
 
-<!-- Permanent Categories Table -->
+<!-- Permanent Categories/Locations Table -->
 <div class="body" >
     <div class="col large">
         <form name='downgrade' action='updowngrade.php' method='post'>
             <table>
                 <tr>
-                    <th class='catcol'>Category</th>
-                    <th>Requests</th>
-                    <th>Downgrade</th>
-                    <th>Rename</th>
-                </tr>
-                <?php
-                    $queryPerm = "SELECT categories.categoryID, 
-                                         categories.categoryName, 
+                    <th class='catcol'>
+                    <?php
+                        $admintype = $_GET['admintype'];
+                        if($admintype == 1) {
+                           $name = "Category";
+                           $table = "categories";
+                           $field1 = "categories.categoryID";
+                           $field2 = "categories.categoryName";
+                           $field3 = "events.categoryID";
+                           $permanent = "categories.permanent";
+
+                           $nm1 = "categoryID";
+                           $nm2 = "categoryName";
+                        }
+                        if($admintype == 2) {
+                           $name = "Location";
+                           $table = "locations";
+                           $field1 = "locations.locationID";
+                           $field2 = "locations.locationName";
+                           $field3 = "events.locationID";
+                           $permanent = "locations.permanent";
+
+                           $nm1 = "locationID";
+                           $nm2 = "locationName";
+                        }
+                        echo $name;
+                        echo "</th>
+                              <th>Requests</th>
+                              <th>Downgrade</th>
+                              <th>Rename</th>
+                              </tr>";
+
+                    $queryPerm = "SELECT $field1, $field2,
                                          COUNT(*) 'requestCount'
-                                  FROM categories, events 
-                                  WHERE categories.permanent = 1
-                                    AND categories.categoryID = events.categoryID
-                                  GROUP BY categories.categoryID
-                                  ORDER BY requestCount DESC";
+                                  FROM $table, events
+                                  WHERE $permanent = 1
+                                    AND $field1 = $field3
+                                  GROUP BY $field1
+                                  ORDER BY requestCount DESC;";
 
                     $resultPerm = mysql_query($queryPerm);
 
-                    $queryTemp = "SELECT categories.categoryID, 
-                                         categories.categoryName, 
+                    $queryTemp = "SELECT $field1, $field2,
                                          COUNT(*) 'requestCount'
-                                  FROM categories, events 
-                                  WHERE categories.permanent = 0
-                                    AND categories.categoryID = events.categoryID
-                                  GROUP BY categories.categoryID
-                                  ORDER BY requestCount DESC";
+                                  FROM $table, events
+                                  WHERE $permanent = 0
+                                    AND $field1 = $field3
+                                  GROUP BY $field1
+                                  ORDER BY requestCount DESC;";
 
                     $resultTemp = mysql_query($queryTemp);
 
@@ -61,63 +85,81 @@ require_once 'header.php';
                     $categoryRequests = array();
 
                     while ($row = mysql_fetch_assoc($resultPerm)) {
-                        $categoryNames[$row['categoryID']] =  $row['categoryName'];
-                        $categoryRequests[$row['categoryID']] =  $row['requestCount'];
-                    } 
-                    
-                    foreach($categoryNames as $id => $name) : ?>
-                        <tr>
-                            <td><?php echo $name; ?></td>
-                            <td align="center"><?php echo $categoryRequests[$id]; ?></td>
-                            <td align="center"><input type="checkbox" name="<?php echo $id; ?>"
-                                                      value="downgrade" class="updowngrade_box"></td>
-                            <td align="center"><input type="checkbox" id="<?php echo $id; ?>"
-                                                      value="rename"></td>
-                        </tr> <?php 
-                    endforeach; 
-                ?>
-            </table>
-        </form>
-        
-        <!-- Temporary Categories Table -->
-        <form name='upgrade' action='updowngrade.php' method='post'>
+                        $categoryNames[$row[$nm1]] =
+                        $row[$nm2];
+                        $categoryRequests[$row[$nm1]] =
+                        $row['requestCount'];
+                    }
+
+                    foreach($categoryNames as $id => $name) :
+                        echo "<tr>
+                            <td> $name </td>
+                            <td align='center'>
+                        $categoryRequests[$id] </td>
+                            <td align='center'><input type='checkbox'
+                        name='$id'
+                                                      value='downgrade'
+                        class='updowngrade_box'></td>
+                            <td align='center'><input type='checkbox'
+                        id='$id'
+                                                      value='rename'></td>
+                        </tr>";
+                    endforeach;
+
+               echo "</table>
+        </form>";
+
+        //Temporary Categories Table
+        echo "<form name='upgrade' action='updowngrade.php' method='post'>
             <table>
                 <tr>
-                    <th class='catcol'>Category</th>
-                    <th>Requests</th>
+                    <th class='catcol'>";
+
+                        if($_GET['admintype'] == 1) echo "Category";
+                        if($_GET['admintype'] == 2) echo "Location";
+                    echo "</th><th>Requests</th>
                     <th>Upgrade</th>
                     <th>Rename</th>
-                </tr>
-                <?php
+                </tr>";
+
                     while ($row = mysql_fetch_assoc($resultTemp)) {
-                        $tempCategoryNames[$row['categoryID']] =  $row['categoryName'];
-                        $tempCategoryRequests[$row['categoryID']] =  $row['requestCount'];
+                        $tempCategoryNames[$row[$nm1]] =
+        $row[$nm2];
+                        $tempCategoryRequests[$row[$nm1]] =
+        $row['requestCount'];
                     }
-                    
-                    foreach($tempCategoryNames as $id => $name) : ?>
-                        <tr>
-                            <td><?php echo $name; ?></td>
-                            <td align="center"><?php echo $tempCategoryRequests[$id]; ?></td>
-                            <td align="center"><input type="checkbox" name="<?php echo $id; ?>"
-                                                      value="upgrade" class="updowngrade_box"></td>
-                            <td align="center"><input type="checkbox" id="<?php echo $id; ?>"
-                                                      value="rename"></td>
-                        </tr> <?php 
-                    endforeach; 
-                ?>
+
+                    foreach($tempCategoryNames as $id => $name) :
+                        echo "<tr>
+                            <td> $name </td>
+                            <td align='center'>
+                        {$tempCategoryRequests[$id]} </td>
+                            <td align='center'><input type='checkbox'
+                        name='$id'
+                                                      value='upgrade'
+                        class='updowngrade_box'></td>
+                            <td align='center'><input type='checkbox'
+                        id='$id'
+                                                      value='rename'></td>
+                        </tr>";
+                    endforeach; ?>
+
             </table>
         </form>
-        
+
         <button type='button' id='update'>Update</button>
 
         <script type="text/javascript">
-        
-        //function that adds input field if input for location/category drop down menu is other
+
+        //function that adds input field if input for location/category
+        drop down menu is other
         $(document).ready(function(){
             $("input[value='rename']").change ( function () {
                 var catID = $(this).attr('id');
                 if( this.checked ) {
-                    $(this).parent().parent().append('<td id = "rename_' + catID + '" > <input type="text" name="' + catID + '" class="rename_field"></td>\n');
+                    $(this).parent().parent().append('<td id = "rename_' +
+        catID + '" > <input type="text" name="' + catID + '"
+        class="rename_field"></td>\n');
                 } else {
                     $('#rename_' + catID).remove();
                 }
@@ -129,7 +171,8 @@ require_once 'header.php';
                     if ( this.checked ) {
                         var catID = $(this).attr('name');
                         var value = $(this).val();
-                        updowngrades_str = updowngrades_str + catID + '=' + value + '&';
+                        updowngrades_str = updowngrades_str + catID + '=' +
+                value + '&';
                     }
                 });
 
@@ -139,9 +182,9 @@ require_once 'header.php';
                     var value = $(this).val();
                     renames_str = renames_str + catID + '=' + value + '&';
                 });
-                
+
                 var success = 0;
-                
+
                 $.ajax({
                     type:"post",
                     url:"updowngrade.php",
@@ -158,11 +201,11 @@ require_once 'header.php';
                     url:"rename.php",
                     data: renames_str,
                     success: function (r) {
-                        if (r == 1) { 
+                        if (r == 1) {
                             window.location = window.location.href;
                         }
-                    }   
-                });  
+                    }
+                });
             });
         });
         -->
