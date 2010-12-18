@@ -22,10 +22,10 @@ require_once "header.php";
 
   <?php
 
-  if ($_GET['flag'] == 'true') 
+  if ($_GET['flag'] == 'true') {
     echo '<h1 class="head">';
     echo 'Your report has been submitted to the administrators...</h1><hr>';
-
+  }
 $event_id = htmlspecialchars($_GET['eventID']);
 $event_array = get_events(array($event_id));
         
@@ -122,7 +122,7 @@ $user = get_user_info();
  </div>
                           <?php endif; ?>
             
-  <?php if(is_owner($event_id || is_admin()) : ?>
+  <?php if(is_owner($event_id || is_admin())) : ?>
   <div class = "details">
                           <a href="edit.php?eventID=<?php echo $event_id; ?>" class="edit" id="edit-event">
                           Edit Event Details 
