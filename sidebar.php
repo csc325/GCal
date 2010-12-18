@@ -100,22 +100,50 @@
         <h3>Tag Cloud</h3>
         <div class="tags">
         <?php
-            $tags_q = 'SELECT COUNT(*), tags.tag 
-                       FROM tags, events 
+            $cloud_limit = 20;
+            $tags_q = 'SELECT count, tag FROM 
+
+                       (SELECT COUNT(tag) AS count, tags.tag AS tag 
+                       FROM tags, events
                        WHERE tags.eventID = events.eventID 
                          AND events.start >= NOW()
-                       GROUP BY tag';
+                       GROUP BY tag
+                       ORDER BY count DESC
+                       LIMIT ' . $cloud_limit . ') AS sb
+                      
+                       ORDER BY tag ASC';
             $tags_r = mysql_query($tags_q);
+
+            /* Get count range for mapping to font size range */
+            /* Would be better to get min and max counts from mysql result */
+            $max_count = 0;
+            $min_count = PHP_INT_MAX;
+            while ($tag = mysql_fetch_array($tags_r)) {
+                $current_count = $tag[0];
+                if ($current_count > $max_count) { 
+                    $max_count = $current_count;
+                }
+                if ($current_count < $min_count) {
+                    $min_count = $current_count;
+                }
+            }      
+            $count_range = $max_count - $min_count;              
+            mysql_data_seek($tags_r, 0); // reset internal pointer for loop
+
+            /* Map count to font size using the range of each */
+            /* Might be better done using standard deviations from mean */
+            $min_fs = 14;
+            $max_fs = 22;
+            $fs_range = $max_fs - $min_fs;
             $tags_array = array();
             while ($tag = mysql_fetch_array($tags_r)) {
-                $fs = min(20,(13 + ($tag[0] * 2)));
-                $lh = 20;
+                $fs = ((($tag[0] - $min_count) / $count_range) * $fs_range) + $min_fs;
+                $lh = $max_fs;
                 $w = 'Tag: '.urlencode(stripslashes($tag['tag']));
                 $str = '<span class="tag" style="font-size: '.$fs.'px; line-height: '.$lh.'px;">';
                 $str .= '<a href="'.ed(false).'results.php?t=t&tag='.$tag['tag'].'&w='.$w.'">'.$tag['tag'].'</a>';
                 $str .= '</span>';
                 $tags_array[] = $str;
-                
             }
             echo implode(", ", $tags_array);
         ?>
