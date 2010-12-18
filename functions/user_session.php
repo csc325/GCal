@@ -108,6 +108,40 @@ function cancel_attend($args)
   $result2 = mysql_query($query2);
   return ($result && $result2) ? 1 : 0;
 }
+/*
+* decrements popularity and adds user to attendees
+* @param array $args data to aid in removal
+* @return int 1 or 0 based on success
+*/
+function cancel_attend($args)
+{
+  $eventID = addslashes($args[eventID]);
+  $userID = addslashes($args[userID]);
+  $query = "DELETE FROM attendees
+            WHERE userID = $userID AND eventID = $eventID;";
+  $result = mysql_query($query);
+  $query2 = "UPDATE events
+             SET popularity = popularity - 1
+             WHERE eventID = $eventID;";
+  $result2 = mysql_query($query2);
+  return ($result && $result2) ? 1 : 0;
+}
+
+/*
+* hides event by adding user and event to hidden
+* @param array $args data to aid in hiding event
+* @return int 1, sets as hidden
+*/
+function hide_event($args)
+{
+  $eventID = addslashes($args[eventID]);
+  $userID = addslashes($args[userID]);
+  $query = "INSERT INTO hidden (userID, eventID)
+            VALUES ($userID, $eventID);";
+  $result = mysql_query($query);
+  return ($result) ? 1 : 0;
+}
+
  
 /*
 * sets event as flagged
