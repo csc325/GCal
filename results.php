@@ -9,7 +9,8 @@
     } else {
         $sort = 'time';
     }
-    
+    if($is_index)
+        $self .= "index.php?";
     if($_GET['t'] == 'a') {
         $eventIDs = get_advance_search_ids();
     } elseif ($_GET['t'] == 'b') {
