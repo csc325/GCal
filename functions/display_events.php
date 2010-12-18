@@ -35,6 +35,20 @@ function display_attend ($userID,$eventID)
   }
 }
 
+function display_hide ($userID,$eventID)
+{
+  if (is_logged_in()) {
+    if (is_hidden($userID,$eventID)) {
+      echo "<a id='event_{$eventID}_{$userID}' class='hide_event
+      hidden'>Show";
+    } else {
+      echo "<a id='event_{$eventID}_{$userID}' class='hide_event'>";
+      echo "Hide";
+    }
+    echo "</a>";
+  }
+}
+
 /*
  *create list view type of display 
  *@param assoc_array $info stores data about event (may have multiple events)
@@ -136,6 +150,8 @@ function display_events_inter($info,$sort='time')
         <?php echo $event[2].(($dif_days) ? ' to '.$event[4] : ''); ?>
      </span>
      </h1>
+     <?php if(!is_hidden($userID, $event[10])) : ?>
+
      <div class="details">                        
      <span>
      When:
