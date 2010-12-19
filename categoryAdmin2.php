@@ -32,7 +32,7 @@ require_once 'header.php';
                     <th class='catcol'>
                     <?php
                         $admintype = $_GET['admintype'];
-                        if($admintype == 1) {
+                        if(($admintype == 1) || (!isset($admintype))){
                            $name = "Category";
                            $table = "categories";
                            $field1 = "categories.categoryID";
