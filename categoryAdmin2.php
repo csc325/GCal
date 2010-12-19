@@ -26,10 +26,6 @@ require_once 'header.php';
 <!-- Permanent Categories/Locations Table -->
 <div class="body" >
     <div class="col large">
-        <form name='downgrade' action='updowngrade.php' method='post'>
-            <table>
-                <tr>
-                    <th class='catcol'>
                     <?php
                         $admintype = $_GET['admintype'];
                         if(($admintype == 1) || (!isset($admintype))){
@@ -54,6 +50,11 @@ require_once 'header.php';
                            $nm1 = "locationID";
                            $nm2 = "locationName";
                         }
+                        echo "<form name='downgrade' action='updowngrade.php?admintype=$admintype' method='post'>
+            <table>
+                <tr>
+                    <th class='catcol'>";
+        
                         echo $name;
                         echo "</th>
                               <th>Requests</th>
