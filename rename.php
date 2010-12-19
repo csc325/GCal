@@ -4,11 +4,22 @@ include 'functions/connection.php';
 // print_r($_POST);
 if ( $_POST )
   {
-    /* Rename/merge categories */
-    $queryCheckName = 'SELECT categoryName, categoryID, requestCount'
-      . ' FROM categories';
-    $queryLock = 'LOCK TABLES categories WRITE'
-      . ', categories READ';
+     $admintype = $_GET['admintype'];
+     if(($admintype == 1) || (!isset($admintype))) {
+         $table = "categories";
+         $field1 = "categoryName";
+         $field2 = "categoryID";
+     }
+     if($admintype == 2) {
+         $table = "locations";
+         $field1 = "categoryName";
+         $field2 = "locationID";
+     }
+    /* Rename/merge */
+    $queryCheckName = 'SELECT $field1, $field2, requestCount'
+      . ' FROM $table';
+    $queryLock = 'LOCK TABLES $table WRITE'
+      . ', $table READ';
     
     // echo "POST: ";
     // print_r($_POST);
@@ -34,8 +45,8 @@ if ( $_POST )
     $currentCats = array();
     while($row = mysql_fetch_assoc($resultCheckName))
       {
-        $currentCatIDs[$row['categoryName']] = $row['categoryID'];
-        $currentCatRequests[$row['categoryID']] = $row['requestCount'];
+        $currentCatIDs[$row[$field1]] = $row[$field2];
+        $currentCatRequests[$row[$field2]] = $row['requestCount'];
       }
     // echo "currentCatIDs: ";
     // print_r($currentCatIDs);
@@ -56,16 +67,16 @@ if ( $_POST )
           {
             if ($currentCatIDs[$newName] != $catID)
               {
-                $queryMerge = 'UPDATE categories SET requestCount=requestCount+'
+                $queryMerge = 'UPDATE $table SET requestCount=requestCount+'
                   . $currentCatRequests[$catID]
-                  . ' WHERE categoryName = "' . $newName . '"';
+                  . ' WHERE $field1 = "' . $newName . '"';
                 
-                $queryUpdateID = 'UPDATE events SET categoryID = '
+                $queryUpdateID = 'UPDATE events SET $field2 = '
                   . $currentCatIDs[$newName]
-                  . ' WHERE categoryID = '
+                  . ' WHERE $field2 = '
                   .  $catID;
                 
-                $queryDeleteOld = 'DELETE FROM categories WHERE categoryID = ' 
+                $queryDeleteOld = 'DELETE FROM $table WHERE $field2 = ' 
                   . $catID;
                 
                 /* echo $queryMerge . "<br />";
@@ -78,8 +89,8 @@ if ( $_POST )
           }
         else
           {
-            $queryRename = 'UPDATE categories SET categoryName = "'
-              . $newName . '" WHERE categoryID = '
+            $queryRename = 'UPDATE $table SET $field1 = "'
+              . $newName . '" WHERE $field2 = '
               . $catID;
             // echo $queryRename . '<br />';
             mysql_query($queryRename);
