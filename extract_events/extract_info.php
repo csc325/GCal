@@ -56,7 +56,6 @@ $next_week = date( 'Ymd', strtotime( '+1 week' ) );
 
 steal_events( $today, $submitted_event_ids );
 steal_events( $next_week, $submitted_event_ids );
-steal_events( $today, $submitted_event_ids );
 
 function steal_events( $date, $submitted_event_ids)
 {
