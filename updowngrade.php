@@ -19,14 +19,23 @@ include 'functions/connection.php';
 if ( $_POST )
   {
     /* Change category permanence */
-    $queryDelete = 'UPDATE categories SET permanent=0 WHERE categoryID = ';
-    $queryAdd    = 'UPDATE categories SET permanent=1 WHERE categoryID = ';    
+    $admintype = $_GET['admintype'];
+    if(($admintype == 1) || (!isset($admintype)) {
+        $table = "categories";
+        $field = "categoryID";
+    }
+    if($admintype == 2) {
+        $table = "locations";
+        $field = "locationID";
+    }
+    $queryDelete = 'UPDATE $table SET permanent=0 WHERE $field = ';
+    $queryAdd    = 'UPDATE $table SET permanent=1 WHERE $field = ';    
     $addArray    = array_keys( $_POST, 'upgrade' );
     $deleteArray = array_keys( $_POST, 'downgrade' );
     
     if ( $addArray )
       {
-        $queryAdd .= implode( ' OR categoryID = ', $addArray );    
+        $queryAdd .= implode( ' OR $field = ', $addArray );    
         $resultAdd = mysql_query($queryAdd);
         /* To do: error check */
         echo 1; 
@@ -35,7 +44,7 @@ if ( $_POST )
     
     if ( $deleteArray )
       {    
-        $queryDelete .= implode( ' OR categoryID = ', $deleteArray ); 
+        $queryDelete .= implode( ' OR $field = ', $deleteArray ); 
         $resultDelete = mysql_query($queryDelete);
         /* To do: error check */
         echo 1; 
