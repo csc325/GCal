@@ -199,7 +199,7 @@ require_once 'header.php';
 
                 $.ajax({
                     type:"post",
-                    url:"rename.php",
+                    url:"rename.php?admintype=<?php $_GET['admintype']; ?>",
                     data: renames_str,
                     success: function (r) {
                         if (r == 1) {
