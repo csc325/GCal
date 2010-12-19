@@ -82,4 +82,42 @@ $(document).ready ( function () {
             }
         });
     }
+
+ $('a.hide_event').click ( function () {
+        hide_event($(this));
+    });
+
+    var hide_event = function (this_el) {
+        var this_id = this_el.attr('id');
+        this_id = this_id.split('_');
+
+        var event_id = this_id[1];
+        var user_id = this_id[2];
+
+        $.ajax({
+            type: "POST",
+            url: "<?php ed(); ?>functions/ajax.php",
+            data: ({action:'ajax',function:'hide_event',eventID:event_id,
+            userID:user_id}),
+            success: function (r) {
+                if (r == 1) {
+                    var sel = $('a#hidden_'+event_id+'_'+user_id);
+                    sel.click ( function () {
+            hide_event($(this)); });
+                    update_events();
+                }
+            }
+        });
+    }
+
+    var update_events = function () {
+        $.ajax({
+            type: "POST",
+            url: window.location.pathname,
+            data: ({action:'update'}),
+            success: function (r) {
+                $('div.event_listing').html(r);
+            }
+        });
+    }
 });
