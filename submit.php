@@ -46,7 +46,7 @@
     }    
 
     // sanitize description box
-    $description = htmlspecialchars($description);
+    $description = strip_tags($description);
     
     // parse tags
     $tags = explode(',',$tags);
